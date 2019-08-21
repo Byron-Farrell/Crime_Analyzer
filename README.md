@@ -21,6 +21,10 @@ Frontend
 - html
 - css
 
+Mapping and Visualization
+---
+- Esri GIS or Mapbox
+
 Dev tools
 ---
 - node/npm (package-management)
