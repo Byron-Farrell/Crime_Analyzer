@@ -21,9 +21,14 @@ Frontend
 - html
 - css
 
-Mapping and Visualization
+Mapping
 ---
 - Esri GIS or Mapbox
+
+Visualization
+---
+- charts.js
+- d3.js
 
 Dev tools
 ---
