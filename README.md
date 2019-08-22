@@ -20,6 +20,7 @@ Frontend
 - react, vue or angular 4
 - html
 - css
+- bootstrap
 
 Mapping
 ---
@@ -44,3 +45,7 @@ User roles
 - Data owner
 - data manager
 - viewer
+
+Theme Ideas
+---
+![alt text](https://d85wutc1n854v.cloudfront.net/live/products/600x375/WB09498FH.png?v=4.1.0)
