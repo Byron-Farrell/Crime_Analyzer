@@ -35,11 +35,12 @@ Dev tools
 - node/npm (package-management)
 - pip3 (module managment)
 - pythin virtual evniroment
+- eslint (javascript code validation)
 
 User roles
 ---
-superuser
-admin
-Data owner
-data manager
-viewer
+- superuser
+- admin
+- Data owner
+- data manager
+- viewer
