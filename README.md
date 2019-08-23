@@ -41,7 +41,7 @@ Dev tools
 ---
 - node/npm (package-management)
 - pip3 (module managment)
-- pythin virtual evniroment
+- python virtual evniroment
 - eslint (javascript code validation)
 
 User roles
