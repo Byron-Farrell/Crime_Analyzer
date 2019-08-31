@@ -59,5 +59,5 @@ link: http://rubix.sketchpixy.com/app/dashboard
 
 Trello
 ---
-![alt text](https://trello.com/projectwhitewolf1)
+link: https://trello.com/projectwhitewolf1
 
