@@ -13,7 +13,7 @@ This application will be used as a data anyltics tool. it will validate files an
 
 Backend 
 ---
-- Django (can handle file upload)
+- Django (can handle file upload) OR Flask... I am learning towrads flask since I can build a minimal backend
 - a way to handle validation process
   - airflow(maybe, seems a bit much for my implementation)
 - some sort of visulazation framework
