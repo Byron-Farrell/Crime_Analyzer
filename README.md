@@ -59,3 +59,4 @@ link: http://rubix.sketchpixy.com/app/dashboard
 
 # Datasets 
 
+CRIME DATASET: ![alt text](https://www.kaggle.com/currie32/crimes-in-chicago)
