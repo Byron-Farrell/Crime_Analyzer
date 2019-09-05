@@ -40,6 +40,7 @@ Visualization
 ---
 - charts.js
 - d3.js
+- use python and render it with Flask
 
 Dev tools
 ---
