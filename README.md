@@ -60,4 +60,23 @@ link: http://rubix.sketchpixy.com/app/dashboard
 
 # Datasets 
 
+Links
+---
 CRIME DATASET: https://www.kaggle.com/currie32/crimes-in-chicago
+
+What I think I need to make predictions
+---
+
+- crime
+- weather (temp)
+- weather (type e.g. snow, rain, cloudy etc)
+- comunnity status (poor or wealthy)
+- public centers (sports clubs, fields, youth centers)
+- time
+- month
+- mental health centers
+
+
+# Research
+
+- crime and ai: https://www.researchgate.net/publication/275220711_Using_Machine_Learning_Algorithms_to_Analyze_Crime_Data
