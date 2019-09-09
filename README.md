@@ -63,6 +63,7 @@ link: http://rubix.sketchpixy.com/app/dashboard
 Links
 ---
 CRIME DATASET: https://www.kaggle.com/currie32/crimes-in-chicago
+CHICAGO: https://data.cityofchicago.org
 
 What I think I need to make predictions
 ---
@@ -70,11 +71,12 @@ What I think I need to make predictions
 - crime
 - weather (temp)
 - weather (type e.g. snow, rain, cloudy etc)
-- comunnity status (poor or wealthy)
+- comunnity status (Deprivation Index)
 - public centers (sports clubs, fields, youth centers)
 - time
 - month
 - mental health centers
+- do crimes effect each other (more drug related crimes increase robberies?) 
 
 
 # Research
