@@ -63,6 +63,7 @@ link: http://rubix.sketchpixy.com/app/dashboard
 Links
 ---
 CRIME DATASET: https://www.kaggle.com/currie32/crimes-in-chicago
+
 CHICAGO: https://data.cityofchicago.org
 
 What I think I need to make predictions
