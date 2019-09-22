@@ -18,8 +18,7 @@ link: https://trello.com/projectwhitewolf1
 # Infrastructure 
 
 Backend 
----
-- Flask
+---Django
 - a way to handle validation process
   - airflow(maybe, seems a bit much for my implementation)
 - some sort of visulazation framework
@@ -36,13 +35,13 @@ Frontend
 
 Mapping
 ---
-- Esri GIS
+- mapbox(easier to learn than argis)
 
 Visualization
 ---
 - charts.js
 - d3.js
-- use python and render it with Flask
+- use python and render it with django
 
 Dev tools
 ---
