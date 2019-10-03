@@ -20,7 +20,7 @@
 $ python3 -m venv .venv
 ``` 
 ```
-$ . .venv/bin/activate
+$ source .venv/bin/activate
 ```
 
 ### Install python modules
