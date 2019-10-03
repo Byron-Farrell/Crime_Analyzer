@@ -9,3 +9,24 @@
 ## Setup
 
 ### Debian dependencies
+
+- postgresql
+- python3
+- pip3 (installing python modules)
+
+### Setting up virtual enviroment
+
+```
+$ python3 -m venv .venv
+``` 
+```
+$ source .venv/bin/activate
+```
+
+### Install python modules
+
+```
+$ pip3 install -r requirements.txt
+```
+
+> 
