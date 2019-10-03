@@ -1,0 +1,4 @@
+decided how to use react with djanjo templates (do I need react)
+setup npm
+set up sass compiler
+set up webpack (add stuff)
