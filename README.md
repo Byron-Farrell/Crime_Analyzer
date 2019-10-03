@@ -26,7 +26,7 @@ $ . .venv/bin/activate
 ### Install python modules
 
 ```
-pip3 install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 > 
