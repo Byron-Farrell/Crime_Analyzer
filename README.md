@@ -11,22 +11,26 @@
 ### Debian dependencies
 
 - postgresql
+- libpq-dev
 - python3
 - pip3 (installing python modules)
 
+### Installing latest version of node on ubuntu
+
+> $ sudo apt-get install curl
+
+> $ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+
 ### Setting up virtual enviroment
 
-```
-$ python3 -m venv .venv
-``` 
-```
-$ source .venv/bin/activate
-```
+
+> $ python3 -m venv .venv
+
+
+> $ source .venv/bin/activate
+
 
 ### Install python modules
 
-```
-$ pip3 install -r requirements.txt
-```
+> $ pip3 install -r requirements.txt
 
-> 
