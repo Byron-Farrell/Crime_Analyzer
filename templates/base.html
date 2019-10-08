@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mapping</title>
+
+    <link rel="stylesheet" href="{% static "main.css"%}">
+  </head>
+
+  <body>
+    <header>
+      <nav class="">
+          <div class="">
+            <a class="">Project White Wolf</a>
+          </div>
+      </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+    <script src="{% static "bundle.js"%}" type="text/javascript"></script>
+
+  </body>
+</html>
