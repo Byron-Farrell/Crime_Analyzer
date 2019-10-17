@@ -9,10 +9,4 @@ function calculateContentHeight() {
   content.style.height = contentHeight + 'px';
 }
 
-window.onload = function(event) {
-  calculateContentHeight()
-};
-
-window.onresize = function(event) {
-  calculateContentHeight()
-};
+export default calculateContentHeight;

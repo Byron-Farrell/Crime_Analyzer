@@ -29,4 +29,4 @@ function init() {
   return map;
 }
 
-init();
+export default init;

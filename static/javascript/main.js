@@ -10,5 +10,15 @@ import '../../node_modules/leaflet/dist/leaflet.css';
 // ---------------------------------------------------
 
 import '../../node_modules/bootstrap/dist/js/bootstrap.js';
-import './resizeContent.js';
-import '../../apps/data_visualization/static/javascript/map.js';
+import calculateContentHeight from './resizeContent.js';
+import init from '../../apps/data_visualization/static/javascript/map.js';
+
+
+window.onload = function(event) {
+  calculateContentHeight()
+  init();
+};
+
+window.onresize = function(event) {
+  calculateContentHeight()
+};
