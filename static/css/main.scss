@@ -1,7 +1,10 @@
 @import 'defaults';
+@import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '~leaflet/dist/leaflet.css';
 @import 'colors';
 @import 'content';
-@import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '../../apps/data_visualization/static/css/map.scss';
+
 
 #navTitle {
   cursor: default;

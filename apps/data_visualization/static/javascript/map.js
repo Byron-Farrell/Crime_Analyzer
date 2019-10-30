@@ -1,32 +1,86 @@
-let leaflet = require('leaflet');
+import 'leaflet.markercluster/dist/leaflet.markercluster.js';
+export class Map {
 
-function init() {
-  // Map options
-  let options = {
-    zoomControl: false
-  };
+  constructor() {
+    this.map = null;
+  }
 
-  // Creating map
-  let map = leaflet.map('map', options);
+  // create and retuen leaflet map object
+  init() {
+    // mapbox access token
+    const TOKEN = 'pk.eyJ1Ijoid2hpdGUtd29sZiIsImEiOiJjazFqZmFpbW4wMGxzM2RwZXVpZmZpaDd6In0.7zFS8kc9PpULLdfKjV0KEw';
+    // mapbox tile layer
+    const TILE_LAYER = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + TOKEN;
+    // Map options
+    const MAP_OPTIONS = {
+      zoomControl: false
+    };
 
-  // setting default starting location and zoom
-  // [latitude, longitude]
-  map.setView([53.262584, -6.253751], 13);
+    // Creating map
+    this.map = L.map('map', MAP_OPTIONS);
 
-  // Setting zoom controls to top right
-  leaflet.control.zoom({
-    position: 'topleft'
-  }).addTo(map);
+    // setting default starting location and zoom
+    // [latitude, longitude]
+    this.map.setView([ 41.8781, -87.6298], 13);
 
-  // Setting tile layer to mapbox streets
-  leaflet.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoid2hpdGUtd29sZiIsImEiOiJjazFqZmFpbW4wMGxzM2RwZXVpZmZpaDd6In0.7zFS8kc9PpULLdfKjV0KEw', {
-  	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  	maxZoom: 100,
-  	id: 'mapbox.streets',
-  	accessToken: 'pk.eyJ1Ijoid2hpdGUtd29sZiIsImEiOiJjazFqZmFpbW4wMGxzM2RwZXVpZmZpaDd6In0.7zFS8kc9PpULLdfKjV0KEw'
-  }).addTo(map);
+    // Setting zoom controls to top right
+    L.control.zoom({
+      position: 'topleft'
+    }).addTo(this.map);
 
-  return map;
+    // Setting tile layer to mapbox streets
+    L.tileLayer(TILE_LAYER, {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 100,
+      id: 'mapbox.streets',
+      accessToken: TOKEN
+    }).addTo(this.map);
+
+    this.markerFix();
+    this.displayCrimeMarkers();
+  }
+
+  // fix for leafet default marker not loading
+  // https://github.com/PaulLeCam/react-leaflet/issues/255
+  markerFix() {
+    delete L.Icon.Default.prototype._getIconUrl;
+
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+      iconUrl: require('leaflet/dist/images/marker-icon.png'),
+      shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+    });
+  }
+
+  createCrimeMarkers(crimes, map) {
+    crimes.forEach(function( crime ) {
+      crime = crime.fields;
+      let marker = L.marker([crime.longitude, crime.latitude]);
+      let text = `
+        <b>Crime Details</b><br>
+        Date: ${crime.date},<br>
+        Type: ${crime.descOne},<br>
+        Description: ${crime.descTwo},<br>
+        Block: ${crime.block},<br>
+        arrest: ${crime.arrest ? 'yes' : 'no'},<br>
+      `
+      marker.bindPopup(text).openPopup();
+      marker.addTo(map);
+    });
+  }
+
+  displayCrimeMarkers() {
+    const HOST = 'http://127.0.0.1:8000/';
+    const GET_CRIMES = 'getCrimes';
+    const OPTIONS = {
+      method: 'GET'
+    };
+
+    let mapObj = this;
+
+    fetch(HOST + GET_CRIMES)
+      .then(response => response.json())
+      .then(json => this.createCrimeMarkers(json, this.map))
+      .catch(error => console.log('GET request error: ' + error));
+  }
 }
-
-export default init;

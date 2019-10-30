@@ -1,4 +1,4 @@
-function calculateContentHeight() {
+export function calculateContentHeight() {
   let navbar = document.getElementById('mainNav');
   let content = document.getElementById('content');
 
@@ -8,5 +8,3 @@ function calculateContentHeight() {
 
   content.style.height = contentHeight + 'px';
 }
-
-export default calculateContentHeight;

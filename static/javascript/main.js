@@ -1,22 +1,11 @@
-// CSS Imports
-// ---------------------------------------------------
-
 import '../css/main.scss';
-import '../../apps/data_visualization/static/css/map.scss';
-import '../../node_modules/leaflet/dist/leaflet.css';
-
-
-// Javascript Imports
-// ---------------------------------------------------
-
-import '../../node_modules/bootstrap/dist/js/bootstrap.js';
-import calculateContentHeight from './resizeContent.js';
-import init from '../../apps/data_visualization/static/javascript/map.js';
-
+import 'bootstrap/dist/js/bootstrap.js';
+import { calculateContentHeight } from './resizeContent.js';
+import { mapOnLoad } from '../../apps/data_visualization/static/javascript/main.js';
 
 window.onload = function(event) {
   calculateContentHeight()
-  init();
+  mapOnLoad();
 };
 
 window.onresize = function(event) {
