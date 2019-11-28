@@ -1,11 +1,11 @@
 import '../css/main.scss';
 import 'bootstrap/dist/js/bootstrap.js';
 import { calculateContentHeight } from './resizeContent.js';
-import { mapOnLoad } from '../../apps/data_visualization/static/javascript/main.js';
+import { fileUploadSetup } from './fileUpload.js';
 
 window.onload = function(event) {
   calculateContentHeight()
-  mapOnLoad();
+  fileUploadSetup();
 };
 
 window.onresize = function(event) {

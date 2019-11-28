@@ -4,6 +4,4 @@ import { Map } from './map.js';
 let map = new Map();
 
 
-export function mapOnLoad() {
-  map.init();
-}
+map.init();

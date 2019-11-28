@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin =  require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './static/javascript/main.js',
+  entry: ['./static/javascript/main.js', './apps/data_visualization/static/javascript/main.js'],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: 'bundle.js',

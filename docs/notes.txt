@@ -1,0 +1,24 @@
+filter options
+-------------------------------------
+TEMP AVG
+PRECEPTATION
+CLOUD COVER
+dark or not:
+  SUNRISE
+  SUNSET
+
+moon cycle
+  New Moon
+  Waxing Crescent
+  First Quarter
+  Waxing Gibbous
+  Full Moon
+  Waning Gibbous
+  Last Quarter
+  Waning Crescent
+
+Sunny
+clear
+Cloudy
+Rain
+Snow

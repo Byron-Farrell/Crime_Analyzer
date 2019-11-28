@@ -10,7 +10,7 @@
   </head>
   <body>
     <nav id="mainNav" class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <div id="navTitle" class="navbar-brand">PROJECT TITLE</div>
+      <div id="navTitle" class="navbar-brand">CITY WATCH</div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -26,6 +26,13 @@
         </ul>
         <ul class="navbar-nav mr-0">
           <li class="nav-item">
+            <form id="uploadFileForm" method="post" action="uploadCrimes" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input id="fileInput" type="file" name="uploaded_file" hidden>
+              <button type="button" id="fileUploadButton" >Upload</button>
+            </form>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">Admin</span></a>
           </li>
           <li class="nav-item">
@@ -37,11 +44,11 @@
 
 
     <section id="content" class="row m-0">
-      <div id="mainContent" class="col-lg-9">
-        {% block mainContent %}{% endblock %}
-      </div>
       <div id="sideContent" class="col-lg-3">
         {% block sideContent %}{% endblock %}
+      </div>
+      <div id="mainContent" class="col-lg-9">
+        {% block mainContent %}{% endblock %}
       </div>
     </section>
 
