@@ -70,7 +70,7 @@ export class Map {
   }
 
   displayCrimeMarkers() {
-    const HOST = 'http://127.0.0.1:8009/';
+    const HOST = 'http://127.0.0.1:8005/';
     const GET_CRIMES = 'getCrimes';
     const OPTIONS = {
       method: 'GET'
@@ -80,7 +80,7 @@ export class Map {
 
     fetch(HOST + GET_CRIMES)
       .then(response => response.json())
-      .then(json => this.createCrimeMarkers(json, this.map))
+      .then(json => console.log(json))//this.createCrimeMarkers(json, this.map)
       .catch(error => console.error(error));
   }
 }

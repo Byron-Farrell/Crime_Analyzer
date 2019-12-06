@@ -45,12 +45,12 @@ def upload_crimes(request):
 @login_required
 def get_crimes(request):
 
-    # if request.method == 'GET':
-    #     # crimes = Crimes.objects.all().values('date','block', 'arrest', 'longitude', 'latitude', 'primaryDescription', 'secondaryDescription')
-    #     crimes = ChicagoCrimes.objects.all()[:50]
-    #     crimes_json = serializers.serialize('json', crimes)
-    #     return HttpResponse(crimes_json, content_type='application/json')
-    # else:
-    #     return HttpResponse('Sending "' + request.method + '" request to a GET request view')
+    if request.method == 'GET':
+        # crimes = Crimes.objects.all().values('date','block', 'arrest', 'longitude', 'latitude', 'primaryDescription', 'secondaryDescription')
+        crimes = ChicagoCrimes.objects.all()[:50]
+        crimes_json = serializers.serialize('json', crimes)
+        return HttpResponse(crimes_json, content_type='application/json')
+    else:
+        return HttpResponse('Sending "' + request.method + '" request to a GET request view')
 
     pass
