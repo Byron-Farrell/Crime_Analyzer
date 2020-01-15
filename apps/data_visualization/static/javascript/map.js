@@ -53,15 +53,14 @@ export class Map {
   }
 
   createCrimeMarkers(crimes, map) {
+    console.log(crimes);
     crimes.forEach(function( crime ) {
       crime = crime.fields;
-      let marker = L.marker([crime.longitude, crime.latitude]);
+      let marker = L.marker([crime.latitude, crime.longitude]);
       let text = `
         <b>Crime Details</b><br>
-        Date: ${crime.date},<br>
-        Type: ${crime.descOne},<br>
-        Description: ${crime.descTwo},<br>
-        Block: ${crime.block},<br>
+        Type: ${crime.crime},<br>
+        Description: ${crime.crimeDescription},<br>
         arrest: ${crime.arrest ? 'yes' : 'no'},<br>
       `
       marker.bindPopup(text).openPopup();
@@ -70,7 +69,7 @@ export class Map {
   }
 
   displayCrimeMarkers() {
-    const HOST = 'http://127.0.0.1:8005/';
+    const HOST = 'http://127.0.0.1:8001/';
     const GET_CRIMES = 'getCrimes';
     const OPTIONS = {
       method: 'GET'
@@ -80,7 +79,7 @@ export class Map {
 
     fetch(HOST + GET_CRIMES)
       .then(response => response.json())
-      .then(json => console.log(json))//this.createCrimeMarkers(json, this.map)
+      .then(json => this.createCrimeMarkers(json, this.map))//this.createCrimeMarkers(json, this.map)
       .catch(error => console.error(error));
   }
 }

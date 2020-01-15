@@ -4,7 +4,7 @@ from django.core import serializers
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from apps.data_visualization import models
-from apps.data_visualization.utils.Validator import CrimeValidator
+from apps.data_visualization.utils.Validator import Validator
 from django.shortcuts import render
 import pandas as pd
 
@@ -12,8 +12,20 @@ import pandas as pd
 @login_required
 def index(request):
     template = 'data_visualization/index.html'
-    print(request.FILES)
     return render(request, template)
+
+
+@login_required
+def get_crimes(request):
+    if request.method == 'GET':
+        crimes = models.Crime.objects.filter(weatherDetails__dark=False, crime__type='ROBBERY', date__year=2011, weatherDetails__moonPhase__moonPhase='Full Moon')
+        crimes_json = serializers.serialize('json', crimes)
+
+        return HttpResponse(crimes_json, content_type='application/json')
+    else:
+        # FIXME: return 403
+        return HttpResponse('Sending "' + request.method + '" request to a GET request view')
+
 
 
 @login_required
@@ -26,7 +38,7 @@ def upload_crimes(request):
         except Exception as e:
             print(e)
         else:
-            crime_validator = CrimeValidator()
+            crime_validator = Validator()
 
             for df in chunks:
                 for index, row in df.iterrows():
@@ -38,19 +50,5 @@ def upload_crimes(request):
 
         return render(request, template)
     else:
-        # return 403
+        # FIXME: return 403
         return render(request, template)
-
-
-@login_required
-def get_crimes(request):
-
-    if request.method == 'GET':
-        # crimes = Crimes.objects.all().values('date','block', 'arrest', 'longitude', 'latitude', 'primaryDescription', 'secondaryDescription')
-        crimes = ChicagoCrimes.objects.all()[:50]
-        crimes_json = serializers.serialize('json', crimes)
-        return HttpResponse(crimes_json, content_type='application/json')
-    else:
-        return HttpResponse('Sending "' + request.method + '" request to a GET request view')
-
-    pass
