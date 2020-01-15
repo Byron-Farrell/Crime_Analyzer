@@ -8,45 +8,63 @@ import requests
 import datetime
 
 
-
+# Gets absolute file path for chicago crime dataset
 chicago_crimes_csv = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../data', 'Chicago_Crimes.csv'),
 )
 
+
+# Gets absolute file path for census block shape file
 census_blocks_shp = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../data', 'census_blocks/cb_2018_17_bg_500k.shp'),
 )
 
+
+# Gets absolute file path for chicago community areas shape file
 community_areas_shp = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../data', 'community_areas/geo_export_e32b8cf0-5322-42b8-a0ce-d7a0ab9b00dc.shp'),
 )
 
+
+# Gets absolute file path for weather type dataset
 weather_types_csv = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../data', 'weather_types.csv'),
 )
 
+
+# Gets absolute file path for crime types dataset
 crime_types_csv = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../data', 'crime_types.csv'),
 )
 
+
+# Gets absolute file path for chicago crime IUCR codes(crime types) dataset
 iucr_codes_csv = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../data', 'IUCR_codes.csv'),
 )
 
+
+# Gets absolute file path for deprevation index for America, Illinois
 deprevation_index_csv = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../data', 'IL_blockgroup_15.csv'),
 )
 
+
+# Loads data from the census_block_shp into CensusBlock model using using the
+# chicago_census_blocks_mapping from mappings.py
 def run_chicago_census_blocks(verbose=True):
     lm = LayerMapping(models.CensusBlock, census_blocks_shp, mappings.chicago_census_blocks_mapping, transform=False)
     lm.save(strict=True, verbose=verbose)
 
 
+# Loads data from the community_areas_shp into District model using using the
+# community_area_mapping from mappings.py
 def run_community_areas(verbose=True):
     lm = LayerMapping(models.District, community_areas_shp, mappings.community_area_mapping, transform=False)
     lm.save(strict=True, verbose=verbose)
 
 
+# load crime types from crime_types_csv into database
 def run_crime_types():
     df = pd.read_csv(crime_types_csv)
 
@@ -59,6 +77,7 @@ def run_crime_types():
         CrimeType.save()
 
 
+# Load weather types from weather_types_csv into database
 def run_weather_types():
     df = pd.read_csv(weather_types_csv)
 
@@ -74,6 +93,7 @@ def run_weather_types():
         weatherType.save()
 
 
+# Load moon cycle types into database
 def run_moon_cycles():
     moon_phases = [
         'New Moon',
@@ -94,33 +114,38 @@ def run_moon_cycles():
         moon_phase.save()
 
 
+# loads chicago crime dataset into database using chicago_crimes_csv
 def run_chicago_crimes():
+    # Datasets for crime can be quite large
+    # therefor the data is split up into chunks of 60,000 rows
     chunks = pd.read_csv(chicago_crimes_csv, chunksize=60000)
 
     crime_validator = Validator()
-    count_2 = 1
     for df in chunks:
-        if count_2 > 95:
-            for index, row in df.iterrows():
+        for index, row in df.iterrows():
 
-                crime = crime_validator.validate_chicago_crime(row)
-                print('before if')
-                crime_validator.log()
-                crime_validator.clear_error_messeges()
-                if crime is not False:
-                    print('before save')
-                    crime.save()
-                    print('after save')
-                crime_validator.log()
-                crime_validator.clear_error_messeges()
-        count_2 += 1
+            # Validate crime
+            crime = crime_validator.validate_chicago_crime(row)
+            # store in error logs in the database
+            crime_validator.log()
+            crime_validator.clear_error_messeges()
+            if crime is not False:
+                crime.save()
+            crime_validator.log()
+            crime_validator.clear_error_messeges()
 
+
+# Get all historical weather data from 2014 to 2019 and load it into database.
+# The weatherstack API will be used to retrieve the data
 def run_historical_weather():
     starting_date = datetime.datetime.strptime('2014-03-19', '%Y-%m-%d')
     end_date = datetime.datetime.strptime('2019-12-01', '%Y-%m-%d')
 
+    # Used to send query for data. This is incremented by 1 day for each iteration
+    # in the while loop
     date = starting_date
 
+    # Headers for get request
     params = {
         'access_key': '8241d42f4b6b6ba5ffdd42f0d2d52c96',
         'query': 'Chicago',
@@ -134,14 +159,19 @@ def run_historical_weather():
 
     while  date.strftime('%Y-%m-%d') != end_date.strftime('%Y-%m-%d'):
 
+        # to get all historical weather data from 2014 to 2019 should not take
+        # more than 5000 requests. Each requests cost money. This is a simple
+        # check to stop any unforseen bugs causing an infinte loop
         if sentinal > 5000:
             break
 
         sentinal += 1
 
+        # Sending get request for data to weatherstack API
         api_result = requests.get('https://api.weatherstack.com/historical', params)
         api_response = api_result.json()
 
+        # Retrieving data from json response
         date_string =  date.strftime('%Y-%m-%d')
         sunset_time =  api_response['historical'][date_string]['astro']['sunset']
         sunrise_time =  api_response['historical'][date_string]['astro']['sunrise']
@@ -151,13 +181,14 @@ def run_historical_weather():
 
         current_moon_cycle = api_response['historical'][date_string]['astro']['moon_phase']
 
+        # A json object is returned for with weather details for every hour of the
+        # current historicl date. This for loop, loops through each hour and gets
+        # the weather for that hour
         for weather in api_response['historical'][date_string]['hourly']:
             weatherDegrees = float(weather['temperature'])
             time = int(weather['time'])
             precipitation = float(weather['precip'])
             cloudCover = int(weather['cloudcover'])
-
-
 
             if (time != 0):
                 time = time / 100
@@ -173,6 +204,7 @@ def run_historical_weather():
             weather_type = models.WeatherType.objects.get(weatherCode=weather_code)
             moon_phase = models.MoonCycle.objects.get(moonPhase=current_moon_cycle)
 
+            # Saving historical weather data to database
             new_weather = models.Weather(
                 weatherDegrees = weatherDegrees,
                 date = date,
@@ -184,22 +216,23 @@ def run_historical_weather():
                 moonPhase = moon_phase
             )
 
-
             new_weather.save()
-            print('after save')
+
+        # incrementing date by 1 day and updating the params object with the
+        # new date to be queried
         date += datetime.timedelta(days=1)
         params['historical_date'] =  date.strftime('%Y-%m-%d')
 
-
+# Creates and loads all data for the the date dimension in the database
 def run_dates():
     starting_date = datetime.datetime.strptime('2008-07-01', '%Y-%m-%d')
     end_date = datetime.datetime.strptime('2019-12-01', '%Y-%m-%d')
+
     date = starting_date
 
     while  date.strftime('%Y-%m-%d') != end_date.strftime('%Y-%m-%d'):
 
 
-        date2 = end_date.strftime('%Y-%m-%d')
         new_date = models.Date(
             fullDate = date,
             day = date.day,
@@ -216,6 +249,7 @@ def run_dates():
         date += datetime.timedelta(days=1)
 
 
+# Creates and loads all possible combinations of hour:minute into the database
 def run_times():
 
     for hour in range(24):
@@ -228,6 +262,7 @@ def run_times():
             time.save()
 
 
+# Loads all base data need for the application
 def setup():
     run_chicago_census_blocks()
     run_community_areas()
@@ -237,26 +272,3 @@ def setup():
     run_dates()
     run_historical_weather()
     # run_chicago_crimes()
-
-
-
-
-
-def crime_load():
-    import pandas as pd
-    import datetime
-
-    chunks = pd.read_csv('/home/byron/dev/Project-White-Wolf/apps/data_visualization/data/Chicago_Crimes.csv', chunksize=60000)
-    my_crimes = []
-    count = 0
-
-    for chunk in chunks:
-        if count == 700:
-            break;
-        for index, row in chunk.iterrows():
-            if count == 700:
-                break;
-            count += 1
-            date_obj =  datetime.datetime.strptime(row['Date'], '%m/%d/%Y %I:%M:%S %p')
-            if date_obj.year == 2008 and date_obj.month == 7:
-                my_crimes.append(row)
