@@ -223,6 +223,7 @@ def run_historical_weather():
         date += datetime.timedelta(days=1)
         params['historical_date'] =  date.strftime('%Y-%m-%d')
 
+
 # Creates and loads all data for the the date dimension in the database
 def run_dates():
     starting_date = datetime.datetime.strptime('2008-07-01', '%Y-%m-%d')

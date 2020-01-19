@@ -1,13 +1,23 @@
+# Mapping objects used for the loading of data into the database
+
+
+# Mappings for chicago census blocks shape file. This object will map the header
+# names in the shape file to match the column names in the database
 chicago_census_blocks_mapping = {
     'ID': 'GEOID',
     'geom': 'MULTIPOLYGON',
 }
 
+
+# Mappings for chicago community area shape file. This object will map the header
+# names in the shape file to match the column names in the database
 community_area_mapping = {
     'ID': 'area_numbe',
     'geom': 'MULTIPOLYGON',
 }
 
+
+# This object is used to map IUCR codes to the crime types defined in the database
 IUCR_crime_type_mapping = {
     '110': 'HOMICIDE',
     '130': 'HOMICIDE',

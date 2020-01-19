@@ -69,7 +69,7 @@ export class Map {
   }
 
   displayCrimeMarkers() {
-    const HOST = 'http://127.0.0.1:8001/';
+    const HOST = 'http://127.0.0.1:8002/';
     const GET_CRIMES = 'getCrimes';
     const OPTIONS = {
       method: 'GET'
