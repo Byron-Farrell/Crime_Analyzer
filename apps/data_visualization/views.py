@@ -22,6 +22,8 @@ class GetCrimes(LoginRequiredMixin, View):
     def get(self, request):
         filter_options = {}
 
+        # retrieving URL query values if the keyword is not in the URL query
+        # use '' as the default value
         city = request.GET.get('city', '')
         crime_type = request.GET.get('crimeType', '')
         deprevation_index = request.GET.get('deprevationIndex', '')
@@ -37,6 +39,7 @@ class GetCrimes(LoginRequiredMixin, View):
         month = request.GET.get('month', '')
         year = request.GET.get('year', '')
 
+        # Checking if URL query keywords have values
         if city:
             filter_options['city'] = city
 
@@ -80,10 +83,14 @@ class GetCrimes(LoginRequiredMixin, View):
             filter_options['date__year'] = year
 
         # FIXME: get all data from related tables and put them in JSON object
+
+        # Sending query to database using values from URL query
         crimes = models.Crime.objects.filter(**filter_options)
 
+        # Converting queryset to JSON object
         crimes_json = serializers.serialize('json', crimes)
 
+        # Returning JSON object of filtered crimes
         return HttpResponse(crimes_json, content_type='application/json')
 
 
