@@ -126,13 +126,11 @@ def run_chicago_crimes():
 
             # Validate crime
             crime = crime_validator.validate_chicago_crime(row)
-            # store in error logs in the database
-            crime_validator.log()
+            # store logs in the database
+            crime_validator.log(index, chicago_crimes_csv)
             crime_validator.clear_error_messeges()
             if crime is not False:
                 crime.save()
-            crime_validator.log()
-            crime_validator.clear_error_messeges()
 
 
 # Get all historical weather data from 2014 to 2019 and load it into database.

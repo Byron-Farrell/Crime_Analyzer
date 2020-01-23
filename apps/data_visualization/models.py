@@ -58,6 +58,7 @@ class Time(models.Model):
 
 
 class Crime(models.Model):
+    uniqueID = models.CharField(max_length=150)
     district = models.ForeignKey(District, on_delete=models.CASCADE)
     weatherDetails = models.ForeignKey(Weather, on_delete=models.CASCADE)
     crime = models.ForeignKey(CrimeType, on_delete=models.CASCADE)
@@ -71,6 +72,9 @@ class Crime(models.Model):
     latitude = models.DecimalField(max_digits=15, decimal_places=9, default=0)
 
 
-class Logs(models.Model):
-    date = models.DateField()
+class Log(models.Model):
+    timestamp = models.DateTimeField()
+    type = models.CharField(max_length=30)
     message = models.CharField(max_length=150)
+    row = models.IntegerField()
+    fileName = models.CharField(max_length=150)

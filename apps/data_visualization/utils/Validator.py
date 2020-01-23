@@ -15,12 +15,10 @@ class Validator:
     def validate_chicago_crime(self, row):
         longitude = row['Longitude']
         latitude = row['Latitude']
-
-        # Criminal code used to identify different crime types
-        IUCR = row['IUCR']
-        # Chicago Boundries
-        community_area_code = row['Community Area']
+        IUCR = row['IUCR'] # Criminal code used to identify different crime types
+        community_area_code = row['Community Area'] # Chicago Boundries
         date_time_string = row['Date']
+        case_number = latitude = row['Case Number']
         date_time_obj = datetime.datetime.strptime(date_time_string, '%m/%d/%Y %I:%M:%S %p')
 
         if self.validate_coords(longitude, latitude) is False:
@@ -62,6 +60,9 @@ class Validator:
         if crime_type is False:
             return False
 
+        if validate_unique_idenitfier(uniqueID) is False:
+            return False
+            
         try:
             # Validate weather data
             crime = models.Crime(
@@ -137,13 +138,27 @@ class Validator:
         return date
 
 
+    def validate_unique_idenitfier(self, uniqueID):
+        try:
+            crime = models.CrimeType.objects.filter(uniqueID=uniqueID)
+        except Exception as e:
+            self.error_messages.append(str(e) + '\n')
+            return False
+
+        if len(crime) > 0:
+            self.error_messages.append('This criminal record with the uniqueID {} as already been uploaded'.format(uniqueID))
+            return False
+        else:
+            True
+
+
     def validate_community_area(self, community_area_code):
         error_message = 'Error: community area "{}" does not exist!\n'.format(community_area_code)
         try:
             community_area_code = int(community_area_code)
             community_area = models.District.objects.get(ID=community_area_code)
         except Exception as e:
-            self.error_messages.append(str(e) + '\tcommunity area code = {}\n'.format(community_area_code))
+            self.error_messages.append('failed to validate community area code {}.\nException Error Message\n{}\n'.format(community_area_code, str(e)))
             return False
         return community_area
 
@@ -154,7 +169,7 @@ class Validator:
         try:
             crime_type = mappings.IUCR_crime_type_mapping[IUCR]
         except Exception as e:
-            self.error_messages.append(str(e) + '\tIUCR code = {}\n'.format(IUCR))
+            self.error_messages.append('failed to validate crime type with IUCR code {}.\nException Error Message\n{}\n'.format(IUCR, str(e)))
             return False
         return crime_type
 
@@ -165,7 +180,7 @@ class Validator:
         try:
             census_block = models.CensusBlock.objects.filter(geom__contains=point)
         except Exception as e:
-            self.error_messages.append(str(e) + '\tpoint not in chicago area, point = {}\n'.format(point))
+            self.error_messages.append('Failed to map crime location ({}) to census block.\nException Error Message\n{}\n'.format(point, str(e)))
             return False
         try:
             census_block = census_block[0]
@@ -188,12 +203,15 @@ class Validator:
         self.error_messages = []
 
 
-    def log(self):
+    def log(self, index, file_name):
         current_date = datetime.datetime.now()
         for error_message in self.error_messages:
-            log = models.Logs(
-                date = current_date,
-                message = error_message
+            log = models.Log(
+                timestamp = current_date,
+                type = 'Error',
+                message = error_message,
+                row = index,
+                fileName = file_name
             )
 
             log.save()

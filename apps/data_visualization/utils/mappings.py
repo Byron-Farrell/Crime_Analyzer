@@ -1,4 +1,4 @@
-# Mapping objects used for the loading of data into the database
+# Mapping objects used to map datasets to fit the data model in this application
 
 
 # Mappings for chicago census blocks shape file. This object will map the header
