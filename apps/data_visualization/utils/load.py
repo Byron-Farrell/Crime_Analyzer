@@ -123,7 +123,7 @@ def run_chicago_crimes():
     crime_validator = Validator()
     for df in chunks:
         for index, row in df.iterrows():
-
+            print('{:.4}%'.format((index / 7000000) * 100))
             # Validate crime
             crime = crime_validator.validate_chicago_crime(row)
             # store logs in the database

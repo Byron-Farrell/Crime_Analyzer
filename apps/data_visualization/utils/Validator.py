@@ -62,7 +62,7 @@ class Validator:
 
         if validate_unique_idenitfier(uniqueID) is False:
             return False
-            
+
         try:
             # Validate weather data
             crime = models.Crime(
@@ -191,13 +191,15 @@ class Validator:
 
 
     def validate_coords(self, longitude, latitude):
-        if math.isnan(longitude) or math.isnan(latitude):
-            error_message = 'Error: Longitude({}) and Latitude({}) are not valid!\n'.format(longitude, latitude)
-            self.error_messages.append(error_message)
+        try:
+            if math.isnan(float(longitude)) or math.isnan(float(latitude)):
+                error_message = 'Error: Longitude({}) and Latitude({}) are not valid!\n'.format(longitude, latitude)
+                self.error_messages.append(error_message)
+                return False
+        except Exception e:
+            self.error_messages.append(str(e))
             return False
-        else:
-            return True
-
+        return True
 
     def clear_error_messeges(self):
         self.error_messages = []
