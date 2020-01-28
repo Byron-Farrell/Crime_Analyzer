@@ -18,7 +18,7 @@ class Validator:
         IUCR = row['IUCR'] # Criminal code used to identify different crime types
         community_area_code = row['Community Area'] # Chicago Boundries
         date_time_string = row['Date']
-        case_number = latitude = row['Case Number']
+        uniqueID = row['Case Number']
         date_time_obj = datetime.datetime.strptime(date_time_string, '%m/%d/%Y %I:%M:%S %p')
 
         if self.validate_coords(longitude, latitude) is False:
@@ -31,13 +31,13 @@ class Validator:
         type = self.validate_crime_type(IUCR)
         census_block = self.validate_census_block(point)
         date = self.get_date(date_time_obj)
-        time = self.get_time(date_time_obj.hour, date_time_obj.minute)
+        time = self.get_time(date_time_obj.hour + 1, date_time_obj.minute)
 
         weather = self.get_weather(
             date_time_obj.day,
             date_time_obj.month,
             date_time_obj.year,
-            date_time_obj.hour,
+            date_time_obj.hour + 1,
         )
 
         crime_type = self.get_crime_type(type)
@@ -60,7 +60,7 @@ class Validator:
         if crime_type is False:
             return False
 
-        if validate_unique_idenitfier(uniqueID) is False:
+        if self.validate_unique_idenitfier(uniqueID) is False:
             return False
 
         try:
@@ -104,11 +104,11 @@ class Validator:
         try:
             crime = models.CrimeType.objects.filter(type=crime_type)
         except Exception as e:
-            self.error_messages.append(str(e) + '\n')
+            self.error_messages.append('failed to validate IUCR code {}\nException Error Message\n{}\n'.format(crime_type, str(e)))
             return False
 
         if len(crime) == 0:
-            self.error_messages.append('Couldn\'t find object for crime type: {}'.format(crime_type))
+            self.error_messages.append('Couldn\'t find record in CrimeType table for crime type: {}'.format(crime_type))
             return False
         else:
             return crime[0]
@@ -140,9 +140,9 @@ class Validator:
 
     def validate_unique_idenitfier(self, uniqueID):
         try:
-            crime = models.CrimeType.objects.filter(uniqueID=uniqueID)
+            crime = models.Crime.objects.filter(uniqueID=uniqueID)
         except Exception as e:
-            self.error_messages.append(str(e) + '\n')
+            self.error_messages.append('Failed to validate crime uniqueID {}.\nException Error Message\n{}\n'.format(uniqueID, str(e)))
             return False
 
         if len(crime) > 0:
@@ -196,8 +196,8 @@ class Validator:
                 error_message = 'Error: Longitude({}) and Latitude({}) are not valid!\n'.format(longitude, latitude)
                 self.error_messages.append(error_message)
                 return False
-        except Exception e:
-            self.error_messages.append(str(e))
+        except Exception as e:
+            self.error_messages.append('Failed to validate coords ({}, {}).\nException Error Message\n{}\n'.format(longitude, latitude, str(e)))
             return False
         return True
 
