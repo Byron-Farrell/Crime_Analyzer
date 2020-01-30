@@ -103,8 +103,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-apps/data_visualization/data/
-apps/data_visualization/migrations/*
+django/apps/ETL/data/
+django/apps/main/migrations/*
 package-lock.json
 
 db_backup/
