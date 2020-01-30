@@ -106,3 +106,5 @@ venv.bak/
 apps/data_visualization/data/
 apps/data_visualization/migrations/*
 package-lock.json
+
+db_backup/
