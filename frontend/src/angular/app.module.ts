@@ -1,15 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { MapComponent } from './map/map.component';
-import { GraphComponent } from './graph/graph.component';
-import { MapRootComponent } from './map-root/map-root.component';
-import { GraphRootComponent } from './graph-root/graph-root.component';
+import { MapComponent } from './components/map/map.component';
+import { GraphComponent } from './components/graph/graph.component';
+import { MapRootComponent } from './components/map-root/map-root.component';
+import { GraphRootComponent } from './components/graph-root/graph-root.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
     MapComponent,
     GraphComponent,
     MapRootComponent,
