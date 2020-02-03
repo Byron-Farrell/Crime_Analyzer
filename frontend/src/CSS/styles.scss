@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~leaflet/dist/leaflet.css";
+@import "~leaflet/dist/leaflet.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
 @import "/home/byron/dev/Project-White-Wolf/django/static/css/_colors.scss";
 @import "/home/byron/dev/Project-White-Wolf/django/static/css/content.scss";
+
+
 // $theme_color_1: #7D7F80;
 // $theme_color_2: #9615DB;
 // $theme_color_3: #D2D3D3;

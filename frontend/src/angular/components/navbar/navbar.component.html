@@ -1,0 +1,32 @@
+<nav id="mainNav" class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div id="navTitle" class="navbar-brand">CITY WATCH</div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Map <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Graphs</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-0">
+      <li class="nav-item">
+        <form id="uploadFileForm" method="post" action="uploadCrimes" enctype="multipart/form-data">
+          
+          <input id="fileInput" type="file" name="uploaded_file" hidden>
+          <button type="button" id="fileUploadButton" >Upload</button>
+        </form>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Admin</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
