@@ -1,11 +1,12 @@
 from django.http import HttpResponse
-from django.core import serializers
+# from django.core import serializers
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.data_visualization import models
 from apps.ETL.Validator import Validator
 import pandas as pd
+import json
 
 from django.shortcuts import render
 
@@ -21,6 +22,7 @@ class GetCrimes(LoginRequiredMixin, View):
 
     def get(self, request):
         filter_options = {}
+        query_result = []
 
         # retrieving URL query values if the keyword is not in the URL query
         # use '' as the default value
@@ -85,10 +87,33 @@ class GetCrimes(LoginRequiredMixin, View):
         # FIXME: get all data from related tables and put them in JSON object
 
         # Sending query to database using values from URL query
+        # The crimes will be sent back as an array of querysets
         crimes = models.Crime.objects.filter(**filter_options)
 
+        for obj in crimes:
+            new_crime = {}
+            new_crime['crimeype'] = obj.crime.type
+            new_crime['weatherType'] = obj.weatherDetails.weatherType.weatherType
+            new_crime['degrees'] = float(obj.weatherDetails.weatherDegrees)
+            new_crime['precipitation'] = float(obj.weatherDetails.precipitation)
+            new_crime['cloudCover'] = obj.weatherDetails.cloudCover
+            new_crime['isDark'] = obj.weatherDetails.dark
+            new_crime['moonPhase'] = obj.weatherDetails.moonPhase.moonPhase
+            new_crime['hour'] = obj.time.hour
+            new_crime['day'] = obj.date.day
+            new_crime['month'] = obj.date.month
+            new_crime['year'] = obj.date.year
+            new_crime['longitude'] = float(obj.longitude)
+            new_crime['latitude'] = float(obj.latitude)
+            new_crime['arrest'] = obj.arrest
+            new_crime['uniqueID'] = obj.uniqueID
+
+            query_result.append(new_crime)
+
+        print(query_result[0])
         # Converting queryset to JSON object
-        crimes_json = serializers.serialize('json', crimes)
+        # crimes_json = serializers.serialize('json', query_result)
+        crimes_json = json.dumps(query_result)
 
         # Returning JSON object of filtered crimes
         return HttpResponse(crimes_json, content_type='application/json')
