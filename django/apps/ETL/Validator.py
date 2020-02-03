@@ -1,6 +1,6 @@
 import os
 import datetime
-from apps.main import models
+from apps.data_visualization import models
 from . import mappings
 import math
 from django.contrib.gis.geos import Point
