@@ -1,11 +1,11 @@
 <div>
   <div>
-    <h4 class="d-inline pl-2">TITLE</h4>
+    <h4 class="d-inline pl-2">{{ title }}</h4>
 
     <a
       class="d-inline float-right pr-2"
       data-toggle="collapse"
-      href="#collapseExample"
+      href={{collapseDivHref}}
       role="button"
       aria-expanded="false"
       aria-controls="collapseExample">
@@ -22,13 +22,25 @@
       class="d-inline float-right pr-2 fas fa-info-circle"
       data-toggle="tooltip"
       data-placement="top"
-      title="Tooltip">
+      title={{tooltipMessage}}>
     </i>
 
   </div>
 
-  <div id="collapseExample" class="collapse">
-    HELLO WORLD
+  <div id={{collapseDivId}} class="collapse p-2">
+    <div class="d-inline-block mr-4 mb-4" *ngFor="let item of items">
+
+      <input
+      class="align-middle"
+      type="checkbox"
+      (change)="updateCheckboxes(item)"
+      [checked]="item.checked">
+
+      <span
+      class="pl-2 align-middle">
+        {{ item.display }}
+      </span>
+    </div>
   </div>
 
 </div>
