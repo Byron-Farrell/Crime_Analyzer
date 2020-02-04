@@ -1,3 +1,12 @@
-<app-navbar></app-navbar>
+<div id="mainNav">
+  <app-navbar></app-navbar>
+</div>
 
-<app-map></app-map>
+<div id="content" class="row m-0" (window:resize)="onResize($event)">
+  <div id="sidePanel" class="col-md-3">
+    <app-selector></app-selector>
+  </div>
+  <div id="mainContent" class="col-md-9">
+    <app-map></app-map>
+  </div>
+</div>

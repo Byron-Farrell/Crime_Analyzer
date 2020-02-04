@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapRootComponent } from './map-root.component';
+import { SidePanelComponent } from './side-panel.component';
 
-describe('MapRootComponent', () => {
-  let component: MapRootComponent;
-  let fixture: ComponentFixture<MapRootComponent>;
+describe('SidePanelComponent', () => {
+  let component: SidePanelComponent;
+  let fixture: ComponentFixture<SidePanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapRootComponent ]
+      declarations: [ SidePanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapRootComponent);
+    fixture = TestBed.createComponent(SidePanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
