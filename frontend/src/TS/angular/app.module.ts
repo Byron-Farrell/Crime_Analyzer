@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MapComponent } from './components/map/map.component';
 import { GraphComponent } from './components/graph/graph.component';
@@ -23,7 +24,8 @@ import { SelectorBoxComponent } from './components/selector-box/selector-box.com
     SelectorBoxComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [RootComponent]

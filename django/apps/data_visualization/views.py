@@ -34,7 +34,7 @@ class GetCrimes(LoginRequiredMixin, View):
         degrees = request.GET.get('degrees', '')
         precipitation = request.GET.get('precipitation', '')
         cloud_cover = request.GET.get('cloudCover', '')
-        dark = request.GET.get('dark', '')
+        isDark = request.GET.get('isDark', '')
         moon_phase = request.GET.get('moonPhase', '')
         hour = request.GET.get('hour', '')
         day = request.GET.get('day', '')
@@ -66,7 +66,7 @@ class GetCrimes(LoginRequiredMixin, View):
         if cloud_cover:
             filter_options['weatherDetails__cloudCover'] = cloud_cover
 
-        if dark:
+        if isDark:
             filter_options['weatherDetails__dark'] = dark
 
         if moon_phase:
@@ -92,7 +92,7 @@ class GetCrimes(LoginRequiredMixin, View):
 
         for obj in crimes:
             new_crime = {}
-            new_crime['crimeype'] = obj.crime.type
+            new_crime['crimetype'] = obj.crime.type
             new_crime['weatherType'] = obj.weatherDetails.weatherType.weatherType
             new_crime['degrees'] = float(obj.weatherDetails.weatherDegrees)
             new_crime['precipitation'] = float(obj.weatherDetails.precipitation)

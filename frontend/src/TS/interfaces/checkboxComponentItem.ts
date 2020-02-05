@@ -1,5 +1,5 @@
 export interface CheckboxComponentItem {
-  display: String,
-  value: String,
+  display: string,
+  value: string,
   checked: Boolean
 }

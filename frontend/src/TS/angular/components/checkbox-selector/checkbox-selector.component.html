@@ -1,6 +1,6 @@
 <div>
   <div>
-    <h4 class="d-inline pl-2">{{ title }}</h4>
+    <h4 class="d-inline pl-2">{{ privateTitle }}</h4>
 
     <a
       class="d-inline float-right pr-2"
@@ -13,7 +13,7 @@
       <i
         id="collapse-icon"
         class="fas fa-caret-down"
-        (click)="toggleIcon($event)">
+        (click)="toggleIcon()">
       </i>
     </a>
 
@@ -22,23 +22,23 @@
       class="d-inline float-right pr-2 fas fa-info-circle"
       data-toggle="tooltip"
       data-placement="top"
-      title={{tooltipMessage}}>
+      title={{privateTooltipMessage}}>
     </i>
 
   </div>
 
   <div id={{collapseDivId}} class="collapse p-2">
-    <div class="d-inline-block mr-4 mb-4" *ngFor="let item of items">
+    <div class="d-inline-block mr-4 mb-4" *ngFor="let filterOption of privateFilterOptions">
 
       <input
       class="align-middle"
       type="checkbox"
-      (change)="updateCheckboxes(item)"
-      [checked]="item.checked">
+      (change)="updateCheckboxes(filterOption)"
+      [checked]="filterOption.checked">
 
       <span
       class="pl-2 align-middle">
-        {{ item.display }}
+        {{ filterOption.display }}
       </span>
     </div>
   </div>
