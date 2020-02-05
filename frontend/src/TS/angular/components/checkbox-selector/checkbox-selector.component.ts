@@ -63,11 +63,11 @@ export class CheckboxSelectorComponent implements OnInit {
     let icon = document.getElementById('collapse-icon');
 
     if (this.toggle) {
-      icon.className = "fas fa-caret-down";
+      icon.className = "far fa-plus-square";
       this.toggle = !this.toggle;
     }
     else {
-      icon.className = "fas fa-caret-up";
+      icon.className = "far fa-minus-square";
       this.toggle = !this.toggle;
     }
   }

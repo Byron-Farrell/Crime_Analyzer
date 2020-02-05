@@ -3,7 +3,7 @@
     <h4 class="d-inline pl-2">{{ privateTitle }}</h4>
 
     <a
-      class="d-inline float-right pr-2"
+      class="d-inline float-right pr-2 align-middle"
       data-toggle="collapse"
       href={{collapseDivHref}}
       role="button"
@@ -12,18 +12,21 @@
 
       <i
         id="collapse-icon"
-        class="fas fa-caret-down"
+        class="far fa-plus-square"
         (click)="toggleIcon()">
       </i>
     </a>
 
-    <i
-      id="tooltip"
-      class="d-inline float-right pr-2 fas fa-info-circle"
-      data-toggle="tooltip"
-      data-placement="top"
-      title={{privateTooltipMessage}}>
-    </i>
+    <span class="align-middle d-inline float-right pr-2 ">
+      <i
+        id="tooltip"
+        class="fas fa-info"
+        data-toggle="tooltip"
+        data-placement="top"
+        title={{privateTooltipMessage}}>
+      </i>
+    </span>
+
 
   </div>
 
