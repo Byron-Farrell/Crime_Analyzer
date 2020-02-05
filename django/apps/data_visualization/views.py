@@ -119,6 +119,20 @@ class GetCrimes(LoginRequiredMixin, View):
         return HttpResponse(crimes_json, content_type='application/json')
 
 
+class GetCrimeTypes(LoginRequiredMixin, View):
+    def get(self, request):
+        # Getting all crime types
+        queryset = models.CrimeType.objects.all();
+        crime_types = []
+
+        for obj in queryset:
+            crime_types.append(obj.type);
+
+        crime_types_json = json.dumps(crime_types)
+
+        # returning json response
+        return HttpResponse(crime_types_json, content_type='application/json')
+
 # @login_required
 # def upload_crimes(request):
 #     template = 'data_visualization/index.html'
