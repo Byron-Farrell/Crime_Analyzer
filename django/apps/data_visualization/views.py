@@ -27,7 +27,7 @@ class GetCrimes(LoginRequiredMixin, View):
         # retrieving URL query values if the keyword is not in the URL query
         # use '' as the default value
         city = request.GET.get('city', '')
-        crime_type = request.GET.get('crimeType', '')
+        crime_type = request.GET.getlist('crimeType', '')
         deprevation_index = request.GET.get('deprevationIndex', '')
         district = request.GET.get('district', '')
         weather_type = request.GET.get('weatherType', '')
@@ -40,13 +40,13 @@ class GetCrimes(LoginRequiredMixin, View):
         day = request.GET.get('day', '')
         month = request.GET.get('month', '')
         year = request.GET.get('year', '')
-
+        print(crime_type)
         # Checking if URL query keywords have values
         if city:
             filter_options['city'] = city
 
         if crime_type:
-            filter_options['crime__type'] = crime_type
+            filter_options['crime__type__in'] = crime_type
 
         if deprevation_index:
             filter_options['censusBlock__deprevationIndex'] = deprevation_index
@@ -110,7 +110,7 @@ class GetCrimes(LoginRequiredMixin, View):
 
             query_result.append(new_crime)
 
-        print(query_result[0])
+
         # Converting queryset to JSON object
         # crimes_json = serializers.serialize('json', query_result)
         crimes_json = json.dumps(query_result)

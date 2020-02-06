@@ -36,8 +36,9 @@ export class CrimeService {
     let urlQuery = this.baseURL + this.getCrimesURL;
 
     filterOptions.crimeTypes.forEach(type => {
-      urlQuery += 'crimeType=' + type;
+      urlQuery += 'crimeType=' + type + '&';
     });
+    console.log(urlQuery);
 
     return urlQuery
   }

@@ -1,1 +1,5 @@
-<app-generic-filter-options></app-generic-filter-options>
+<app-generic-filter-options
+  (filterOptionsChange)="genericSelectedFiltersChanged($event)"
+></app-generic-filter-options>
+
+<button class="btn btn-success" type="button" (click)="loadData()">Select</button>

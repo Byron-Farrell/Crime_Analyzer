@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+// --------------- ANGULAR ---------------
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
+// -------------- INTERFACES --------------
 import { CheckboxComponentItem } from '../../../interfaces/checkboxComponentItem'
 import { FilterOptionsObject } from '../../../interfaces/filterOptionsObject'
+
+// --------------- SERVICES ---------------
 import { CrimeService } from '../../services/crime.service';
 
 
@@ -19,15 +23,16 @@ export class GenericFilterOptionsComponent implements OnInit {
 
   filterOptions: FilterOptionsObject;
 
+  @Output() filterOptionsChange: EventEmitter<FilterOptionsObject> = new EventEmitter();
+
   constructor(private crimeService: CrimeService) {
-    this.setupCrimeTypes();
     this.filterOptions = {
-      crimeTypes: this.selectedCrimeTypes
+      crimeTypes: Array()
     }
   }
 
   ngOnInit() {
-
+    this.setupCrimeTypes();
   }
 
   private setupCrimeTypes(): void {
@@ -39,26 +44,22 @@ export class GenericFilterOptionsComponent implements OnInit {
     let loading = this.crimeService.loadCrimeTypes();
     let crimeTypes = this.crimeTypes;
 
-    loading.then(function(json) {
-      json.forEach(type => {
-        let newCrimeType = {
-          display: type,
-          value: type,
-          checked: false
-        };
-        crimeTypes.push(newCrimeType);
-      });
-    })
-    .catch(error => console.log(error));
+    loading
+      .then(function(json) {
+        json.forEach(type => {
+          let newCrimeType = {
+            display: type,
+            value: type,
+            checked: false
+          };
+          crimeTypes.push(newCrimeType);
+        });
+      })
+      .catch(error => console.log(error));
   }
 
-  private loadData(): void {
-    let loading = this.crimeService.loadCrimeData(this.filterOptions);
-
-    loading.then(x => console.log(x))
-  }
-
-  onSelect(): void {
-    this.loadData();
+  crimeTypeChange(crimeTypes: Array<string>): void {
+    this.filterOptions.crimeTypes = crimeTypes;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 }

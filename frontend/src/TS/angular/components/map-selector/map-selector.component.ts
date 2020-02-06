@@ -1,4 +1,11 @@
+// --------------- ANGULAR ---------------
 import { Component, OnInit } from '@angular/core';
+
+// -------------- INTERFACES --------------
+import { FilterOptionsObject } from '../../../interfaces/filterOptionsObject'
+
+// --------------- SERVICES ---------------
+import { CrimeService } from '../../services/crime.service';
 
 @Component({
   selector: 'app-map-selector',
@@ -7,9 +14,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapSelectorComponent implements OnInit {
 
-  constructor() { }
+  genericSelectedFilterOptions: FilterOptionsObject;;
 
-  ngOnInit() {
+  constructor(private crimeService: CrimeService) {
+
   }
 
+  ngOnInit() {
+
+  }
+
+
+  private loadData(): void {
+    let loading = this.crimeService.loadCrimeData(this.genericSelectedFilterOptions);
+
+    loading.then(x => console.log(x))
+  }
+
+  onSelect(): void {
+    this.loadData();
+  }
+
+  genericSelectedFiltersChanged(selectedFilters: FilterOptionsObject): void {
+    this.genericSelectedFilterOptions = selectedFilters;
+  }
 }

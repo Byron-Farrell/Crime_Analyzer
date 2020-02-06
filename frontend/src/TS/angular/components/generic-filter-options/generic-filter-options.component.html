@@ -2,7 +2,5 @@
   [title]="crimeTypeTitle"
   [tooltipMessage]="crimeTypeTooltipMessage"
   [filterOptions]="crimeTypes"
-  [selectedFilterOptions]="selectedCrimeTypes"
+  (selectedFiltersChange)="crimeTypeChange($event)"
 ></app-checkbox-selector>
-
-<button class="btn btn-success" type="button" (click)="loadData()">Select</button>
