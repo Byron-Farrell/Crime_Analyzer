@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidePanelComponent } from './side-panel.component';
+import { MapSelectorComponent } from './map-selector.component';
 
-describe('SidePanelComponent', () => {
-  let component: SidePanelComponent;
-  let fixture: ComponentFixture<SidePanelComponent>;
+describe('MapSelectorComponent', () => {
+  let component: MapSelectorComponent;
+  let fixture: ComponentFixture<MapSelectorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidePanelComponent ]
+      declarations: [ MapSelectorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SidePanelComponent);
+    fixture = TestBed.createComponent(MapSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

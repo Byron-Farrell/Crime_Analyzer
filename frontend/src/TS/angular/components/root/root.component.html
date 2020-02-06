@@ -4,7 +4,9 @@
 
 <div id="content" class="row m-0" (window:resize)="onResize($event)">
   <div id="sidePanel" class="col-md-3">
-    <app-side-panel></app-side-panel>
+    <h3 class="text-center">Filter Options</h3>
+    
+    <app-map-selector></app-map-selector>
   </div>
   <div id="mainContent" class="col-md-9">
     <app-map></app-map>

@@ -35,7 +35,7 @@ export class MapComponent implements AfterViewInit {
 
     // Setting zoom controls to top right
     L.control.zoom({
-      position: 'topleft'
+      position: 'topright'
     }).addTo(this.map);
 
     // Setting tile layer to mapbox streets
@@ -47,34 +47,22 @@ export class MapComponent implements AfterViewInit {
     }).addTo(this.map);
   }
 
-  // private displayCrimeMarkers(): void {
-  //   const HOST = 'http://127.0.0.1:8000/';
-  //   const GET_CRIMES = 'getCrimes';
-  //   const OPTIONS = {
-  //     method: 'GET'
-  //   };
-  //
-  //   fetch(HOST + GET_CRIMES)
-  //     .then(response => response.json())
-  //     .then(json => this.createCrimeMarkers(json, this.map))
-  //     .catch(error => console.error(error));
-  // }
-  //
-  // private createCrimeMarkers(crimes, map): void {
-  //   console.log(crimes);
-  //   crimes.forEach(function( crime ) {
-  //     crime = crime.fields;
-  //     let marker = L.marker([crime.latitude, crime.longitude]);
-  //     let text = `
-  //       <b>Crime Details</b><br>
-  //       Type: ${crime.crime},<br>
-  //       Description: ${crime.crimeDescription},<br>
-  //       arrest: ${crime.arrest ? 'yes' : 'no'},<br>
-  //     `
-  //     marker.bindPopup(text).openPopup();
-  //     marker.addTo(map);
-  //   });
-  // }
+
+  private createCrimeMarkers(crimes): void {
+    console.log(crimes);
+    crimes.forEach(function( crime ) {
+      crime = crime.fields;
+      let marker = L.marker([crime.latitude, crime.longitude]);
+      let text = `
+        <b>Crime Details</b><br>
+        Type: ${crime.crime},<br>
+        Description: ${crime.crimeDescription},<br>
+        arrest: ${crime.arrest ? 'yes' : 'no'},<br>
+      `
+      marker.bindPopup(text).openPopup();
+      marker.addTo(this.map);
+    });
+  }
   //
   // // fix for leafet default marker not loading
   // // https://github.com/PaulLeCam/react-leaflet/issues/255
