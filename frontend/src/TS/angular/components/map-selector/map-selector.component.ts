@@ -24,11 +24,8 @@ export class MapSelectorComponent implements OnInit {
 
   }
 
-
   private loadData(): void {
-    let loading = this.crimeService.loadCrimeData(this.genericSelectedFilterOptions);
-
-    loading.then(x => console.log(x))
+    this.crimeService.loadCrimeData(this.genericSelectedFilterOptions);
   }
 
   onSelect(): void {

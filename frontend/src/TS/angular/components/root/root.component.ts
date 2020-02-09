@@ -31,4 +31,8 @@ export class RootComponent implements OnInit, AfterViewInit {
   onResize(event) : void {
     this.calculateContentHeight();
   }
+
+  onSelect(): void {
+    
+  }
 }

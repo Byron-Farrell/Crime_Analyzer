@@ -1,6 +1,10 @@
+// --------------- ANGULAR ---------------
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Observable, Subject } from 'rxjs';
+
+// -------------- INTERFACES --------------
 import { CriminalDataObject } from '../../interfaces/criminalDataObject';
 import { FilterOptionsObject } from '../../interfaces/filterOptionsObject';
 
@@ -9,7 +13,8 @@ import { FilterOptionsObject } from '../../interfaces/filterOptionsObject';
 })
 export class CrimeService {
 
-  private data: Array<CriminalDataObject>; // Criminal data retrieved from API
+  private dataSubject: Subject<CriminalDataObject>;
+  private dataObservable;
   private crimeTypes: Array<string>;
   private baseURL: string;
   private getCrimesURL: string;
@@ -19,14 +24,17 @@ export class CrimeService {
     this.baseURL = 'http://127.0.0.1:8000/';
     this.getCrimesURL = 'getCrimes?';
     this.getCrimeTypesURL = 'getCrimeTypes';
+
+    this.dataSubject = new Subject<CriminalDataObject>();
+    this.dataObservable = this.dataSubject.asObservable();
   }
 
-  getData() : Array<CriminalDataObject> {
-    return this.data;
-  }
-
-  getCrimeTypes() : Array<string> {
+  getCrimeTypes(): Array<string> {
     return this.crimeTypes;
+  }
+
+  getObservable(): Observable<any> {
+    return this.dataObservable;
   }
 
   // takes in a FilterOptionsObject and turns it into a url query string that
@@ -38,7 +46,6 @@ export class CrimeService {
     filterOptions.crimeTypes.forEach(type => {
       urlQuery += 'crimeType=' + type + '&';
     });
-    console.log(urlQuery);
 
     return urlQuery
   }
@@ -46,15 +53,13 @@ export class CrimeService {
   // gets criminal data from API and adds it to the "data" variable
   // this function will return a promise that will be resolved once the all data
   // is retrieved
-  loadCrimeData(filterOptions: FilterOptionsObject) : Promise<any> {
-    return new Promise( (resolve, reject) => {
-      const url = this.urlBuilder(filterOptions);
+  loadCrimeData(filterOptions: FilterOptionsObject) : void {
+    const url = this.urlBuilder(filterOptions);
 
-      fetch(url)
-        .then((data: any) => data.json())
-        .then(json => resolve(json))
-        .catch(error => reject(error));
-      })
+    fetch(url)
+      .then((data: any) => data.json())
+      .then(json => this.dataSubject.next(json))
+      .catch(error => console.error(error));
   }
 
   loadCrimeTypes(): Promise<any> {

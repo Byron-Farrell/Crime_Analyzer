@@ -35,6 +35,7 @@ export class CheckboxSelectorComponent implements OnInit {
     this.toggle = false;
     this.selectedFilters = Array();
 
+
     // creating unique id for collapsable divs
     CheckboxSelectorComponent.count += 1;
     this.collapseDivId= 'collapse-' + CheckboxSelectorComponent.count;

@@ -88,7 +88,7 @@ class GetCrimes(LoginRequiredMixin, View):
 
         # Sending query to database using values from URL query
         # The crimes will be sent back as an array of querysets
-        crimes = models.Crime.objects.filter(**filter_options)[:200]
+        crimes = models.Crime.objects.filter(**filter_options)[:50]
 
         for obj in crimes:
             new_crime = {}
@@ -107,7 +107,7 @@ class GetCrimes(LoginRequiredMixin, View):
             new_crime['latitude'] = float(obj.latitude)
             new_crime['arrest'] = obj.arrest
             new_crime['uniqueID'] = obj.uniqueID
-
+            new_crime['crimeDescription'] = obj.crimeDescription
             query_result.append(new_crime)
 
 

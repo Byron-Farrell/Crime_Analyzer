@@ -16,8 +16,8 @@ import { CrimeService } from '../../services/crime.service';
 })
 export class GenericFilterOptionsComponent implements OnInit {
 
-  crimeTypeTitle: String;
-  crimeTypeTooltipMessage: String;
+  crimeTypeTitle: string;
+  crimeTypeTooltipMessage: string;
   crimeTypes: Array<CheckboxComponentItem>;
   selectedCrimeTypes: Array<string>;
 
@@ -32,6 +32,7 @@ export class GenericFilterOptionsComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.setupCrimeTypes();
   }
 

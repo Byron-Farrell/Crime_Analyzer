@@ -1,5 +1,10 @@
+// --------------- ANGULAR ---------------
 import { Component, AfterViewInit } from '@angular/core';
 // import 'leaflet.markercluster/dist/leaflet.markercluster.js';
+
+// --------------- SERVICES ---------------
+import { CrimeService } from '../../services/crime.service';
+
 
 import * as L from 'leaflet';
 
@@ -12,8 +17,25 @@ export class MapComponent implements AfterViewInit {
 
   private map;
 
+  constructor(private crimeService: CrimeService) {
+    this.crimeService.getObservable().subscribe(data => {
+      this.createCrimeMarkers(data, this);
+      this.markerFix();
+    })
+  }
+
   ngAfterViewInit(): void {
     this.initMap();
+    // let loading = this.crimeService.loadCrimeData({crimeTypes: ['THEFT']});
+    // loading.then(json => {
+    //   console.log(json);
+    //
+    //   this.createCrimeMarkers(json, this);
+    //   this.markerFix();
+    // })
+
+
+
   }
 
   private initMap(): void {
@@ -48,31 +70,33 @@ export class MapComponent implements AfterViewInit {
   }
 
 
-  private createCrimeMarkers(crimes): void {
-    console.log(crimes);
+  // FIXME: is there a way to get rid of the (self) parameter
+  private createCrimeMarkers(crimes, self): void {
+    console.log('crimes');
     crimes.forEach(function( crime ) {
-      crime = crime.fields;
+
       let marker = L.marker([crime.latitude, crime.longitude]);
       let text = `
         <b>Crime Details</b><br>
-        Type: ${crime.crime},<br>
+        Type: ${crime.crimetype},<br>
         Description: ${crime.crimeDescription},<br>
         arrest: ${crime.arrest ? 'yes' : 'no'},<br>
       `
       marker.bindPopup(text).openPopup();
-      marker.addTo(this.map);
+
+      marker.addTo(self.map);
     });
   }
-  //
-  // // fix for leafet default marker not loading
-  // // https://github.com/PaulLeCam/react-leaflet/issues/255
-  // private markerFix(): void {
-  //   delete L.Icon.Default.prototype._getIconUrl;
-  //
-  //   L.Icon.Default.mergeOptions({
-  //     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  //     iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  //     shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-  //   });
-  // }
+
+  // fix for leafet default marker not loading
+  // https://github.com/PaulLeCam/react-leaflet/issues/255
+  private markerFix(): void {
+    delete L.Icon.Default.prototype._getIconUrl;
+
+    // L.Icon.Default.mergeOptions({
+    //   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    //   iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    //   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+    // });
+  }
 }
