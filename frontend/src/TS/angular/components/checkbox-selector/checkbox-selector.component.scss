@@ -1,11 +1,24 @@
+$info_icon_color: #0388fc;
+$green_icon_color: #05f529;
+$red_icon_color: #fc0516;
+
 #collapse-icon {
   font-size: 1.8rem;
 }
 
 #tooltip {
   font-size: 1.3rem;
+  color: $info_icon_color;
 }
 
 .far {
   color: grey;
+}
+
+.red-icon {
+  color: $red_icon_color;
+}
+
+.green-icon {
+  color: $green_icon_color;
 }

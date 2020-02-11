@@ -12,12 +12,12 @@
 
       <i
         id="collapse-icon"
-        class="far fa-plus-square"
+        class="far fa-plus-square green-icon"
         (click)="toggleIcon()">
       </i>
     </a>
 
-    <span class="align-middle d-inline float-right pr-2 ">
+    <span class="align-middle d-inline float-right pr-2">
       <i
         id="tooltip"
         class="fas fa-info"
@@ -29,7 +29,7 @@
   </div>
 
   <div id={{collapseDivId}} class="collapse p-2">
-    <div class="d-inline-block mr-4 mb-4" *ngFor="let filterOption of filterOptions">
+    <div class="d-inline-block mb-4 col" *ngFor="let filterOption of filterOptions">
 
       <input
       class="align-middle"

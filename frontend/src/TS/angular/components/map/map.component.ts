@@ -1,12 +1,13 @@
 // --------------- ANGULAR ---------------
 import { Component, AfterViewInit } from '@angular/core';
-// import 'leaflet.markercluster/dist/leaflet.markercluster.js';
 
 // --------------- SERVICES ---------------
 import { CrimeService } from '../../services/crime.service';
 
+import 'leaflet';
+import 'leaflet.markercluster';
 
-import * as L from 'leaflet';
+const L = window['L'];
 
 @Component({
   selector: 'app-map',
@@ -19,23 +20,15 @@ export class MapComponent implements AfterViewInit {
 
   constructor(private crimeService: CrimeService) {
     this.crimeService.getObservable().subscribe(data => {
-      this.createCrimeMarkers(data, this);
+      console.log(this);
+
+      this.createCrimeMarkers(data, this.map);
       this.markerFix();
     })
   }
 
   ngAfterViewInit(): void {
     this.initMap();
-    // let loading = this.crimeService.loadCrimeData({crimeTypes: ['THEFT']});
-    // loading.then(json => {
-    //   console.log(json);
-    //
-    //   this.createCrimeMarkers(json, this);
-    //   this.markerFix();
-    // })
-
-
-
   }
 
   private initMap(): void {
@@ -63,18 +56,19 @@ export class MapComponent implements AfterViewInit {
     // Setting tile layer to mapbox streets
     L.tileLayer(TILE_LAYER, {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 100,
       id: 'mapbox.streets',
       accessToken: TOKEN
     }).addTo(this.map);
+
+
   }
 
 
   // FIXME: is there a way to get rid of the (self) parameter
-  private createCrimeMarkers(crimes, self): void {
-    console.log('crimes');
-    crimes.forEach(function( crime ) {
+  private createCrimeMarkers(crimes, map): void {
+    let markerClusters = L.markerClusterGroup();
 
+    crimes.forEach(function( crime ) {
       let marker = L.marker([crime.latitude, crime.longitude]);
       let text = `
         <b>Crime Details</b><br>
@@ -83,15 +77,16 @@ export class MapComponent implements AfterViewInit {
         arrest: ${crime.arrest ? 'yes' : 'no'},<br>
       `
       marker.bindPopup(text).openPopup();
+      markerClusters.addLayer( marker );
 
-      marker.addTo(self.map);
     });
+    map.addLayer( markerClusters );
   }
 
   // fix for leafet default marker not loading
   // https://github.com/PaulLeCam/react-leaflet/issues/255
   private markerFix(): void {
-    delete L.Icon.Default.prototype._getIconUrl;
+    // delete L.Icon.Default.prototype._getIconUrl;
 
     // L.Icon.Default.mergeOptions({
     //   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),

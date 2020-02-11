@@ -1,5 +1,10 @@
-<app-generic-filter-options
-  (filterOptionsChange)="genericSelectedFiltersChanged($event)"
-></app-generic-filter-options>
+<div class="">
+  <app-generic-filter-options
+    (filterOptionsChange)="genericSelectedFiltersChanged($event)"
+  ></app-generic-filter-options>
 
-<button class="btn btn-success" type="button" (click)="loadData()">Select</button>
+  <div class="w-100">
+    <button class="btn btn-info d-block mx-auto my-4 w-50" type="button" (click)="loadData()">Select</button>
+  </div>
+
+</div>
