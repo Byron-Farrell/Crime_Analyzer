@@ -17,13 +17,13 @@ const L = window['L'];
 export class MapComponent implements AfterViewInit {
 
   private map;
+  private markerClusters;
 
   constructor(private crimeService: CrimeService) {
     this.crimeService.getObservable().subscribe(data => {
       console.log(this);
 
-      this.createCrimeMarkers(data, this.map);
-      this.markerFix();
+      this.createCrimeMarkers(data, this);
     })
   }
 
@@ -65,8 +65,14 @@ export class MapComponent implements AfterViewInit {
 
 
   // FIXME: is there a way to get rid of the (self) parameter
-  private createCrimeMarkers(crimes, map): void {
-    let markerClusters = L.markerClusterGroup();
+  private createCrimeMarkers(crimes, self): void {
+    // If there is a marker cluster layer from a previous query then this block
+    // of code will remove it
+    if (self.map.hasLayer(self.markerClusters)) {
+      self.map.removeLayer(self.markerClusters);
+    }
+
+    self.markerClusters = L.markerClusterGroup();
 
     crimes.forEach(function( crime ) {
       let marker = L.marker([crime.latitude, crime.longitude]);
@@ -86,10 +92,10 @@ export class MapComponent implements AfterViewInit {
 
       `
       marker.bindPopup(text).openPopup();
-      markerClusters.addLayer( marker );
+      self.markerClusters.addLayer( marker );
 
     });
-    map.addLayer( markerClusters );
+    self.map.addLayer( self.markerClusters );
   }
 
   // fix for leafet default marker not loading
