@@ -47,6 +47,8 @@
 
 > $ npm install
 
+## Build
+
 ### Development Build
 
 #### From the root folder
