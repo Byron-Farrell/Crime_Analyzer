@@ -71,10 +71,19 @@ export class MapComponent implements AfterViewInit {
     crimes.forEach(function( crime ) {
       let marker = L.marker([crime.latitude, crime.longitude]);
       let text = `
-        <b>Crime Details</b><br>
-        Type: ${crime.crimetype},<br>
-        Description: ${crime.crimeDescription},<br>
-        arrest: ${crime.arrest ? 'yes' : 'no'},<br>
+        <h6 class="text-center">Crime Details</h6><br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Date:</b> ${crime.day}/${crime.month}/${crime.year},<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Time:</b> ${crime.hour}:00 PM,<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Type:</b> ${crime.crimetype},<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Description:</b> ${crime.crimeDescription},<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Arrest:</b> ${crime.arrest ? 'yes' : 'no'},<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Cloud Cover:</b> ${crime.cloudCover}%,<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Degrees:</b> ${crime.degrees},<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Dark:</b> ${crime.isDark ? 'yes' : 'no'},<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Precipitation:</b> ${crime.precipitation}mm,<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">WeatherType:</b> ${crime.weatherType},<br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">Moon Phase:</b> ${crime.moonPhase},<br>
+
       `
       marker.bindPopup(text).openPopup();
       markerClusters.addLayer( marker );
@@ -87,7 +96,7 @@ export class MapComponent implements AfterViewInit {
   // https://github.com/PaulLeCam/react-leaflet/issues/255
   private markerFix(): void {
     // delete L.Icon.Default.prototype._getIconUrl;
-
+    //
     // L.Icon.Default.mergeOptions({
     //   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
     //   iconUrl: require('leaflet/dist/images/marker-icon.png'),
