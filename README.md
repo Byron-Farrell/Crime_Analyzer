@@ -25,6 +25,9 @@
 
 ### Setting up virtual enviroment
 
+#### From the root folder
+
+> $ cd django
 
 > $ python3 -m venv .venv
 
@@ -36,3 +39,18 @@
 
 > $ pip3 install -r requirements.txt
 
+### Install Javascript libraries
+
+#### From the root folder
+
+> $ cd frontend
+
+> $ npm install
+
+### Development Build
+
+#### From the root folder
+
+> $ cd frontend
+
+> $ sudo npm run build:dev
