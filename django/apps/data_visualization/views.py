@@ -89,13 +89,11 @@ class GetCrimes(LoginRequiredMixin, View):
             filter_options['date__year'] = year
 
 
-        print(limit)
-        print(offset)
         # Sending query to database using values from URL query
         # The crimes will be sent back as an array of querysets
         if 'limit' in locals() and 'offset' in locals():
             crimes = models.Crime.objects.filter(**filter_options)[offset:limit + offset]
-        elif 'count' in locals():
+        elif 'count' in locals() and count is True:
             crimes_count = models.Crime.objects.filter(**filter_options).count()
         else:
             crimes = models.Crime.objects.filter(**filter_options)
