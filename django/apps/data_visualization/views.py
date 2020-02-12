@@ -40,7 +40,11 @@ class GetCrimes(LoginRequiredMixin, View):
         day = request.GET.get('day', '')
         month = request.GET.get('month', '')
         year = request.GET.get('year', '')
-        print(crime_type)
+
+        offset = int(request.GET.get('offset', '')) # integer value
+        limit = int(request.GET.get('limit', '')) # integer value
+        count = request.GET.get('count', '') # boolean value
+
         # Checking if URL query keywords have values
         if city:
             filter_options['city'] = city
@@ -84,31 +88,40 @@ class GetCrimes(LoginRequiredMixin, View):
         if year:
             filter_options['date__year'] = year
 
-        # FIXME: get all data from related tables and put them in JSON object
 
+        print(limit)
+        print(offset)
         # Sending query to database using values from URL query
         # The crimes will be sent back as an array of querysets
-        crimes = models.Crime.objects.filter(**filter_options)[:100]
+        if 'limit' in locals() and 'offset' in locals():
+            crimes = models.Crime.objects.filter(**filter_options)[offset:limit + offset]
+        elif 'count' in locals():
+            crimes_count = models.Crime.objects.filter(**filter_options).count()
+        else:
+            crimes = models.Crime.objects.filter(**filter_options)
 
-        for obj in crimes:
-            new_crime = {}
-            new_crime['crimetype'] = obj.crime.type
-            new_crime['weatherType'] = obj.weatherDetails.weatherType.weatherType
-            new_crime['degrees'] = float(obj.weatherDetails.weatherDegrees)
-            new_crime['precipitation'] = float(obj.weatherDetails.precipitation)
-            new_crime['cloudCover'] = obj.weatherDetails.cloudCover
-            new_crime['isDark'] = obj.weatherDetails.dark
-            new_crime['moonPhase'] = obj.weatherDetails.moonPhase.moonPhase
-            new_crime['hour'] = obj.time.hour
-            new_crime['day'] = obj.date.day
-            new_crime['month'] = obj.date.month
-            new_crime['year'] = obj.date.year
-            new_crime['longitude'] = float(obj.longitude)
-            new_crime['latitude'] = float(obj.latitude)
-            new_crime['arrest'] = obj.arrest
-            new_crime['uniqueID'] = obj.uniqueID
-            new_crime['crimeDescription'] = obj.crimeDescription
-            query_result.append(new_crime)
+        if 'crimes_count' in locals():
+            query_result = {'count': crimes_count}
+        else:
+            for obj in crimes:
+                new_crime = {}
+                new_crime['crimetype'] = obj.crime.type
+                new_crime['weatherType'] = obj.weatherDetails.weatherType.weatherType
+                new_crime['degrees'] = float(obj.weatherDetails.weatherDegrees)
+                new_crime['precipitation'] = float(obj.weatherDetails.precipitation)
+                new_crime['cloudCover'] = obj.weatherDetails.cloudCover
+                new_crime['isDark'] = obj.weatherDetails.dark
+                new_crime['moonPhase'] = obj.weatherDetails.moonPhase.moonPhase
+                new_crime['hour'] = obj.time.hour
+                new_crime['day'] = obj.date.day
+                new_crime['month'] = obj.date.month
+                new_crime['year'] = obj.date.year
+                new_crime['longitude'] = float(obj.longitude)
+                new_crime['latitude'] = float(obj.latitude)
+                new_crime['arrest'] = obj.arrest
+                new_crime['uniqueID'] = obj.uniqueID
+                new_crime['crimeDescription'] = obj.crimeDescription
+                query_result.append(new_crime)
 
 
         # Converting queryset to JSON object
