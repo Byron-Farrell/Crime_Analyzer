@@ -55,7 +55,7 @@ class GetCrimes(LoginRequiredMixin, View):
             filter_options['district__ID'] = district
 
         if weather_type:
-            filter_options['weatherDetails__weatherType__type'] = weather_type
+            filter_options['weatherDetails__weatherType__weatherType'] = weather_type
 
         if degrees:
             filter_options['weatherDetails__weatherDegrees'] = degrees
@@ -132,6 +132,21 @@ class GetCrimeTypes(LoginRequiredMixin, View):
 
         # returning json response
         return HttpResponse(crime_types_json, content_type='application/json')
+
+
+class GetWeatherTypes(LoginRequiredMixin, View):
+    def get(self, request):
+        # Getting all crime types
+        queryset = models.WeatherType.objects.all();
+        weather_types = []
+
+        for obj in queryset:
+            weather_types.append(obj.weatherType);
+
+        weather_types_json = json.dumps(weather_types)
+
+        # returning json response
+        return HttpResponse(weather_types_json, content_type='application/json')
 
 # @login_required
 # def upload_crimes(request):

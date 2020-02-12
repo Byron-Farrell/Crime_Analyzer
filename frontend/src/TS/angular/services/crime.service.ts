@@ -19,11 +19,13 @@ export class CrimeService {
   private baseURL: string;
   private getCrimesURL: string;
   private getCrimeTypesURL: string;
+  private getWeatherTypesURL: string;
 
   constructor(private http: HttpClient) {
     this.baseURL = 'http://127.0.0.1:8000/';
     this.getCrimesURL = 'getCrimes?';
     this.getCrimeTypesURL = 'getCrimeTypes';
+    this.getWeatherTypesURL = 'getWeatherTypes';
 
     this.dataSubject = new Subject<CriminalDataObject>();
     this.dataObservable = this.dataSubject.asObservable();
@@ -47,6 +49,10 @@ export class CrimeService {
       urlQuery += 'crimeType=' + type + '&';
     });
 
+    filterOptions.weatherTypes.forEach(type => {
+      urlQuery += 'weatherType=' + type + '&';
+    });
+
     return urlQuery
   }
 
@@ -63,7 +69,15 @@ export class CrimeService {
   }
 
   loadCrimeTypes(): Promise<any> {
-    let url = this.baseURL + this.getCrimeTypesURL;
+    return this.loadTypes(this.getCrimeTypesURL);
+  }
+
+  loadWeatherTypes(): Promise<any> {
+    return this.loadTypes(this.getWeatherTypesURL);
+  }
+
+  private loadTypes(URL): Promise<any> {
+    let url = this.baseURL + URL;
 
     return new Promise(function(resolve, reject) {
       fetch(url)

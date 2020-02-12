@@ -1,5 +1,5 @@
 // --------------- ANGULAR ---------------
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, AfterViewInit, Input, Output, EventEmitter  } from '@angular/core';
 
 // --------------- INTERFACES ---------------
 import { CheckboxComponentItem } from '../../../interfaces/checkboxComponentItem'
@@ -10,7 +10,7 @@ import { CheckboxComponentItem } from '../../../interfaces/checkboxComponentItem
   templateUrl: './checkbox-selector.component.html',
   styleUrls: ['./checkbox-selector.component.scss']
 })
-export class CheckboxSelectorComponent implements OnInit {
+export class CheckboxSelectorComponent implements AfterViewInit {
 
   // incremeneted for each instance of this component
   // used to create unique id for collapsable divs
@@ -29,6 +29,7 @@ export class CheckboxSelectorComponent implements OnInit {
   // unique id for divs
   collapseDivId: string
   collapseDivHref: string;
+  collapseIcon: string;
 
   constructor() {
     // Setting up default values
@@ -38,18 +39,19 @@ export class CheckboxSelectorComponent implements OnInit {
 
     // creating unique id for collapsable divs
     CheckboxSelectorComponent.count += 1;
-    this.collapseDivId= 'collapse-' + CheckboxSelectorComponent.count;
-    this.collapseDivHref= '#collapse-' + CheckboxSelectorComponent.count;
+    this.collapseDivId = 'collapse-' + CheckboxSelectorComponent.count;
+    this.collapseDivHref = '#collapse-' + CheckboxSelectorComponent.count;
+    this.collapseIcon = 'collapse-icon' + CheckboxSelectorComponent.count;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
   }
 
   // Switches between two buttons/icons that are used to collapse and
   // expand the filter options section of this component
   toggleIcon() : void {
     // element that displays the icon
-    let icon = document.getElementById('collapse-icon');
+    let icon = document.getElementById(this.collapseIcon);
 
     if (this.toggle) {
       icon.className = "far fa-plus-square green-icon";

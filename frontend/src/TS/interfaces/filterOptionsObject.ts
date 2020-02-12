@@ -1,3 +1,4 @@
 export interface FilterOptionsObject {
-  crimeTypes: Array<String>
+  crimeTypes?: Array<String>;
+  weatherTypes?: Array<String>;
 }

@@ -4,3 +4,10 @@
   [filterOptions]="crimeTypes"
   (selectedFiltersChange)="crimeTypeChange($event)"
 ></app-checkbox-selector>
+
+<app-checkbox-selector
+  [title]="weatherTypeTitle"
+  [tooltipMessage]="weatherTypeTooltipMessage"
+  [filterOptions]="weatherTypes"
+  (selectedFiltersChange)="weatherTypeChange($event)"
+></app-checkbox-selector>
