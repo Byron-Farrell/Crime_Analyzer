@@ -68,7 +68,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newWeatherType = {
             display: type,
             value: type,
-            checked: true
+            checked: false
           };
           _weatherTypes.push(newWeatherType);
 
@@ -97,7 +97,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newCrimeType = {
             display: type,
             value: type,
-            checked: true
+            checked: false
           };
           _crimeTypes.push(newCrimeType);
 

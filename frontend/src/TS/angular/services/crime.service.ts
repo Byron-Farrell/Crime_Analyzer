@@ -20,6 +20,7 @@ export class CrimeService {
   private getCrimesURL: string;
   private getCrimeTypesURL: string;
   private getWeatherTypesURL: string;
+  private limit: number;
 
   constructor(private http: HttpClient) {
     this.baseURL = 'http://127.0.0.1:8000/';
@@ -29,6 +30,8 @@ export class CrimeService {
 
     this.dataSubject = new Subject<CriminalDataObject>();
     this.dataObservable = this.dataSubject.asObservable();
+
+    this.limit = 500;
   }
 
   getCrimeTypes(): Array<string> {
@@ -61,6 +64,46 @@ export class CrimeService {
   // is retrieved
   loadCrimeData(filterOptions: FilterOptionsObject) : void {
     const url = this.urlBuilder(filterOptions);
+
+    // // let crimeCount: number;
+    // // let remainder: number;
+    // // let queryCount: number;
+    //
+    // // get count
+    //
+    // fetch(url + 'count=true')
+    //   .then(data => data.json())
+    //   .then(json => json.count)
+    //   .then(count => {
+    //     let remainder = count % this.limit;
+    //     let queryCount = count === 0 ? 0 : ( ( count - remainder ) / this.limit ) + 1;
+    //     let requestsRecieved = 0;
+    //     let queryResult = Array();
+    //     console.log(count);
+    //
+    //     for (let i = 0; i < queryCount; i++) {
+    //       console.log(i);
+    //
+    //       fetch(url + 'offset=' + i * this.limit + '&limit=' + this.limit)
+    //         .then(data => data.json())
+    //         .then(json => {
+    //           console.log('recieved: ' + requestsRecieved + 'total: ' + queryCount);
+    //
+    //           queryResult = queryResult.concat(json);
+    //
+    //           requestsRecieved += 1;
+    //
+    //           if (requestsRecieved === queryCount) {
+    //             console.log(queryResult);
+    //           }
+    //         })
+    //     }
+    //
+    //     // while (requestsRecieved !== queryCount) {
+    //     //   console.log('recieved: ' + requestsRecieved + ' out of ' + queryCount);
+    //     //
+    //     // }
+    //   })
 
     fetch(url)
       .then((data: any) => data.json())

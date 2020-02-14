@@ -30,7 +30,7 @@ class GetCrimes(LoginRequiredMixin, View):
         crime_type = request.GET.getlist('crimeType', '')
         deprevation_index = request.GET.get('deprevationIndex', '')
         district = request.GET.get('district', '')
-        weather_type = request.GET.get('weatherType', '')
+        weather_type = request.GET.getlist('weatherType', '')
         degrees = request.GET.get('degrees', '')
         precipitation = request.GET.get('precipitation', '')
         cloud_cover = request.GET.get('cloudCover', '')
@@ -41,8 +41,8 @@ class GetCrimes(LoginRequiredMixin, View):
         month = request.GET.get('month', '')
         year = request.GET.get('year', '')
 
-        offset = int(request.GET.get('offset', '')) # integer value
-        limit = int(request.GET.get('limit', '')) # integer value
+        offset = request.GET.get('offset', '') # integer value
+        limit = request.GET.get('limit', '') # integer value
         count = request.GET.get('count', '') # boolean value
 
         # Checking if URL query keywords have values
@@ -59,7 +59,7 @@ class GetCrimes(LoginRequiredMixin, View):
             filter_options['district__ID'] = district
 
         if weather_type:
-            filter_options['weatherDetails__weatherType__weatherType'] = weather_type
+            filter_options['weatherDetails__weatherType__weatherType__in'] = weather_type
 
         if degrees:
             filter_options['weatherDetails__weatherDegrees'] = degrees
@@ -91,15 +91,18 @@ class GetCrimes(LoginRequiredMixin, View):
 
         # Sending query to database using values from URL query
         # The crimes will be sent back as an array of querysets
-        if 'limit' in locals() and 'offset' in locals():
+        if limit and offset:
+            limit = int(limit)
+            offset = int(offset)
             crimes = models.Crime.objects.filter(**filter_options)[offset:limit + offset]
-        elif 'count' in locals() and count is True:
+        elif count:
             crimes_count = models.Crime.objects.filter(**filter_options).count()
         else:
-            crimes = models.Crime.objects.filter(**filter_options)
+            crimes = models.Crime.objects.filter(**filter_options)[:250]
 
         if 'crimes_count' in locals():
             query_result = {'count': crimes_count}
+            print(crimes_count)
         else:
             for obj in crimes:
                 new_crime = {}
