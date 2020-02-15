@@ -18,3 +18,10 @@
   [filterOptions]="moonPhaseTypes"
   (selectedFiltersChange)="moonTypeChange($event)"
 ></app-checkbox-selector>
+
+<app-checkbox-selector
+  [title]="isDarkTypeTitle"
+  [tooltipMessage]="isDarkTypeTooltipMessage"
+  [filterOptions]="isDarkTypes"
+  (selectedFiltersChange)="isDarkTypeChange($event)"
+></app-checkbox-selector>

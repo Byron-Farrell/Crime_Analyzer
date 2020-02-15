@@ -1,5 +1,6 @@
 export interface FilterOptionsObject {
-  crimeTypes?: Array<String>;
-  weatherTypes?: Array<String>;
-  moonTypes?: Array<String>;
+  crimeTypes?: Array<string>;
+  weatherTypes?: Array<string>;
+  moonTypes?: Array<string>;
+  isDark?: Array<boolean>;
 }

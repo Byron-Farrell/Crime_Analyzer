@@ -50,6 +50,8 @@ export class CrimeService {
   private urlBuilder(filterOptions: FilterOptionsObject) : string {
     let urlQuery = this.baseURL + this.getCrimesURL;
 
+    console.log(filterOptions);
+
     filterOptions.crimeTypes.forEach(type => {
       urlQuery += 'crimeType=' + type + '&';
     });
@@ -61,6 +63,12 @@ export class CrimeService {
     filterOptions.moonTypes.forEach(type => {
       urlQuery += 'moonPhase=' + type + '&';
     });
+
+    filterOptions.isDark.forEach(type => {
+      urlQuery += 'isDark=' + type + '&';
+    });
+
+    console.log(urlQuery);
 
     return urlQuery
   }

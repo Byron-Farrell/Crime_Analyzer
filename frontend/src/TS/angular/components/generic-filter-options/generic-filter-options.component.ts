@@ -31,6 +31,10 @@ export class GenericFilterOptionsComponent implements OnInit {
   moonPhaseTypes: Array<CheckboxComponentItem>;
   selectedMoonPhaseTypes: Array<string>;
 
+  isDarkTypeTitle: string;
+  isDarkTypeTooltipMessage: string;
+  isDarkTypes: Array<CheckboxComponentItem>;
+  selectedIsDarkTypes: Array<string>;
 
   filterOptions: FilterOptionsObject;
 
@@ -39,35 +43,45 @@ export class GenericFilterOptionsComponent implements OnInit {
   constructor(private crimeService: CrimeService) {
     this.filterOptions = {
       crimeTypes: Array(),
-      weatherTypes: Array()
+      weatherTypes: Array(),
+      moonTypes: Array(),
+      isDark: Array()
     }
   }
 
   ngOnInit() {
     // Setting up crime type filter variables
-    this.crimeTypeTitle = "Crime Type Options";
+    this.crimeTypeTitle = "Crime Type";
     this.crimeTypeTooltipMessage = "Select crime types to display on map";
     this.selectedCrimeTypes = Array();
     this.crimeTypes = Array();
     this.setupCrimeTypes();
 
     // Setting up crime type filter variables
-    this.weatherTypeTitle = "Weather Type Options";
+    this.weatherTypeTitle = "Weather Type";
     this.weatherTypeTooltipMessage = "Select weather types to display on map";
     this.selectedWeatherTypes = Array();
     this.weatherTypes = Array();
     this.setupWeatherTypes();
 
     // Setting up moon phase filter variables
-    this.moonPhaseTypeTitle = "Moon Phase Type Options";
+    this.moonPhaseTypeTitle = "Moon Phase";
     this.moonPhaseTypeTooltipMessage = "Select crimes commited on the selected moon phases";
     this.selectedMoonPhaseTypes = Array();
     this.moonPhaseTypes = Array();
     this.setupMoonTypes();
 
+    // Setting up is dark filter variables
+    this.isDarkTypeTitle = "Dark";
+    this.isDarkTypeTooltipMessage = "Select crimes commited on based on if it is dark or not outside";
+    this.isDarkTypes = Array();
+    this.selectedIsDarkTypes = Array();
+    this.setupIsDarkTypes();
+
 
   }
 
+  // FIXME: make typeChange generic
   crimeTypeChange(crimeTypes: Array<string>): void {
     this.filterOptions.crimeTypes = crimeTypes;
     this.filterOptionsChange.emit({ ...this.filterOptions })
@@ -80,6 +94,11 @@ export class GenericFilterOptionsComponent implements OnInit {
 
   moonTypeChange(weatherTypes: Array<string>): void {
     this.filterOptions.moonTypes = weatherTypes;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
+  isDarkTypeChange(isDarkTypes: Array<boolean>): void {
+    this.filterOptions.isDark = isDarkTypes;
     this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 
@@ -154,6 +173,27 @@ export class GenericFilterOptionsComponent implements OnInit {
       })
       .then(() => this.moonTypeChange(_selectedMoonTypes))
       .catch(error => console.log(error));
+  }
+
+  private setupIsDarkTypes() {
+    this.isDarkTypes = [
+      {
+        display: 'Yes',
+        value: 'true',
+        checked: false
+      },
+      {
+        display: 'No',
+        value: 'false',
+        checked: false
+      }
+    ];
+
+    this.isDarkTypes.forEach(element => {
+      if (element.checked === true) {
+        this.selectedIsDarkTypes.push(element.value)
+      }
+    });
   }
 
 }
