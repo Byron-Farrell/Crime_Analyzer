@@ -11,3 +11,10 @@
   [filterOptions]="weatherTypes"
   (selectedFiltersChange)="weatherTypeChange($event)"
 ></app-checkbox-selector>
+
+<app-checkbox-selector
+  [title]="moonPhaseTypeTitle"
+  [tooltipMessage]="moonPhaseTypeTooltipMessage"
+  [filterOptions]="moonPhaseTypes"
+  (selectedFiltersChange)="moonTypeChange($event)"
+></app-checkbox-selector>

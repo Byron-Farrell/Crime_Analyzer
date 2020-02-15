@@ -26,6 +26,12 @@ export class GenericFilterOptionsComponent implements OnInit {
   weatherTypes: Array<CheckboxComponentItem>;
   selectedWeatherTypes: Array<string>;
 
+  moonPhaseTypeTitle: string;
+  moonPhaseTypeTooltipMessage: string;
+  moonPhaseTypes: Array<CheckboxComponentItem>;
+  selectedMoonPhaseTypes: Array<string>;
+
+
   filterOptions: FilterOptionsObject;
 
   @Output() filterOptionsChange: EventEmitter<FilterOptionsObject> = new EventEmitter();
@@ -38,8 +44,28 @@ export class GenericFilterOptionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Setting up crime type filter variables
+    this.crimeTypeTitle = "Crime Type Options";
+    this.crimeTypeTooltipMessage = "Select crime types to display on map";
+    this.selectedCrimeTypes = Array();
+    this.crimeTypes = Array();
     this.setupCrimeTypes();
+
+    // Setting up crime type filter variables
+    this.weatherTypeTitle = "Weather Type Options";
+    this.weatherTypeTooltipMessage = "Select weather types to display on map";
+    this.selectedWeatherTypes = Array();
+    this.weatherTypes = Array();
     this.setupWeatherTypes();
+
+    // Setting up moon phase filter variables
+    this.moonPhaseTypeTitle = "Moon Phase Type Options";
+    this.moonPhaseTypeTooltipMessage = "Select crimes commited on the selected moon phases";
+    this.selectedMoonPhaseTypes = Array();
+    this.moonPhaseTypes = Array();
+    this.setupMoonTypes();
+
+
   }
 
   crimeTypeChange(crimeTypes: Array<string>): void {
@@ -52,12 +78,12 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 
-  private setupWeatherTypes() {
-    this.weatherTypeTitle = "Weather Type Options";
-    this.weatherTypeTooltipMessage = "Select weather types to display on map";
-    this.selectedWeatherTypes = Array();
-    this.weatherTypes = Array();
+  moonTypeChange(weatherTypes: Array<string>): void {
+    this.filterOptions.moonTypes = weatherTypes;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
 
+  private setupWeatherTypes() {
     let loading = this.crimeService.loadWeatherTypes();
     let _weatherTypes = this.weatherTypes;
     let _selectedWeatherTypes = this.selectedWeatherTypes = Array();
@@ -82,10 +108,6 @@ export class GenericFilterOptionsComponent implements OnInit {
   }
 
   private setupCrimeTypes(): void {
-    this.crimeTypeTitle = "Crime Type Options";
-    this.crimeTypeTooltipMessage = "Select crime types to display on map";
-    this.selectedCrimeTypes = Array();
-    this.crimeTypes = Array();
 
     let loading = this.crimeService.loadCrimeTypes();
     let _crimeTypes = this.crimeTypes;
@@ -109,4 +131,29 @@ export class GenericFilterOptionsComponent implements OnInit {
       .then(() => this.crimeTypeChange(_selectedCrimeTypes))
       .catch(error => console.log(error));
   }
+
+  private setupMoonTypes() {
+    let loading = this.crimeService.loadMoonTypes();
+    let _moonTypes = this.moonPhaseTypes;
+    let _selectedMoonTypes = this.selectedMoonPhaseTypes;
+
+    loading
+      .then(function(json) {
+        json.forEach(type => {
+          let newMoonType = {
+            display: type,
+            value: type,
+            checked: false
+          };
+          _moonTypes.push(newMoonType);
+
+          if (newMoonType.checked === true) {
+            _selectedMoonTypes.push(type)
+          }
+        });
+      })
+      .then(() => this.moonTypeChange(_selectedMoonTypes))
+      .catch(error => console.log(error));
+  }
+
 }

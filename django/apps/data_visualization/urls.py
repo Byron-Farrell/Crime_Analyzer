@@ -7,5 +7,6 @@ urlpatterns = [
     path('getCrimes', views.GetCrimes.as_view(), name='getCrimes'),
     path('getCrimeTypes', views.GetCrimeTypes.as_view(), name='getCrimeTypes'),
     path('getWeatherTypes', views.GetWeatherTypes.as_view(), name='getWeatherTypes'),
+    path('getMoonTypes', views.GetMoonTypes.as_view(), name='getMoonTypes'),
     # path('uploadCrimes', views.upload_crimes, name='upload_crimes'),
 ]

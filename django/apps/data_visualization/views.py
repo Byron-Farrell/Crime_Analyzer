@@ -162,6 +162,22 @@ class GetWeatherTypes(LoginRequiredMixin, View):
         # returning json response
         return HttpResponse(weather_types_json, content_type='application/json')
 
+
+class GetMoonTypes(LoginRequiredMixin, View):
+    def get(self, request):
+        # Getting all crime types
+        queryset = models.MoonCycle.objects.all();
+        moon_types = []
+
+        for obj in queryset:
+            moon_types.append(obj.moonPhase);
+
+        moon_types_json = json.dumps(moon_types)
+
+        # returning json response
+        return HttpResponse(moon_types_json, content_type='application/json')
+
+
 # @login_required
 # def upload_crimes(request):
 #     template = 'data_visualization/index.html'
