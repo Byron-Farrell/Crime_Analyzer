@@ -16,8 +16,6 @@ export class CheckboxSelectorComponent implements AfterViewInit {
   // used to create unique id for collapsable divs
   static count: number = 0;
 
-  // toggler for switching between icons for the collapse and expand buttons
-  private toggle: Boolean;
   private selectedFilters: Array<string>;
 
   @Input() title: string;
@@ -33,34 +31,17 @@ export class CheckboxSelectorComponent implements AfterViewInit {
 
   constructor() {
     // Setting up default values
-    this.toggle = false;
     this.selectedFilters = Array();
 
 
     // creating unique id for collapsable divs
     CheckboxSelectorComponent.count += 1;
-    this.collapseDivId = 'collapse-' + CheckboxSelectorComponent.count;
-    this.collapseDivHref = '#collapse-' + CheckboxSelectorComponent.count;
-    this.collapseIcon = 'collapse-icon' + CheckboxSelectorComponent.count;
+    this.collapseDivId = 'checkbox-collapse-' + CheckboxSelectorComponent.count;
+    this.collapseDivHref = '#checkbox-collapse-' + CheckboxSelectorComponent.count;
+    this.collapseIcon = 'checkbox-collapse-icon' + CheckboxSelectorComponent.count;
   }
 
   ngAfterViewInit() {
-  }
-
-  // Switches between two buttons/icons that are used to collapse and
-  // expand the filter options section of this component
-  toggleIcon() : void {
-    // element that displays the icon
-    let icon = document.getElementById(this.collapseIcon);
-
-    if (this.toggle) {
-      icon.className = "far fa-plus-square green-icon";
-      this.toggle = !this.toggle;
-    }
-    else {
-      icon.className = "far fa-minus-square red-icon";
-      this.toggle = !this.toggle;
-    }
   }
 
 

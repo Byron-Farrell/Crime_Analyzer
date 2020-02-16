@@ -1,32 +1,11 @@
 <div class="mb-4">
-  <div>
-    <h4 class="d-inline pl-2">{{ title }}</h4>
-
-    <a
-      class="d-inline float-right pr-2 align-middle"
-      data-toggle="collapse"
-      href={{collapseDivHref}}
-      role="button"
-      aria-expanded="false"
-      aria-controls="collapseExample">
-
-      <i
-        id={{collapseIcon}}
-        class="far fa-plus-square green-icon"
-        (click)="toggleIcon()">
-      </i>
-    </a>
-
-    <span class="align-middle d-inline float-right pr-3">
-      <i
-        id="tooltip"
-        class="fas fa-info"
-        data-toggle="tooltip"
-        data-placement="top"
-        title={{tooltipMessage}}>
-      </i>
-    </span>
-  </div>
+  <app-filter-option-header
+    [title]="title"
+    [tooltipMessage]="tooltipMessage"
+    [collapseDivHref]="collapseDivHref"
+    [collapseIcon]="collapseIcon"
+  >
+  </app-filter-option-header>
 
   <div id={{collapseDivId}} class="collapse p-2">
     <div class="d-inline-block mb-4 col" *ngFor="let filterOption of filterOptions">

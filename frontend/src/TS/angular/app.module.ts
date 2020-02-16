@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // -------------- COMPONENTS --------------
 import { MapComponent } from './components/map/map.component';
@@ -17,7 +18,7 @@ import { FilterOptionHeaderComponent } from './components/filter-option-header/f
 import { MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -34,10 +35,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [RootComponent]
