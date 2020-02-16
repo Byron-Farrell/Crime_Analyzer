@@ -78,6 +78,11 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.selectedIsDarkTypes = Array();
     this.setupIsDarkTypes();
 
+    // Setting up is dark filter variables
+    this.dateTitle = "Date";
+    this.dateTooltipMessage = "Select crimes between a start and end date";
+    //this.setupIsDarkTypes();
+
 
   }
 
