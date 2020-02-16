@@ -36,6 +36,9 @@ export class GenericFilterOptionsComponent implements OnInit {
   isDarkTypes: Array<CheckboxComponentItem>;
   selectedIsDarkTypes: Array<string>;
 
+  dateTitle: string;
+  dateTooltipMessage: string;
+
   filterOptions: FilterOptionsObject;
 
   @Output() filterOptionsChange: EventEmitter<FilterOptionsObject> = new EventEmitter();
@@ -78,7 +81,7 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.selectedIsDarkTypes = Array();
     this.setupIsDarkTypes();
 
-    // Setting up is dark filter variables
+    // Setting up is date filter variables
     this.dateTitle = "Date";
     this.dateTooltipMessage = "Select crimes between a start and end date";
     //this.setupIsDarkTypes();
