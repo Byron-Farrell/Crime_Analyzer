@@ -1,9 +1,10 @@
 $info_icon_color: #0388fc;
 $green_icon_color: #32a83a;
 $red_icon_color: #fc0516;
+$icon_size: 1.5rem;
 
 #tooltip {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: $info_icon_color;
 }
 
@@ -12,11 +13,15 @@ $red_icon_color: #fc0516;
 }
 
 .red-icon {
-  font-size: 1.8rem;
+  font-size: $icon_size;
   color: $red_icon_color;
 }
 
 .green-icon {
-  font-size: 1.8rem;
+  font-size: $icon_size;
   color: $green_icon_color;
+}
+
+.filter-option-header {
+
 }
