@@ -183,7 +183,7 @@ class GetMoonTypes(LoginRequiredMixin, View):
         # Getting all crime types
         queryset = models.MoonCycle.objects.all();
         moon_types = []
-
+        print(queryset)
         for obj in queryset:
             moon_types.append(obj.moonPhase);
 
@@ -192,6 +192,20 @@ class GetMoonTypes(LoginRequiredMixin, View):
         # returning json response
         return HttpResponse(moon_types_json, content_type='application/json')
 
+
+class GetCityNames(LoginRequiredMixin, View):
+    def get(self, request):
+        queryset = models.Crime.objects.values('city').distinct()
+        cities = []
+
+        for obj in queryset:
+            cities.append(obj['city']);
+
+
+        cities_json = json.dumps(cities)
+
+        # returning json response
+        return HttpResponse(cities_json, content_type='application/json')
 
 # @login_required
 # def upload_crimes(request):
