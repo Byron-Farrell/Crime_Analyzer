@@ -74,6 +74,10 @@ export class CrimeService {
 
     urlQuery += 'cloudCoverMax=' + filterOptions.cloudCover.max + '&';
 
+    urlQuery += 'degreesMax=' + filterOptions.degrees.max + '&';
+
+    urlQuery += 'degreesMin=' + filterOptions.degrees.min + '&';
+
     return urlQuery
   }
 

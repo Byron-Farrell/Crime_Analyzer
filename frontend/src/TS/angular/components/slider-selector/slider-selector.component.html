@@ -8,10 +8,11 @@
   </app-filter-option-header>
 
   <div id={{collapseDivId}} class="collapse p-2">
-      <div class="d-block text-center">
-        <h6>Max Value</h6>
-        {{selectedValues.max + suffix}}
-      </div>
+    <div class="d-block text-center">
+      <h6>Max Value</h6>
+      {{selectedValues.max + suffix}}
+    </div>
+
     <div>
       <mat-slider
         class="w-100"
@@ -26,16 +27,15 @@
       <h6>Min Value</h6>
       {{selectedValues.min + suffix}}
     </div>
-  <div>
-    <mat-slider
-      class="w-100"
-      [min]="min"
-      [max]="max"
-      [value]="selectedValues.min"
-      (change)="minValueChange($event)"
-    ></mat-slider>
-  </div>
 
+    <div>
+      <mat-slider
+        class="w-100"
+        [min]="min"
+        [max]="max"
+        [value]="selectedValues.min"
+        (change)="minValueChange($event)"
+      ></mat-slider>
+    </div>
   </div>
-
 </div>

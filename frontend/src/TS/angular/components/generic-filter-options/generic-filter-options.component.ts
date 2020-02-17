@@ -46,6 +46,12 @@ export class GenericFilterOptionsComponent implements OnInit {
   CloudCoverMax: number;
   CloudCoverSuffix: string;
 
+  degreesTitle: string;
+  degreesTooltipMessage: string;
+  degreesMin: number;
+  degreesMax: number;
+  degreesSuffix: string;
+
   filterOptions: FilterOptionsObject;
 
   @Output() filterOptionsChange: EventEmitter<FilterOptionsObject> = new EventEmitter();
@@ -94,6 +100,14 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.CloudCoverMin = 0;
     this.CloudCoverMax = 100;
     this.CloudCoverSuffix = '%';
+
+
+    this.degreesTitle = 'Degrees';
+    this.degreesTooltipMessage = 'Select crimes commited between two temperatures';
+    this.degreesMin = -60;
+    this.degreesMax = 55;
+    this.degreesSuffix = 'C';
+
   }
 
   // FIXME: make typeChange generic
@@ -129,6 +143,11 @@ export class GenericFilterOptionsComponent implements OnInit {
 
   cloudCoverChanged(object): void {
     this.filterOptions.cloudCover = object;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
+  degreesChanged(object): void {
+    this.filterOptions.degrees = object;
     this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 

@@ -34,12 +34,20 @@
   (endDateChange)="endDatesChanged($event)"
 ></app-date-selector>
 
-
 <app-slider-selector
   [title]="CloudCoverTitle"
   [tooltipMessage]="CloudCoverTooltipMessage"
-  [max]=CloudCoverMax
-  [min]=CloudCoverMin
-  [suffix]=CloudCoverSuffix
-  (selectedFiltersChange)=cloudCoverChanged($event)
+  [max]="CloudCoverMax"
+  [min]="CloudCoverMin"
+  [suffix]="CloudCoverSuffix"
+  (selectedFiltersChange)="cloudCoverChanged($event)"
+></app-slider-selector>
+
+<app-slider-selector
+  [title]="degreesTitle"
+  [tooltipMessage]="degreesTooltipMessage"
+  [max]="degreesMax"
+  [min]="degreesMin"
+  [suffix]="degreesSuffix"
+  (selectedFiltersChange)="degreesChanged($event)"
 ></app-slider-selector>

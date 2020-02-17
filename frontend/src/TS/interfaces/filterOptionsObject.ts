@@ -6,4 +6,5 @@ export interface FilterOptionsObject {
   endDate?: string;
   startDate?: string;
   cloudCover?: any;
+  degrees?: any;
 }
