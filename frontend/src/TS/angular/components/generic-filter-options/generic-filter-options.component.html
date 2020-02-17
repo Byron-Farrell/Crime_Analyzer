@@ -1,4 +1,11 @@
 <app-checkbox-selector
+  [title]="citiesTitle"
+  [tooltipMessage]="citiesTooltipMessage"
+  [filterOptions]="cities"
+  (selectedFiltersChange)="citiesChange($event)"
+></app-checkbox-selector>
+
+<app-checkbox-selector
   [title]="crimeTypeTitle"
   [tooltipMessage]="crimeTypeTooltipMessage"
   [filterOptions]="crimeTypes"

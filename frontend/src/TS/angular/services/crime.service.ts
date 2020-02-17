@@ -21,6 +21,7 @@ export class CrimeService {
   private getCrimeTypesURL: string;
   private getWeatherTypesURL: string;
   private getMoonTypesURL: string;
+  private getCitiesURL: string;
   private limit: number;
 
   constructor(private http: HttpClient) {
@@ -29,7 +30,7 @@ export class CrimeService {
     this.getCrimeTypesURL = 'getCrimeTypes';
     this.getWeatherTypesURL = 'getWeatherTypes';
     this.getMoonTypesURL = 'getMoonTypes';
-
+    this.getCitiesURL = 'getCityNames';
     this.dataSubject = new Subject<CriminalDataObject>();
     this.dataObservable = this.dataSubject.asObservable();
 
@@ -49,6 +50,10 @@ export class CrimeService {
   // data matching the query
   private urlBuilder(filterOptions: FilterOptionsObject) : string {
     let urlQuery = this.baseURL + this.getCrimesURL;
+
+    filterOptions.cities.forEach(type => {
+      urlQuery += 'city=' + type + '&';
+    });
 
     filterOptions.crimeTypes.forEach(type => {
       urlQuery += 'crimeType=' + type + '&';
@@ -147,6 +152,10 @@ export class CrimeService {
 
   loadMoonTypes(): Promise<any> {
     return this.loadTypes(this.getMoonTypesURL);
+  }
+
+  loadCities(): Promise<any> {
+    return this.loadTypes(this.getCitiesURL);
   }
 
   private loadTypes(URL): Promise<any> {

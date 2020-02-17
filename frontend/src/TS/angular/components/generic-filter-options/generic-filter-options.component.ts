@@ -16,6 +16,11 @@ import { CrimeService } from '../../services/crime.service';
 })
 export class GenericFilterOptionsComponent implements OnInit {
 
+  citiesTitle: string;
+  citiesTooltipMessage: string;
+  cities: Array<CheckboxComponentItem>;
+  selectedCities: Array<string>;
+
   crimeTypeTitle: string;
   crimeTypeTooltipMessage: string;
   crimeTypes: Array<CheckboxComponentItem>;
@@ -54,7 +59,6 @@ export class GenericFilterOptionsComponent implements OnInit {
   degreesStep: number;
   degreesSuffix: string;
 
-
   precipitationTitle: string;
   precipitationTooltipMessage: string;
   precipitationMin: number;
@@ -71,6 +75,14 @@ export class GenericFilterOptionsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // Setting up city filter variables
+    this.citiesTitle = 'City';
+    this.citiesTooltipMessage = 'Select city';
+    this.cities = Array();
+    this.selectedCities = Array();
+    this.setupCities();
+
     // Setting up crime type filter variables
     this.crimeTypeTitle = "Crime Type";
     this.crimeTypeTooltipMessage = "Select crime types to display on map";
@@ -130,6 +142,11 @@ export class GenericFilterOptionsComponent implements OnInit {
   }
 
   // FIXME: make typeChange generic
+  citiesChange(cities: Array<string>): void {
+    this.filterOptions.cities = cities;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
   crimeTypeChange(crimeTypes: Array<string>): void {
     this.filterOptions.crimeTypes = crimeTypes;
     this.filterOptionsChange.emit({ ...this.filterOptions })
@@ -175,6 +192,30 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 
+  private setupCities() {
+    let loading = this.crimeService.loadCities();
+    let _cities = this.cities;
+    let _selectedCities = this.selectedCities = Array();
+
+    loading
+      .then(function(json) {
+        json.forEach(type => {
+          let newCity = {
+            display: type,
+            value: type,
+            checked: true
+          };
+          _cities.push(newCity);
+
+          if (newCity.checked === true) {
+            _selectedCities.push(type)
+          }
+        });
+      })
+      .then(() => this.citiesChange(_selectedCities))
+      .catch(error => console.log(error));
+  }
+
   private setupDateSelector() {
     // start date
     let startDate = new Date();
@@ -197,7 +238,7 @@ export class GenericFilterOptionsComponent implements OnInit {
   private setupWeatherTypes() {
     let loading = this.crimeService.loadWeatherTypes();
     let _weatherTypes = this.weatherTypes;
-    let _selectedWeatherTypes = this.selectedWeatherTypes = Array();
+    let _selectedWeatherTypes = this.selectedWeatherTypes;
 
     loading
       .then(function(json) {
@@ -230,7 +271,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newCrimeType = {
             display: type,
             value: type,
-            checked: false
+            checked: true
           };
           _crimeTypes.push(newCrimeType);
 
