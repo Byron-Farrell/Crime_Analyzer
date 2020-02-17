@@ -1,10 +1,11 @@
 from django.http import HttpResponse
-# from django.core import serializers
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.data_visualization import models
 from apps.ETL.Validator import Validator
+
+from datetime import datetime
 import pandas as pd
 import json
 
@@ -37,9 +38,8 @@ class GetCrimes(LoginRequiredMixin, View):
         isDark = request.GET.getlist('isDark', '')
         moon_phase = request.GET.get('moonPhase', '')
         hour = request.GET.get('hour', '')
-        day = request.GET.get('day', '')
-        month = request.GET.get('month', '')
-        year = request.GET.get('year', '')
+        startDate = request.GET.get('startDate', '')
+        endDate = request.GET.get('endDate', '')
 
         offset = request.GET.get('offset', '') # integer value
         limit = request.GET.get('limit', '') # integer value
@@ -85,14 +85,11 @@ class GetCrimes(LoginRequiredMixin, View):
         if hour:
             filter_options['time__hour'] = hour
 
-        if day:
-            filter_options['date__day'] = day
+        if startDate and endDate:
+            startDate = datetime.strptime(startDate, '%d-%m-%Y')
+            endDate = datetime.strptime(endDate, '%d-%m-%Y')
+            filter_options['date__fullDate__range'] = (startDate, endDate)
 
-        if month:
-            filter_options['date__month'] = month
-
-        if year:
-            filter_options['date__year'] = year
 
 
         # Sending query to database using values from URL query
