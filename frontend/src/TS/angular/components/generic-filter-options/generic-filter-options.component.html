@@ -51,3 +51,12 @@
   [suffix]="degreesSuffix"
   (selectedFiltersChange)="degreesChanged($event)"
 ></app-slider-selector>
+
+<app-slider-selector
+  [title]="precipitationTitle"
+  [tooltipMessage]="precipitationTooltipMessage"
+  [max]="precipitationMax"
+  [min]="precipitationMin"
+  [suffix]="precipitationSuffix"
+  (selectedFiltersChange)="precipitationChanged($event)"
+></app-slider-selector>

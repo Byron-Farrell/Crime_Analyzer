@@ -52,6 +52,13 @@ export class GenericFilterOptionsComponent implements OnInit {
   degreesMax: number;
   degreesSuffix: string;
 
+
+  precipitationTitle: string;
+  precipitationTooltipMessage: string;
+  precipitationMin: number;
+  precipitationMax: number;
+  precipitationSuffix: string;
+
   filterOptions: FilterOptionsObject;
 
   @Output() filterOptionsChange: EventEmitter<FilterOptionsObject> = new EventEmitter();
@@ -108,6 +115,12 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.degreesMax = 55;
     this.degreesSuffix = 'C';
 
+    this.precipitationTitle = 'Precipitation'
+    this.precipitationTooltipMessage = 'Precipitation filter'
+    this.precipitationMin = 0;
+    this.precipitationMax = 2;
+    this.precipitationSuffix = 'mm';
+
   }
 
   // FIXME: make typeChange generic
@@ -148,6 +161,11 @@ export class GenericFilterOptionsComponent implements OnInit {
 
   degreesChanged(object): void {
     this.filterOptions.degrees = object;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
+  precipitationChanged(object): void {
+    this.filterOptions.precipitation = object;
     this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 

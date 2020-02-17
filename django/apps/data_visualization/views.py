@@ -33,7 +33,8 @@ class GetCrimes(LoginRequiredMixin, View):
         district = request.GET.get('district', '')
         weather_type = request.GET.getlist('weatherType', '')
         degrees = request.GET.get('degrees', '')
-        precipitation = request.GET.get('precipitation', '')
+        precipitation_min = request.GET.get('precipitationMin', '')
+        precipitation_max = request.GET.get('precipitationMax', '')
         cloud_cover_min = request.GET.get('cloudCoverMin', '')
         cloud_cover_max = request.GET.get('cloudCoverMax', '')
         degrees_min = request.GET.get('degreesMin', '')
@@ -64,8 +65,11 @@ class GetCrimes(LoginRequiredMixin, View):
         if weather_type:
             filter_options['weatherDetails__weatherType__weatherType__in'] = weather_type
 
-        if precipitation:
-            filter_options['weatherDetails__precipitation'] = precipitation
+        if precipitation_min:
+            filter_options['weatherDetails__precipitation__gte'] = precipitation_min
+
+        if precipitation_max:
+            filter_options['weatherDetails__precipitation__lte'] = precipitation_max
 
         if cloud_cover_min:
             filter_options['weatherDetails__cloudCover__gte'] = cloud_cover_min

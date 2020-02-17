@@ -78,6 +78,10 @@ export class CrimeService {
 
     urlQuery += 'degreesMin=' + filterOptions.degrees.min + '&';
 
+    urlQuery += 'precipitationMax=' + filterOptions.precipitation.max + '&';
+
+    urlQuery += 'precipitationMin=' + filterOptions.precipitation.min + '&';
+
     return urlQuery
   }
 

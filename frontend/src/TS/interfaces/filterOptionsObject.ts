@@ -7,4 +7,5 @@ export interface FilterOptionsObject {
   startDate?: string;
   cloudCover?: any;
   degrees?: any;
+  precipitation?: any;
 }
