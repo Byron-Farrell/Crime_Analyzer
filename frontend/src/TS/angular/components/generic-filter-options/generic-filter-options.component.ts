@@ -152,7 +152,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newWeatherType = {
             display: type,
             value: type,
-            checked: false
+            checked: true
           };
           _weatherTypes.push(newWeatherType);
 
@@ -177,7 +177,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newCrimeType = {
             display: type,
             value: type,
-            checked: false
+            checked: true
           };
           _crimeTypes.push(newCrimeType);
 
@@ -201,7 +201,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newMoonType = {
             display: type,
             value: type,
-            checked: false
+            checked: true
           };
           _moonTypes.push(newMoonType);
 
@@ -219,12 +219,12 @@ export class GenericFilterOptionsComponent implements OnInit {
       {
         display: 'Yes',
         value: 'true',
-        checked: false
+        checked: true
       },
       {
         display: 'No',
         value: 'false',
-        checked: false
+        checked: true
       }
     ];
 
