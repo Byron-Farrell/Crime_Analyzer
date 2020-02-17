@@ -44,12 +44,14 @@ export class GenericFilterOptionsComponent implements OnInit {
   CloudCoverTooltipMessage: string;
   CloudCoverMin: number;
   CloudCoverMax: number;
+  CloudCoverStep: number;
   CloudCoverSuffix: string;
 
   degreesTitle: string;
   degreesTooltipMessage: string;
   degreesMin: number;
   degreesMax: number;
+  degreesStep: number;
   degreesSuffix: string;
 
 
@@ -57,6 +59,7 @@ export class GenericFilterOptionsComponent implements OnInit {
   precipitationTooltipMessage: string;
   precipitationMin: number;
   precipitationMax: number;
+  precipitationStep: number;
   precipitationSuffix: string;
 
   filterOptions: FilterOptionsObject;
@@ -106,6 +109,7 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.CloudCoverTooltipMessage = 'Filter by cloud cover. 0% means no clouds/clear skys and 100% means cloudy'
     this.CloudCoverMin = 0;
     this.CloudCoverMax = 100;
+    this.CloudCoverStep = 1;
     this.CloudCoverSuffix = '%';
 
 
@@ -113,12 +117,14 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.degreesTooltipMessage = 'Select crimes commited between two temperatures';
     this.degreesMin = -60;
     this.degreesMax = 55;
+    this.degreesStep = 1;
     this.degreesSuffix = 'C';
 
     this.precipitationTitle = 'Precipitation'
     this.precipitationTooltipMessage = 'Precipitation filter'
     this.precipitationMin = 0;
     this.precipitationMax = 2;
+    this.precipitationStep = 0.1;
     this.precipitationSuffix = 'mm';
 
   }

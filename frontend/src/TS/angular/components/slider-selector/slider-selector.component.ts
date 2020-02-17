@@ -15,6 +15,7 @@ export class SliderSelectorComponent implements OnInit {
   @Input() tooltipMessage: string;
   @Input() min: number;
   @Input() max: number;
+  @Input() step: number;
   @Input() suffix: string;
 
   @Output() selectedFiltersChange: EventEmitter<any> = new EventEmitter();
@@ -42,7 +43,7 @@ export class SliderSelectorComponent implements OnInit {
 
     // Sending back default values
     this.selectedFiltersChange.emit({ ...this.selectedValues });
-    
+
     // creating unique id for collapsable divs
     SliderSelectorComponent.count += 1;
     this.collapseDivId = 'slider-selector-collapse-' + SliderSelectorComponent.count;
