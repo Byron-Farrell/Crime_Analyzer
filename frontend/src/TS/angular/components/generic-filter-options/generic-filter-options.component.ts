@@ -135,13 +135,13 @@ export class GenericFilterOptionsComponent implements OnInit {
   private setupDateSelector() {
     // start date
     let startDate = new Date();
-    startDate.setFullYear(2019);
+    startDate.setFullYear(2018);
     startDate.setMonth(0)
     startDate.setDate(1)
     // end date
     let endDate = new Date();
 
-    endDate.setFullYear(2019);
+    endDate.setFullYear(2018);
     endDate.setMonth(1)
     endDate.setDate(1)
 
@@ -187,7 +187,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newCrimeType = {
             display: type,
             value: type,
-            checked: true
+            checked: false
           };
           _crimeTypes.push(newCrimeType);
 

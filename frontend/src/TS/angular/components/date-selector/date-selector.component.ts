@@ -50,12 +50,14 @@ export class DateSelectorComponent implements OnInit {
     let startDateMonth = this.dateDefaults.startDate.getMonth() + 1;
     let startDateYear = this.dateDefaults.startDate.getFullYear();
 
-    let endDateDay = this.dateDefaults.startDate.getDate();
-    let endDateMonth = this.dateDefaults.startDate.getMonth() + 1;
-    let endDateYear = this.dateDefaults.startDate.getFullYear();
+    let endDateDay = this.dateDefaults.endDate.getDate();
+    let endDateMonth = this.dateDefaults.endDate.getMonth() + 1;
+    let endDateYear = this.dateDefaults.endDate.getFullYear();
 
     let startDateString = startDateDay + '-' + startDateMonth + '-' + startDateYear;
     let endDateString = endDateDay + '-' + endDateMonth + '-' + endDateYear;
+
+    console.log();
 
     this.startDateChange.emit(startDateString);
     this.endDateChange.emit(endDateString);
