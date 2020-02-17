@@ -184,7 +184,7 @@ class GetMoonTypes(LoginRequiredMixin, View):
         # Getting all crime types
         queryset = models.MoonCycle.objects.all();
         moon_types = []
-        print(queryset)
+
         for obj in queryset:
             moon_types.append(obj.moonPhase);
 
