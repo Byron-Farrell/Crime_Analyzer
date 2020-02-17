@@ -21,8 +21,6 @@ export class MapComponent implements AfterViewInit {
 
   constructor(private crimeService: CrimeService) {
     this.crimeService.getObservable().subscribe(data => {
-      console.log(this);
-
       this.createCrimeMarkers(data, this);
     })
   }

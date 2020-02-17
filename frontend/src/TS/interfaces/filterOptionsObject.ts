@@ -3,4 +3,6 @@ export interface FilterOptionsObject {
   weatherTypes?: Array<string>;
   moonTypes?: Array<string>;
   isDark?: Array<boolean>;
+  endDate?: string;
+  startDate?: string;
 }

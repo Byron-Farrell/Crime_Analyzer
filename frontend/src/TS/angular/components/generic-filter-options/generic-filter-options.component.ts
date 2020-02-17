@@ -49,7 +49,9 @@ export class GenericFilterOptionsComponent implements OnInit {
       crimeTypes: Array(),
       weatherTypes: Array(),
       moonTypes: Array(),
-      isDark: Array()
+      isDark: Array(),
+      startDate: '',
+      endDate: ''
     }
   }
 
@@ -112,12 +114,25 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 
+  startDatesChanged(startDate: string): void {
+    this.filterOptions.startDate = startDate;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
+  endDatesChanged(endDate: string): void {
+    this.filterOptions.endDate = endDate;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
   private setupDateSelector() {
     // start date
     let startDate = new Date();
 
     // end date
     let endDate = new Date();
+
+    startDate.setFullYear(2019);
+    endDate.setFullYear(2019);
     endDate.setMonth(endDate.getMonth() - 1);
 
     this.dateDefaults = {

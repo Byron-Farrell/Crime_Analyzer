@@ -30,5 +30,7 @@
   [title]="dateTitle"
   [tooltipMessage]="dateTooltipMessage"
   [dateDefaults]="dateDefaults"
+  (startDateChange)="startDatesChanged($event)"
+  (endDateChange)="endDatesChanged($event)"
 >
 </app-date-selector>

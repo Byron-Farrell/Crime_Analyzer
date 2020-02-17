@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-date-selector',
@@ -16,6 +16,9 @@ export class DateSelectorComponent implements OnInit {
   @Input() tooltipMessage: string;
   @Input() dateDefaults;
 
+  @Output() startDateChange: EventEmitter<string> = new EventEmitter();
+  @Output() endDateChange: EventEmitter<string> = new EventEmitter();
+
   // unique id for divs
   collapseDivId: string
   collapseDivHref: string;
@@ -28,8 +31,6 @@ export class DateSelectorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.serializedStartDate = new FormControl(this.dateDefaults.startDate.toISOString());
-    this.serializedEndDate = new FormControl(this.dateDefaults.endDate.toISOString());
 
     // creating unique id for collapsable divs
     DateSelectorComponent.count += 1;
@@ -37,15 +38,47 @@ export class DateSelectorComponent implements OnInit {
     this.collapseDivHref = '#date-selector-collapse-' + DateSelectorComponent.count;
     this.collapseIcon = 'date-selector-collapse-icon' + DateSelectorComponent.count;
 
+    this.setupDefaultDates();
+
   }
 
+  setupDefaultDates() {
+    this.serializedStartDate = new FormControl(this.dateDefaults.startDate.toISOString());
+    this.serializedEndDate = new FormControl(this.dateDefaults.endDate.toISOString());
+
+    let startDateDay = this.dateDefaults.startDate.getDate();
+    let startDateMonth = this.dateDefaults.startDate.getMonth() + 1;
+    let startDateYear = this.dateDefaults.startDate.getFullYear();
+
+    let endDateDay = this.dateDefaults.startDate.getDate();
+    let endDateMonth = this.dateDefaults.startDate.getMonth() + 1;
+    let endDateYear = this.dateDefaults.startDate.getFullYear();
+
+    let startDateString = startDateDay + '-' + startDateMonth + '-' + startDateYear;
+    let endDateString = endDateDay + '-' + endDateMonth + '-' + endDateYear;
+
+    this.startDateChange.emit(startDateString);
+    this.endDateChange.emit(endDateString);
+  }
 
   startDateInput(event) {
-    console.log(event.value);
+    let day = event.value.getDate();
+    let month = event.value.getMonth() + 1;
+    let year = event.value.getFullYear();
+
+    let startDateString = day + '-' + month + '-' + year;
+
+    this.startDateChange.emit(startDateString);
   }
 
   endDateInput(event) {
-    console.log(event.value);
+    let day = event.value.getDate();
+    let month = event.value.getMonth() + 1;
+    let year = event.value.getFullYear();
+
+    let endDateString = day + '-' + month + '-' + year;
+
+    this.endDateChange.emit(endDateString);
   }
 
 }

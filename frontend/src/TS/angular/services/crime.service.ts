@@ -66,6 +66,10 @@ export class CrimeService {
       urlQuery += 'isDark=' + type + '&';
     });
 
+    urlQuery += 'startDate=' + filterOptions.startDate + '&';
+
+    urlQuery += 'endDate=' + filterOptions.endDate;
+
     return urlQuery
   }
 
