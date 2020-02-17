@@ -1,1 +1,39 @@
-<p>slider-selector works!</p>
+<div class="mb-4">
+  <app-filter-option-header
+    [title]="title"
+    [tooltipMessage]="tooltipMessage"
+    [collapseDivHref]="collapseDivHref"
+    [collapseIcon]="collapseIcon"
+  >
+  </app-filter-option-header>
+
+  <div id={{collapseDivId}} class="collapse p-2">
+      <div class="d-block text-center">
+        <h6>Max Value</h6>
+        {{maxValue + '%'}}
+      </div>
+    <div>
+      <mat-slider
+        class="w-100"
+        [min]="min"
+        [max]="max"
+        [(ngModel)]="maxValue"
+      ></mat-slider>
+    </div>
+
+    <div class="d-block text-center">
+      <h6>Min Value</h6>
+      {{minValue + '%'}}
+    </div>
+  <div>
+    <mat-slider
+      class="w-100"
+      [min]="min"
+      [max]="max"
+      [(ngModel)]="minValue"
+    ></mat-slider>
+  </div>
+
+  </div>
+
+</div>

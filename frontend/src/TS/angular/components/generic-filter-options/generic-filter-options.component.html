@@ -32,5 +32,10 @@
   [dateDefaults]="dateDefaults"
   (startDateChange)="startDatesChanged($event)"
   (endDateChange)="endDatesChanged($event)"
->
-</app-date-selector>
+></app-date-selector>
+
+
+<app-slider-selector
+  [title]="dateTitle"
+  [tooltipMessage]="dateTooltipMessage"
+></app-slider-selector>

@@ -21,7 +21,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -46,6 +46,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [RootComponent]
