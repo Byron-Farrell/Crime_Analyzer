@@ -121,6 +121,7 @@ class GetCrimes(LoginRequiredMixin, View):
         else:
             for obj in crimes:
                 new_crime = {}
+                new_crime['city'] = obj.city
                 new_crime['crimetype'] = obj.crime.type
                 new_crime['weatherType'] = obj.weatherDetails.weatherType.weatherType
                 new_crime['degrees'] = float(obj.weatherDetails.weatherDegrees)

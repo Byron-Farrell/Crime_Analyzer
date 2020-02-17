@@ -76,6 +76,7 @@ export class MapComponent implements AfterViewInit {
       let marker = L.marker([crime.latitude, crime.longitude]);
       let text = `
         <h6 class="text-center">Crime Details</h6><br>
+        <b data-toggle="tooltip" data-placement="top" title="Add Description">City:</b> ${crime.city},<br>
         <b data-toggle="tooltip" data-placement="top" title="Add Description">Date:</b> ${crime.day}/${crime.month}/${crime.year},<br>
         <b data-toggle="tooltip" data-placement="top" title="Add Description">Time:</b> ${crime.hour}:00 PM,<br>
         <b data-toggle="tooltip" data-placement="top" title="Add Description">Type:</b> ${crime.crimetype},<br>

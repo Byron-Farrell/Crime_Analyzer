@@ -1,4 +1,5 @@
 export interface CriminalDataObject {
+  city: string;
   crimetype: String,
   weatherType: String,
   degrees: number,
