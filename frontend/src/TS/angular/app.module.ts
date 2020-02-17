@@ -14,6 +14,7 @@ import { DateSelectorComponent } from './components/date-selector/date-selector.
 import { GenericFilterOptionsComponent } from './components/generic-filter-options/generic-filter-options.component';
 import { MapSelectorComponent } from './components/map-selector/map-selector.component';
 import { FilterOptionHeaderComponent } from './components/filter-option-header/filter-option-header.component';
+import { SliderSelectorComponent } from './components/slider-selector/slider-selector.component';
 
 // ----------- ANGULAR MATERIAL -----------
 import { MatNativeDateModule } from '@angular/material';
@@ -32,6 +33,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MapSelectorComponent,
     DateSelectorComponent,
     FilterOptionHeaderComponent,
+    SliderSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    
+
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
