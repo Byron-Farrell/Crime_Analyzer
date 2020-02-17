@@ -38,6 +38,7 @@ export class GenericFilterOptionsComponent implements OnInit {
 
   dateTitle: string;
   dateTooltipMessage: string;
+  dateDefaults;
 
   filterOptions: FilterOptionsObject;
 
@@ -84,7 +85,8 @@ export class GenericFilterOptionsComponent implements OnInit {
     // Setting up is date filter variables
     this.dateTitle = "Date";
     this.dateTooltipMessage = "Select crimes between a start and end date";
-    //this.setupIsDarkTypes();
+    this.dateDefaults = {};
+    this.setupDateSelector();
 
 
   }
@@ -108,6 +110,20 @@ export class GenericFilterOptionsComponent implements OnInit {
   isDarkTypeChange(isDarkTypes: Array<boolean>): void {
     this.filterOptions.isDark = isDarkTypes;
     this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
+  private setupDateSelector() {
+    // start date
+    let startDate = new Date();
+
+    // end date
+    let endDate = new Date();
+    endDate.setMonth(endDate.getMonth() - 1);
+
+    this.dateDefaults = {
+      startDate: startDate,
+      endDate: endDate
+    }
   }
 
   private setupWeatherTypes() {

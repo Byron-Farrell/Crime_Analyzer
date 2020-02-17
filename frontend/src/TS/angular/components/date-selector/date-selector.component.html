@@ -16,12 +16,16 @@
           [matDatepicker]="picker1"
           placeholder="Start Date"
           (dateInput)="startDateInput($event)"
+          [formControl]="serializedStartDate"
         >
 
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
         <mat-datepicker
-
           #picker1
+          [startAt]="dateDefaults.startDate"
         ></mat-datepicker>
       </mat-form-field>
     </div>
@@ -34,9 +38,16 @@
           [matDatepicker]="picker2"
           placeholder="End Date"
           (dateInput)="endDateInput($event)"
+          [formControl]="serializedEndDate"
         >
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #picker2
+          [startAt]="dateDefaults.endDate"
+        ></mat-datepicker>
       </mat-form-field>
     </div>
 

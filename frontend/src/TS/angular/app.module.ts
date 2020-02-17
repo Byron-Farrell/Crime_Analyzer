@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // -------------- COMPONENTS --------------
 import { MapComponent } from './components/map/map.component';
@@ -36,6 +37,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
