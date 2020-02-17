@@ -34,7 +34,8 @@ class GetCrimes(LoginRequiredMixin, View):
         weather_type = request.GET.getlist('weatherType', '')
         degrees = request.GET.get('degrees', '')
         precipitation = request.GET.get('precipitation', '')
-        cloud_cover = request.GET.get('cloudCover', '')
+        cloud_cover_min = request.GET.get('cloudCoverMin', '')
+        cloud_cover_max = request.GET.get('cloudCoverMax', '')
         isDark = request.GET.getlist('isDark', '')
         moon_phase = request.GET.get('moonPhase', '')
         hour = request.GET.get('hour', '')
@@ -67,8 +68,11 @@ class GetCrimes(LoginRequiredMixin, View):
         if precipitation:
             filter_options['weatherDetails__precipitation'] = precipitation
 
-        if cloud_cover:
-            filter_options['weatherDetails__cloudCover'] = cloud_cover
+        if cloud_cover_min:
+            filter_options['weatherDetails__cloudCover__gte'] = cloud_cover_min
+
+        if cloud_cover_max:
+            filter_options['weatherDetails__cloudCover__lte'] = cloud_cover_max
 
         if isDark:
             for i in range(len(isDark)):

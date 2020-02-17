@@ -40,19 +40,18 @@ export class GenericFilterOptionsComponent implements OnInit {
   dateTooltipMessage: string;
   dateDefaults;
 
+  CloudCoverTitle: string;
+  CloudCoverTooltipMessage: string;
+  CloudCoverMin: number;
+  CloudCoverMax: number;
+  CloudCoverSuffix: string;
+
   filterOptions: FilterOptionsObject;
 
   @Output() filterOptionsChange: EventEmitter<FilterOptionsObject> = new EventEmitter();
 
   constructor(private crimeService: CrimeService) {
-    this.filterOptions = {
-      crimeTypes: Array(),
-      weatherTypes: Array(),
-      moonTypes: Array(),
-      isDark: Array(),
-      startDate: '',
-      endDate: ''
-    }
+    this.filterOptions = {};
   }
 
   ngOnInit() {
@@ -90,7 +89,11 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.dateDefaults = {};
     this.setupDateSelector();
 
-
+    this.CloudCoverTitle = 'Cloud Cover';
+    this.CloudCoverTooltipMessage = 'Filter by cloud cover. 0% means no clouds/clear skys and 100% means cloudy'
+    this.CloudCoverMin = 0;
+    this.CloudCoverMax = 100;
+    this.CloudCoverSuffix = '%';
   }
 
   // FIXME: make typeChange generic
@@ -124,16 +127,23 @@ export class GenericFilterOptionsComponent implements OnInit {
     this.filterOptionsChange.emit({ ...this.filterOptions })
   }
 
+  cloudCoverChanged(object): void {
+    this.filterOptions.cloudCover = object;
+    this.filterOptionsChange.emit({ ...this.filterOptions })
+  }
+
   private setupDateSelector() {
     // start date
     let startDate = new Date();
-
+    startDate.setFullYear(2019);
+    startDate.setMonth(0)
+    startDate.setDate(1)
     // end date
     let endDate = new Date();
 
-    startDate.setFullYear(2019);
     endDate.setFullYear(2019);
-    endDate.setMonth(endDate.getMonth() - 1);
+    endDate.setMonth(1)
+    endDate.setDate(1)
 
     this.dateDefaults = {
       startDate: startDate,

@@ -68,7 +68,11 @@ export class CrimeService {
 
     urlQuery += 'startDate=' + filterOptions.startDate + '&';
 
-    urlQuery += 'endDate=' + filterOptions.endDate;
+    urlQuery += 'endDate=' + filterOptions.endDate + '&';
+
+    urlQuery += 'cloudCoverMin=' + filterOptions.cloudCover.min + '&';
+
+    urlQuery += 'cloudCoverMax=' + filterOptions.cloudCover.max + '&';
 
     return urlQuery
   }

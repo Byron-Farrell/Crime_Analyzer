@@ -10,27 +10,29 @@
   <div id={{collapseDivId}} class="collapse p-2">
       <div class="d-block text-center">
         <h6>Max Value</h6>
-        {{maxValue + '%'}}
+        {{selectedValues.max + suffix}}
       </div>
     <div>
       <mat-slider
         class="w-100"
         [min]="min"
         [max]="max"
-        [(ngModel)]="maxValue"
+        [value]="selectedValues.max"
+        (change)="maxValueChange($event)"
       ></mat-slider>
     </div>
 
     <div class="d-block text-center">
       <h6>Min Value</h6>
-      {{minValue + '%'}}
+      {{selectedValues.min + suffix}}
     </div>
   <div>
     <mat-slider
       class="w-100"
       [min]="min"
       [max]="max"
-      [(ngModel)]="minValue"
+      [value]="selectedValues.min"
+      (change)="minValueChange($event)"
     ></mat-slider>
   </div>
 

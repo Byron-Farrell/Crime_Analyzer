@@ -36,6 +36,10 @@
 
 
 <app-slider-selector
-  [title]="dateTitle"
-  [tooltipMessage]="dateTooltipMessage"
+  [title]="CloudCoverTitle"
+  [tooltipMessage]="CloudCoverTooltipMessage"
+  [max]=CloudCoverMax
+  [min]=CloudCoverMin
+  [suffix]=CloudCoverSuffix
+  (selectedFiltersChange)=cloudCoverChanged($event)
 ></app-slider-selector>

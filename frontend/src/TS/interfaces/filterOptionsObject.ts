@@ -5,4 +5,5 @@ export interface FilterOptionsObject {
   isDark?: Array<boolean>;
   endDate?: string;
   startDate?: string;
+  cloudCover?: any;
 }

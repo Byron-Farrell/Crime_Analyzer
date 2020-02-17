@@ -39,9 +39,12 @@ export class CheckboxSelectorComponent implements AfterViewInit {
     this.collapseDivId = 'checkbox-collapse-' + CheckboxSelectorComponent.count;
     this.collapseDivHref = '#checkbox-collapse-' + CheckboxSelectorComponent.count;
     this.collapseIcon = 'checkbox-collapse-icon' + CheckboxSelectorComponent.count;
+
+
   }
 
   ngAfterViewInit() {
+    this.updateSelectedFilterOptions();
   }
 
 
