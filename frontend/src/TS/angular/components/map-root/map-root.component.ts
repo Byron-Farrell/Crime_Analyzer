@@ -68,8 +68,6 @@ export class MapRootComponent implements OnInit {
 
   onResize(event) : void {
     this.calculateContentHeight();
-
-
   }
 
   toggleSidePanel(event) {

@@ -17,6 +17,9 @@ export class GraphRootComponent implements OnInit {
 
   genericSelectedFilterOptions: FilterOptionsObject;
   hideSidePanel: boolean;
+
+  filtersOptions: FilterOptionsObject;
+
   constructor() {
     this.hideSidePanel = true;
   }
@@ -35,6 +38,9 @@ export class GraphRootComponent implements OnInit {
 
   genericSelectedFiltersChanged(selectedFilters: FilterOptionsObject): void {
     this.genericSelectedFilterOptions = selectedFilters;
+    this.filtersOptions = {
+      ...this.genericSelectedFilterOptions,
+    };
   }
 
   calculateContentHeight() : void {
