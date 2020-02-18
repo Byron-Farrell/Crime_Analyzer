@@ -8,17 +8,23 @@ import { FilterOptionsObject } from '../../../interfaces/filterOptionsObject'
 import { CrimeService } from '../../services/crime.service';
 
 @Component({
-  selector: 'app-map-selector',
-  templateUrl: './map-selector.component.html',
-  styleUrls: ['./map-selector.component.scss']
+  selector: 'app-map-root',
+  templateUrl: './map-root.component.html',
+  styleUrls: ['./map-root.component.scss']
 })
-export class MapSelectorComponent implements OnInit {
+export class MapRootComponent implements OnInit {
 
   genericSelectedFilterOptions: FilterOptionsObject;
+  mapSelectedFiltersOptions: FilterOptionsObject;
+
+  filtersOptions: FilterOptionsObject;
   hideSidePanel: boolean;
 
   constructor(private crimeService: CrimeService) {
     this.hideSidePanel = true;
+    this.genericSelectedFilterOptions = {};
+    this.mapSelectedFiltersOptions = {};
+    this.filtersOptions = {};
   }
 
   ngOnInit() {
@@ -26,7 +32,7 @@ export class MapSelectorComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.crimeService.loadCrimeData(this.genericSelectedFilterOptions);
+    this.crimeService.loadCrimeData(this.filtersOptions);
   }
 
   onSelect(): void {
@@ -35,6 +41,18 @@ export class MapSelectorComponent implements OnInit {
 
   genericSelectedFiltersChanged(selectedFilters: FilterOptionsObject): void {
     this.genericSelectedFilterOptions = selectedFilters;
+    this.filtersOptions = {
+      ...this.genericSelectedFilterOptions,
+      ...this.mapSelectedFiltersOptions,
+    };
+  }
+
+  mapSelectedFiltersChanged(selectedFilters: FilterOptionsObject): void {
+    this.mapSelectedFiltersOptions = selectedFilters;
+    this.filtersOptions = {
+      ...this.genericSelectedFilterOptions,
+      ...this.mapSelectedFiltersOptions,
+    };
   }
 
   calculateContentHeight() : void {

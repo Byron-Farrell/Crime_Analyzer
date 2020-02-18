@@ -12,27 +12,6 @@
   (selectedFiltersChange)="crimeTypeChange($event)"
 ></app-checkbox-selector>
 
-<app-checkbox-selector
-  [title]="weatherTypeTitle"
-  [tooltipMessage]="weatherTypeTooltipMessage"
-  [filterOptions]="weatherTypes"
-  (selectedFiltersChange)="weatherTypeChange($event)"
-></app-checkbox-selector>
-
-<app-checkbox-selector
-  [title]="moonPhaseTypeTitle"
-  [tooltipMessage]="moonPhaseTypeTooltipMessage"
-  [filterOptions]="moonPhaseTypes"
-  (selectedFiltersChange)="moonTypeChange($event)"
-></app-checkbox-selector>
-
-<app-checkbox-selector
-  [title]="isDarkTypeTitle"
-  [tooltipMessage]="isDarkTypeTooltipMessage"
-  [filterOptions]="isDarkTypes"
-  (selectedFiltersChange)="isDarkTypeChange($event)"
-></app-checkbox-selector>
-
 <app-date-selector
   [title]="dateTitle"
   [tooltipMessage]="dateTooltipMessage"
@@ -40,33 +19,3 @@
   (startDateChange)="startDatesChanged($event)"
   (endDateChange)="endDatesChanged($event)"
 ></app-date-selector>
-
-<app-slider-selector
-  [title]="CloudCoverTitle"
-  [tooltipMessage]="CloudCoverTooltipMessage"
-  [max]="CloudCoverMax"
-  [min]="CloudCoverMin"
-  [step]="CloudCoverStep"
-  [suffix]="CloudCoverSuffix"
-  (selectedFiltersChange)="cloudCoverChanged($event)"
-></app-slider-selector>
-
-<app-slider-selector
-  [title]="degreesTitle"
-  [tooltipMessage]="degreesTooltipMessage"
-  [max]="degreesMax"
-  [min]="degreesMin"
-  [step]="degreesStep"
-  [suffix]="degreesSuffix"
-  (selectedFiltersChange)="degreesChanged($event)"
-></app-slider-selector>
-
-<app-slider-selector
-  [title]="precipitationTitle"
-  [tooltipMessage]="precipitationTooltipMessage"
-  [max]="precipitationMax"
-  [min]="precipitationMin"
-  [step]="precipitationStep"
-  [suffix]="precipitationSuffix"
-  (selectedFiltersChange)="precipitationChanged($event)"
-></app-slider-selector>

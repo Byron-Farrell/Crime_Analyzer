@@ -14,11 +14,12 @@ import { RootComponent } from './components/root/root.component';
 import { CheckboxSelectorComponent } from './components/checkbox-selector/checkbox-selector.component';
 import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 import { GenericFilterOptionsComponent } from './components/generic-filter-options/generic-filter-options.component';
-import { MapSelectorComponent } from './components/map-selector/map-selector.component';
+import { MapRootComponent } from './components/map-root/map-root.component';
 import { FilterOptionHeaderComponent } from './components/filter-option-header/filter-option-header.component';
 import { SliderSelectorComponent } from './components/slider-selector/slider-selector.component';
 import { GraphSelectorComponent } from './components/graph-selector/graph-selector.component';
 import { GraphComponent } from './components/graph/graph.component';
+import { MapFilterOptionsComponent } from './components/map-filter-options/map-filter-options.component';
 
 // ----------- ANGULAR MATERIAL -----------
 import { MatNativeDateModule } from '@angular/material';
@@ -35,18 +36,19 @@ import { MatSliderModule } from '@angular/material/slider';
     RootComponent,
     CheckboxSelectorComponent,
     GenericFilterOptionsComponent,
-    MapSelectorComponent,
+    MapRootComponent,
     DateSelectorComponent,
     FilterOptionHeaderComponent,
     SliderSelectorComponent,
     GraphSelectorComponent,
     GraphComponent,
+    MapFilterOptionsComponent,
   ],
   imports: [
     RouterModule.forRoot(
       [
-        { path: '', component: MapSelectorComponent },
-        { path: 'map', component: MapSelectorComponent },
+        { path: '', component: MapRootComponent },
+        { path: 'map', component: MapRootComponent },
         { path: 'graph', component: GraphSelectorComponent },
 
       ],

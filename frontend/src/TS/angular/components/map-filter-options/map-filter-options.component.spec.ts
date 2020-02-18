@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapSelectorComponent } from './map-selector.component';
+import { MapFilterOptionsComponent } from './map-filter-options.component';
 
-describe('MapSelectorComponent', () => {
-  let component: MapSelectorComponent;
-  let fixture: ComponentFixture<MapSelectorComponent>;
+describe('MapFilterOptionsComponent', () => {
+  let component: MapFilterOptionsComponent;
+  let fixture: ComponentFixture<MapFilterOptionsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapSelectorComponent ]
+      declarations: [ MapFilterOptionsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapSelectorComponent);
+    fixture = TestBed.createComponent(MapFilterOptionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

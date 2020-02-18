@@ -7,6 +7,9 @@
       <app-generic-filter-options
         (filterOptionsChange)="genericSelectedFiltersChanged($event)"
       ></app-generic-filter-options>
+      <app-map-filter-options
+        (filterOptionsChange)="mapSelectedFiltersChanged($event)"
+      ></app-map-filter-options>
       <div class="w-100">
         <button class="btn btn-info d-block mx-auto my-4 w-50" type="button" (click)="loadData()">Select</button>
       </div>
