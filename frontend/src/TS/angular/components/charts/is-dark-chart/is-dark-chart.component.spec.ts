@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GraphComponent } from './graph.component';
+import { IsDarkChartComponent } from './is-dark-chart.component';
 
-describe('GraphComponent', () => {
-  let component: GraphComponent;
-  let fixture: ComponentFixture<GraphComponent>;
+describe('IsDarkChartComponent', () => {
+  let component: IsDarkChartComponent;
+  let fixture: ComponentFixture<IsDarkChartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraphComponent ]
+      declarations: [ IsDarkChartComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GraphComponent);
+    fixture = TestBed.createComponent(IsDarkChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

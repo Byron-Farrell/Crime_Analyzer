@@ -54,7 +54,7 @@ export class MapFilterOptionsComponent implements OnInit {
 
   @Output() filterOptionsChange: EventEmitter<FilterOptionsObject> = new EventEmitter();
   constructor(private crimeService: CrimeService) {
-this.filterOptions = {};
+    this.filterOptions = {};
   }
 
   ngOnInit() {
