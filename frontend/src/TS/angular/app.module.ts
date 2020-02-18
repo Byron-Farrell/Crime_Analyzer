@@ -19,6 +19,8 @@ import { FilterOptionHeaderComponent } from './components/filter-option-header/f
 import { SliderSelectorComponent } from './components/slider-selector/slider-selector.component';
 import { GraphSelectorComponent } from './components/graph-selector/graph-selector.component';
 import { GraphComponent } from './components/graph/graph.component';
+import { IsDarkGraphComponent } from './components/is-dark-graph/is-dark-graph.component';
+import { GraphFilterOptionsComponent } from './components/graph-filter-options/graph-filter-options.component';
 
 // ----------- ANGULAR MATERIAL -----------
 import { MatNativeDateModule } from '@angular/material';
@@ -41,6 +43,8 @@ import { MatSliderModule } from '@angular/material/slider';
     SliderSelectorComponent,
     GraphSelectorComponent,
     GraphComponent,
+    IsDarkGraphComponent,
+    GraphFilterOptionsComponent,
   ],
   imports: [
     RouterModule.forRoot(

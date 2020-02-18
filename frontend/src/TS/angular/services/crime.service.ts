@@ -16,12 +16,14 @@ export class CrimeService {
   private dataSubject: Subject<CriminalDataObject>;
   private dataObservable;
   private crimeTypes: Array<string>;
+
   private baseURL: string;
   private getCrimesURL: string;
   private getCrimeTypesURL: string;
   private getWeatherTypesURL: string;
   private getMoonTypesURL: string;
   private getCitiesURL: string;
+  private getIsDarkCountURL: string;
   private limit: number;
 
   constructor(private http: HttpClient) {
@@ -31,6 +33,8 @@ export class CrimeService {
     this.getWeatherTypesURL = 'getWeatherTypes';
     this.getMoonTypesURL = 'getMoonTypes';
     this.getCitiesURL = 'getCityNames';
+    this.getIsDarkCountURL ='getIsDarkCount';
+
     this.dataSubject = new Subject<CriminalDataObject>();
     this.dataObservable = this.dataSubject.asObservable();
 
@@ -140,6 +144,19 @@ export class CrimeService {
       .then((data: any) => data.json())
       .then(json => this.dataSubject.next(json))
       .catch(error => console.error(error));
+  }
+
+  loadIsDarkCount(crimeType: string) {
+    let url = this.baseURL + this.getIsDarkCountURL + '?';
+
+    url += 'crimeType=' + crimeType;
+
+    return new Promise(function(resolve, reject) {
+      fetch(url)
+        .then(data => data.json())
+        .then(json => resolve(json))
+        .catch(error => reject(error));
+    });
   }
 
   loadCrimeTypes(): Promise<any> {

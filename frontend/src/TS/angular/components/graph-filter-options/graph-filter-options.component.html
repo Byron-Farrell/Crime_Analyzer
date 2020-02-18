@@ -1,0 +1,21 @@
+<app-checkbox-selector
+  [title]="citiesTitle"
+  [tooltipMessage]="citiesTooltipMessage"
+  [filterOptions]="cities"
+  (selectedFiltersChange)="citiesChange($event)"
+></app-checkbox-selector>
+
+<app-checkbox-selector
+  [title]="crimeTypeTitle"
+  [tooltipMessage]="crimeTypeTooltipMessage"
+  [filterOptions]="crimeTypes"
+  (selectedFiltersChange)="crimeTypeChange($event)"
+></app-checkbox-selector>
+
+<app-date-selector
+  [title]="dateTitle"
+  [tooltipMessage]="dateTooltipMessage"
+  [dateDefaults]="dateDefaults"
+  (startDateChange)="startDatesChanged($event)"
+  (endDateChange)="endDatesChanged($event)"
+></app-date-selector>

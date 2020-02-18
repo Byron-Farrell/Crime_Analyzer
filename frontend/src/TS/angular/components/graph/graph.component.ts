@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.scss']
 })
-export class GraphComponent implements OnInit {
+export class GraphComponent implements AfterViewInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    
   }
-
 }

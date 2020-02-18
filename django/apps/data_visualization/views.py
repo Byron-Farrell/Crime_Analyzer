@@ -17,7 +17,7 @@ class HomeRedirect(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         return super().get_redirect_url(*args, **kwargs)
 
-    
+
 # returns the main webpage defined by template_name
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'data_visualization/index.html'
@@ -215,6 +215,28 @@ class GetCityNames(LoginRequiredMixin, View):
         # returning json response
         return HttpResponse(cities_json, content_type='application/json')
 
+class GetIsDarkCount(LoginRequiredMixin, View):
+
+    def get(self, request):
+        isDarkCount = 0
+        isNotDarkCount = 0
+
+        crime_type = request.GET.get('crimeType', '')
+
+        if crime_type:
+            isDarkCount = models.Crime.objects.filter(crime__type=crime_type, weatherDetails__dark=True).count()
+            isNotDarkCount = models.Crime.objects.filter(crime__type=crime_type, weatherDetails__dark=False).count()
+        else:
+            isDarkCount = models.Crime.objects.filter(weatherDetails__dark=True).count()
+            isNotDarkCount = models.Crime.objects.filter(weatherDetails__dark=False).count()
+        query_result = {
+            'yes': isDarkCount,
+            'no': isNotDarkCount
+        }
+
+        isDark_json = json.dumps(query_result)
+        return HttpResponse(isDark_json, content_type='application/json')
+        
 # @login_required
 # def upload_crimes(request):
 #     template = 'data_visualization/index.html'
