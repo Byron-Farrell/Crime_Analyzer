@@ -8,15 +8,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 
 // -------------- COMPONENTS --------------
+import { CheckboxSelectorComponent } from './components/selectors/checkbox-selector/checkbox-selector.component';
+import { DateSelectorComponent } from './components/selectors/date-selector/date-selector.component';
+import { SliderSelectorComponent } from './components/selectors/slider-selector/slider-selector.component';
 import { MapComponent } from './components/map/map.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RootComponent } from './components/root/root.component';
-import { CheckboxSelectorComponent } from './components/checkbox-selector/checkbox-selector.component';
-import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 import { GenericFilterOptionsComponent } from './components/generic-filter-options/generic-filter-options.component';
 import { MapRootComponent } from './components/map-root/map-root.component';
 import { FilterOptionHeaderComponent } from './components/filter-option-header/filter-option-header.component';
-import { SliderSelectorComponent } from './components/slider-selector/slider-selector.component';
 import { GraphRootComponent } from './components/graph-root/graph-root.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { MapFilterOptionsComponent } from './components/map-filter-options/map-filter-options.component';

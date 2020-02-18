@@ -2,7 +2,7 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter  } from '@angular/core';
 
 // --------------- INTERFACES ---------------
-import { CheckboxComponentItem } from '../../../interfaces/checkboxComponentItem'
+import { CheckboxComponentItem } from '../../../../interfaces/checkboxComponentItem'
 
 
 @Component({
