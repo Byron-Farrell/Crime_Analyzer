@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GraphSelectorComponent } from './graph-selector.component';
+import { GraphRootComponent } from './graph-root.component';
 
-describe('GraphSelectorComponent', () => {
-  let component: GraphSelectorComponent;
-  let fixture: ComponentFixture<GraphSelectorComponent>;
+describe('GraphRootComponent', () => {
+  let component: GraphRootComponent;
+  let fixture: ComponentFixture<GraphRootComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraphSelectorComponent ]
+      declarations: [ GraphRootComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GraphSelectorComponent);
+    fixture = TestBed.createComponent(GraphRootComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

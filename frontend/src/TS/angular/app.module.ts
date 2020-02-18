@@ -17,7 +17,7 @@ import { GenericFilterOptionsComponent } from './components/generic-filter-optio
 import { MapRootComponent } from './components/map-root/map-root.component';
 import { FilterOptionHeaderComponent } from './components/filter-option-header/filter-option-header.component';
 import { SliderSelectorComponent } from './components/slider-selector/slider-selector.component';
-import { GraphSelectorComponent } from './components/graph-selector/graph-selector.component';
+import { GraphRootComponent } from './components/graph-root/graph-root.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { MapFilterOptionsComponent } from './components/map-filter-options/map-filter-options.component';
 
@@ -40,7 +40,7 @@ import { MatSliderModule } from '@angular/material/slider';
     DateSelectorComponent,
     FilterOptionHeaderComponent,
     SliderSelectorComponent,
-    GraphSelectorComponent,
+    GraphRootComponent,
     GraphComponent,
     MapFilterOptionsComponent,
   ],
@@ -49,7 +49,7 @@ import { MatSliderModule } from '@angular/material/slider';
       [
         { path: '', component: MapRootComponent },
         { path: 'map', component: MapRootComponent },
-        { path: 'graph', component: GraphSelectorComponent },
+        { path: 'graph', component: GraphRootComponent },
 
       ],
     ),

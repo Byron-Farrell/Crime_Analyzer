@@ -9,11 +9,11 @@ import { CrimeService } from '../../services/crime.service';
 
 
 @Component({
-  selector: 'app-graph-selector',
-  templateUrl: './graph-selector.component.html',
-  styleUrls: ['./graph-selector.component.scss']
+  selector: 'app-graph-root',
+  templateUrl: './graph-root.component.html',
+  styleUrls: ['./graph-root.component.scss']
 })
-export class GraphSelectorComponent implements OnInit {
+export class GraphRootComponent implements OnInit {
 
   genericSelectedFilterOptions: FilterOptionsObject;
   hideSidePanel: boolean;
