@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 
 // -------------- COMPONENTS --------------
 import { MapComponent } from './components/map/map.component';
@@ -15,6 +17,8 @@ import { GenericFilterOptionsComponent } from './components/generic-filter-optio
 import { MapSelectorComponent } from './components/map-selector/map-selector.component';
 import { FilterOptionHeaderComponent } from './components/filter-option-header/filter-option-header.component';
 import { SliderSelectorComponent } from './components/slider-selector/slider-selector.component';
+import { GraphSelectorComponent } from './components/graph-selector/graph-selector.component';
+import { GraphComponent } from './components/graph/graph.component';
 
 // ----------- ANGULAR MATERIAL -----------
 import { MatNativeDateModule } from '@angular/material';
@@ -22,6 +26,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
+
 
 @NgModule({
   declarations: [
@@ -34,8 +39,19 @@ import { MatSliderModule } from '@angular/material/slider';
     DateSelectorComponent,
     FilterOptionHeaderComponent,
     SliderSelectorComponent,
+    GraphSelectorComponent,
+    GraphComponent,
   ],
   imports: [
+    RouterModule.forRoot(
+      [
+        { path: '', component: MapSelectorComponent },
+        { path: 'map', component: MapSelectorComponent },
+        { path: 'graph', component: GraphSelectorComponent },
+
+      ],
+    ),
+
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -48,7 +64,12 @@ import { MatSliderModule } from '@angular/material/slider';
     MatFormFieldModule,
     MatSliderModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_BASE_HREF,
+      useValue: '/'
+    }
+  ],
   bootstrap: [RootComponent]
 })
 export class AppModule { }

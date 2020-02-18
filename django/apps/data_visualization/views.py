@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.data_visualization import models
 from apps.ETL.Validator import Validator
@@ -11,6 +12,12 @@ import json
 
 from django.shortcuts import render
 
+class HomeRedirect(LoginRequiredMixin, RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        return super().get_redirect_url(*args, **kwargs)
+
+    
 # returns the main webpage defined by template_name
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'data_visualization/index.html'

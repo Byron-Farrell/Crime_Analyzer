@@ -7,17 +7,17 @@ import { FilterOptionsObject } from '../../../interfaces/filterOptionsObject'
 // --------------- SERVICES ---------------
 import { CrimeService } from '../../services/crime.service';
 
+
 @Component({
-  selector: 'app-map-selector',
-  templateUrl: './map-selector.component.html',
-  styleUrls: ['./map-selector.component.scss']
+  selector: 'app-graph-selector',
+  templateUrl: './graph-selector.component.html',
+  styleUrls: ['./graph-selector.component.scss']
 })
-export class MapSelectorComponent implements OnInit {
+export class GraphSelectorComponent implements OnInit {
 
   genericSelectedFilterOptions: FilterOptionsObject;
   hideSidePanel: boolean;
-
-  constructor(private crimeService: CrimeService) {
+  constructor() {
     this.hideSidePanel = true;
   }
 
@@ -26,7 +26,7 @@ export class MapSelectorComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.crimeService.loadCrimeData(this.genericSelectedFilterOptions);
+    //this.crimeService.loadCrimeData(this.genericSelectedFilterOptions);
   }
 
   onSelect(): void {
@@ -50,8 +50,6 @@ export class MapSelectorComponent implements OnInit {
 
   onResize(event) : void {
     this.calculateContentHeight();
-
-
   }
 
   toggleSidePanel(event) {
