@@ -26,6 +26,8 @@ export class GraphRootComponent implements OnInit {
 
   ngOnInit() {
     this.calculateContentHeight();
+    console.log(this.filtersOptions);
+
   }
 
   private loadData(): void {
