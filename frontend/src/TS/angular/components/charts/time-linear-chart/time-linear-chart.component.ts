@@ -79,6 +79,7 @@ export class TimeLinearChartComponent implements AfterViewInit {
         datasets: []
       },
       options: {
+        maintainAspectRatio : false,
         legend: {
           display: false
         },
@@ -90,6 +91,7 @@ export class TimeLinearChartComponent implements AfterViewInit {
         }
       }
     });
+    this.chart.canvas.parentNode.style.height = '30vh';
   }
 
 }

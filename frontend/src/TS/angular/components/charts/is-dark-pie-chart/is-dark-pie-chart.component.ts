@@ -31,6 +31,7 @@ export class IsDarkPieChartComponent implements AfterViewInit {
       this.removeData(this.chart);
       this.addData(this.chart, data.isDarkTotal);
     });
+
   }
 
   private addData(chart, dataset) {
@@ -63,12 +64,12 @@ export class IsDarkPieChartComponent implements AfterViewInit {
 
     this.chart = new Chart(context, {
       type: 'pie',
-
       data: {
         labels: this.chartLabels,
         datasets: []
       },
       options: {
+        maintainAspectRatio : false,
         title: {
           display: true,
           text: 'Total Number of Selected Crimes Committed During Day/Night',
@@ -77,5 +78,6 @@ export class IsDarkPieChartComponent implements AfterViewInit {
         }
       }
     });
+    this.chart.canvas.parentNode.style.height = '30vh';
   }
 }

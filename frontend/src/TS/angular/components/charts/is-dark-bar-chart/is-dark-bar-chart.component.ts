@@ -74,6 +74,7 @@ export class IsDarkBarChartComponent implements AfterViewInit {
         datasets: []
       },
       options: {
+        maintainAspectRatio : false,
         title: {
           display: true,
           text: 'Distribution of Crime Types Committed During Day/Night',
@@ -99,5 +100,7 @@ export class IsDarkBarChartComponent implements AfterViewInit {
         }
       }
     });
+
+    this.chart.canvas.parentNode.style.height = '50vh';
   }
 }
