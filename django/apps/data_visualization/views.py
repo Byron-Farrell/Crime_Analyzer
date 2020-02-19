@@ -249,13 +249,13 @@ class GetAnalytics(LoginRequiredMixin, View):
                 isNotDarkCount = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=False).count()
                 query_result['isDark'][type] = { 'yes': isDarkCount, 'no': isNotDarkCount}
 
-        isDarkCountTotal = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=True).count()
-        isNotDarkCountTotal = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=False).count()
+        isDarkCountTotal = models.Crime.objects.filter(crime_type__in=crime_types, city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=True).count()
+        isNotDarkCountTotal = models.Crime.objects.filter(crime_type__in=crime_types, city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=False).count()
         query_result['isDarkTotal'] = { 'yes': isDarkCountTotal, 'no': isNotDarkCountTotal }
 
         for i in range(1, 25):
 
-            count = models.Crime.objects.filter(time__hour=i,city__in=city, date__fullDate__range=(startDate, endDate)).count()
+            count = models.Crime.objects.filter(crime_type__in=crime_types, time__hour=i,city__in=city, date__fullDate__range=(startDate, endDate)).count()
 
             key = str(i)
 
