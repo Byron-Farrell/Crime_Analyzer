@@ -14,19 +14,18 @@
   </div>
   <div id="mainContent" class="col-sm-12 col-md-7 col-lg-9">
 
-    <div class="d-block col-lg-6">
+    <div class="d-inline-block col-lg-6">
+      <app-is-dark-pie-chart
+      ></app-is-dark-pie-chart>
+    </div>
+
+    <div class="d-inline-block col-lg-6">
       <app-is-dark-bar-chart
         [crimeTypes]="filtersOptions.crimeTypes"
       ></app-is-dark-bar-chart>
     </div>
 
-    <div class="d-block col-lg-6">
-      <app-is-dark-bar-chart
-        [crimeTypes]="filtersOptions.crimeTypes"
-      ></app-is-dark-bar-chart>
-    </div>
-
-    <div class="">
+    <div class="d-block col-lg-10 m-auto">
       <app-is-dark-bar-chart
         [crimeTypes]="filtersOptions.crimeTypes"
       ></app-is-dark-bar-chart>

@@ -1,5 +1,5 @@
 // --------------- ANGULAR ---------------
-import { Component, AfterViewInit, Input, SimpleChanges } from '@angular/core';
+import { Component, AfterViewInit, Input } from '@angular/core';
 
 // --------------- CHARTS-JS ---------------
 import Chart from 'chart.js';
