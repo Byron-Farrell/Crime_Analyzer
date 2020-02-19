@@ -77,6 +77,17 @@ export class TimeLinearChartComponent implements AfterViewInit {
       data: {
         labels: this.chartLabels,
         datasets: []
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: 'Crimes Committed at Different Time Periods',
+          fontColor: '#DDD',
+          fontSize: 16
+        }
       }
     });
   }

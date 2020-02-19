@@ -59,7 +59,6 @@ export class IsDarkBarChartComponent implements AfterViewInit {
   }
 
   private removeData(chart) {
-
     chart.data.datasets = [];
     chart.update();
   }
@@ -75,6 +74,12 @@ export class IsDarkBarChartComponent implements AfterViewInit {
         datasets: []
       },
       options: {
+        title: {
+          display: true,
+          text: 'Distribution of Crime Types Committed During Day/Night',
+          fontColor: '#DDD',
+          fontSize: 16
+        },
         scales: {
           yAxes: [{
             ticks: {
