@@ -36,6 +36,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
+import { TimeLinearChartComponent } from './time-linear-chart/time-linear-chart.component';
 
 
 
@@ -54,6 +55,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MapFilterOptionsComponent,
     IsDarkBarChartComponent,
     IsDarkPieChartComponent,
+    TimeLinearChartComponent,
   ],
   imports: [
     RouterModule.forRoot(

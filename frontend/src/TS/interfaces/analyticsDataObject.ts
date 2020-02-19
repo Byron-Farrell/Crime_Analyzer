@@ -5,5 +5,6 @@ interface IsDarkObject {
 
 export interface AnalyticsDataObject {
   isDark: Array<IsDarkObject>;
-
+  isDarkTotal: IsDarkObject;
+  timeCrimeCount: any;
 }
