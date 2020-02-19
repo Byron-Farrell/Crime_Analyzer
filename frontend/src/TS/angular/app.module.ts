@@ -27,6 +27,7 @@ import { SliderSelectorComponent } from './components/selectors/slider-selector/
 
 import { IsDarkBarChartComponent } from './components/charts/is-dark-bar-chart/is-dark-bar-chart.component';
 import { IsDarkPieChartComponent } from './components/charts/is-dark-pie-chart/is-dark-pie-chart.component';
+import { TimeLinearChartComponent } from './components/time-linear-chart/time-linear-chart.component';
 
 
 
@@ -36,7 +37,6 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
-import { TimeLinearChartComponent } from './time-linear-chart/time-linear-chart.component';
 
 
 
