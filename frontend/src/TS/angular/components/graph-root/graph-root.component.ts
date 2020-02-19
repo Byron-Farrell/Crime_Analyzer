@@ -81,4 +81,12 @@ export class GraphRootComponent implements OnInit {
 
     window.dispatchEvent(new Event('resize'));
   }
+
+  showContent() {
+    document.getElementById('dropdownMenuContent').style.display = 'block';
+  }
+
+  hideContent() {
+    document.getElementById('dropdownMenuContent').style.display = 'none';
+  }
 }

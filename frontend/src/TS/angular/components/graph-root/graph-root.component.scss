@@ -5,3 +5,25 @@
 .a-arrow-right {
   color: #212529;
 }
+
+#storiesDropdown {
+  right: 0;
+  z-index: 99999;
+  width: 17%;
+}
+
+#dropdownMenuContent {
+  display: none;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+#storiesButton {
+  border-radius: 0;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+
+.dropdown-item:hover {
+  background-color: #75aaff;
+}

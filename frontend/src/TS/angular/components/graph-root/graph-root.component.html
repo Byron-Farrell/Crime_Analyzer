@@ -13,29 +13,15 @@
     </div>
   </div>
   <div id="mainContent" class="col-sm-12 col-md-7 col-lg-9">
-    <h4 class="text-center text-primary my-3">Analysis of Crimes Committed During Day/Night</h4>
 
-      <div class="mb-3 d-inline-block col-lg-6 col-md-6 col-sm-12">
-        <div class="p-2 bg-dark rounded">
-          <app-is-dark-pie-chart
-          ></app-is-dark-pie-chart>
-        </div>
-      </div>
-
-      <div class="mb-3 d-inline-block col-lg-6  col-md-6 col-sm-12">
-        <div class="p-2 bg-dark rounded">
-          <app-time-linear-chart
-          ></app-time-linear-chart>
-        </div>
-      </div>
-
-    <div class="mb-3 d-inline-block col-lg-12">
-      <div class="p-2 bg-dark rounded">
-        <app-is-dark-bar-chart
-        ></app-is-dark-bar-chart>
+    <div id="storiesDropdown" class="mr-3 mt-3 position-absolute ">
+      <button (mouseenter)="showContent()" (mouseleave)="hideContent()" id="storiesButton" class="w-100 btn btn-primary" type="button" name="button"><b>Stories</b><i class="fas fa-caret-down float-right pt-1"></i></button>
+      <div (mouseenter)="showContent()" (mouseleave)="hideContent()" id="dropdownMenuContent" class="bg-white">
+        <a class="dropdown-item text-center" routerLink="night-vs-day" routerLinkActive="active">Night vs Day</a>
       </div>
     </div>
 
 
+    <router-outlet></router-outlet>
   </div>
 </div>

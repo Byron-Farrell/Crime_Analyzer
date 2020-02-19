@@ -25,6 +25,8 @@ import { CheckboxSelectorComponent } from './components/selectors/checkbox-selec
 import { DateSelectorComponent } from './components/selectors/date-selector/date-selector.component';
 import { SliderSelectorComponent } from './components/selectors/slider-selector/slider-selector.component';
 
+import { NightVsDayStoryComponent } from './components/stories/night-vs-day-story/night-vs-day-story.component';
+
 import { IsDarkBarChartComponent } from './components/charts/is-dark-bar-chart/is-dark-bar-chart.component';
 import { IsDarkPieChartComponent } from './components/charts/is-dark-pie-chart/is-dark-pie-chart.component';
 import { TimeLinearChartComponent } from './components/charts/time-linear-chart/time-linear-chart.component';
@@ -37,7 +39,6 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
-
 
 
 @NgModule({
@@ -56,13 +57,19 @@ import { MatSliderModule } from '@angular/material/slider';
     IsDarkBarChartComponent,
     IsDarkPieChartComponent,
     TimeLinearChartComponent,
+    NightVsDayStoryComponent,
   ],
   imports: [
     RouterModule.forRoot(
       [
         { path: '', component: MapRootComponent },
         { path: 'map', component: MapRootComponent },
-        { path: 'graph', component: GraphRootComponent },
+        { path: 'graph', component: GraphRootComponent,
+          children: [
+            { path: '', component: NightVsDayStoryComponent },
+            { path: 'night-vs-day', component: NightVsDayStoryComponent }
+          ]
+        },
       ],
     ),
 
