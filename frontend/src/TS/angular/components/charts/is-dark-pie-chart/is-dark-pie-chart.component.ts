@@ -19,22 +19,42 @@ export class IsDarkPieChartComponent implements AfterViewInit {
   private chart;  private chartLabels: Array<string>;
 
   constructor(private crimeService: CrimeService) {
+    this.chartLabels = ['Dark', 'Not Dark'];
     IsDarkPieChartComponent.count += 1;
     this.chartId = 'isDarkPieChart-' + IsDarkPieChartComponent.count;
   }
 
   ngAfterViewInit() {
     this.setup();
+    this.crimeService.getAnalyticsObservable().subscribe(data => {
+      this.removeData(this.chart);
+      console.log(data);
+
+      this.addData(this.chart, data.isDarkTotal);
+    });
   }
 
-  private addData(chart, datasets) {
-    this.chartLabels = ['Yes', 'No'];
+  private addData(chart, dataset) {
+    let newDataset = {
+      data: [dataset.yes, dataset.no],
+      backgroundColor: [
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }
+    chart.data.datasets.push(newDataset);
+
     chart.update();
   }
 
   private removeData(chart) {
 
-    chart.data = [];
+    chart.data.datasets = [];
     chart.update();
   }
 
@@ -47,17 +67,7 @@ export class IsDarkPieChartComponent implements AfterViewInit {
 
       data: {
         labels: this.chartLabels,
-        datasets: [{
-          data: [10, 20],
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-        }]
+        datasets: []
       }
     });
   }

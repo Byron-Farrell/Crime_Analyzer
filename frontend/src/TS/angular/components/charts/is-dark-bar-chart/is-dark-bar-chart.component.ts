@@ -16,11 +16,6 @@ import { CrimeService } from '../../../services/crime.service';
 export class IsDarkBarChartComponent implements AfterViewInit {
 
   static count = 0;
-
-  // @Input() cities: Array<string>;
-  @Input() crimeTypes: Array<string>;
-  // @Input() dates;
-
   private chartLabels: Array<string>;
   private data: Array<number>;
   private chart;
@@ -38,7 +33,6 @@ export class IsDarkBarChartComponent implements AfterViewInit {
     this.crimeService.getAnalyticsObservable().subscribe(data => {
       this.removeData(this.chart);
       this.addData(this.chart, data.isDark)
-
     });
   }
 

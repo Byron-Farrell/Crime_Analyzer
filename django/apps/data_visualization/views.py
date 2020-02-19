@@ -225,14 +225,14 @@ class GetAnalytics(LoginRequiredMixin, View):
             'isDarkTotal': {}
         }
 
-        city = request.GET.get('city', '')
+        city = request.GET.getlist('city', '')
         crime_types = request.GET.getlist('crimeType', '')
         startDate = request.GET.get('startDate', '')
         endDate = request.GET.get('endDate', '')
 
         # Checking if URL query keywords have values
         if city:
-            filter_options['city'] = city
+            filter_options['city__in'] = city
 
         if crime_types:
             filter_options['crime__type__in'] = crime_types
@@ -244,12 +244,12 @@ class GetAnalytics(LoginRequiredMixin, View):
 
         if crime_types and startDate and endDate and city:
             for type in crime_types:
-                isDarkCount = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=True).count()
-                isNotDarkCount = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=False).count()
+                isDarkCount = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=True).count()
+                isNotDarkCount = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=False).count()
                 query_result['isDark'][type] = { 'yes': isDarkCount, 'no': isNotDarkCount}
 
-        isDarkCountTotal = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=True).count()
-        isNotDarkCountTotal = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=False).count()
+        isDarkCountTotal = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=True).count()
+        isNotDarkCountTotal = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=False).count()
         query_result['isDarkTotal'] = { 'yes': isDarkCountTotal, 'no': isNotDarkCountTotal }
 
         result_json = json.dumps(query_result)

@@ -99,7 +99,12 @@ export class GenericFilterOptionsComponent implements OnInit {
             checked: true
           };
           _cities.push(newCity);
+          if (newCity.checked === true) {
+            _selectedCities.push(type)
+          }
         });
+
+
       })
 
       .catch(error => console.log(error));
@@ -136,7 +141,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newCrimeType = {
             display: type,
             value: type,
-            checked: false
+            checked: true
           };
           _crimeTypes.push(newCrimeType);
 
