@@ -31,6 +31,8 @@ export class IsDarkBarChartComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.setup();
     this.crimeService.getAnalyticsObservable().subscribe(data => {
+      console.log(data);
+
       this.removeData(this.chart);
       this.addData(this.chart, data.isDark)
     });
