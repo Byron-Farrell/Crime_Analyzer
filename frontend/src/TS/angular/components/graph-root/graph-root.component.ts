@@ -20,18 +20,19 @@ export class GraphRootComponent implements OnInit {
 
   filtersOptions: FilterOptionsObject;
 
-  constructor() {
+  constructor(private crimeService: CrimeService) {
     this.hideSidePanel = true;
   }
 
   ngOnInit() {
+    this.filtersOptions = {
+      crimeTypes: []
+    }
     this.calculateContentHeight();
-    console.log(this.filtersOptions);
-
   }
 
   private loadData(): void {
-    //this.crimeService.loadCrimeData(this.genericSelectedFilterOptions);
+    this.crimeService.loadAnalytics(this.genericSelectedFilterOptions);
   }
 
   onSelect(): void {

@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 
 // -------------- INTERFACES --------------
 import { CriminalDataObject } from '../../interfaces/criminalDataObject';
+import { AnalyticsDataObject } from '../../interfaces/analyticsDataObject';
 import { FilterOptionsObject } from '../../interfaces/filterOptionsObject';
 
 @Injectable({
@@ -13,15 +14,19 @@ import { FilterOptionsObject } from '../../interfaces/filterOptionsObject';
 })
 export class CrimeService {
 
-  private dataSubject: Subject<CriminalDataObject>;
-  private dataObservable;
+  private mapDataSubject: Subject<CriminalDataObject>;
+  private analyticsDataSubject: Subject<AnalyticsDataObject>;
+  private mapDataObservable;
+  private analyticsDataObservable;
   private crimeTypes: Array<string>;
+
   private baseURL: string;
   private getCrimesURL: string;
   private getCrimeTypesURL: string;
   private getWeatherTypesURL: string;
   private getMoonTypesURL: string;
   private getCitiesURL: string;
+  private getAnalyticsURL: string;
   private limit: number;
 
   constructor(private http: HttpClient) {
@@ -31,8 +36,12 @@ export class CrimeService {
     this.getWeatherTypesURL = 'getWeatherTypes';
     this.getMoonTypesURL = 'getMoonTypes';
     this.getCitiesURL = 'getCityNames';
-    this.dataSubject = new Subject<CriminalDataObject>();
-    this.dataObservable = this.dataSubject.asObservable();
+    this.getAnalyticsURL ='getAnalytics?';
+
+    this.mapDataSubject = new Subject<CriminalDataObject>();
+    this.analyticsDataSubject = new Subject<AnalyticsDataObject>();
+    this.mapDataObservable = this.mapDataSubject.asObservable();
+    this.analyticsDataObservable = this.analyticsDataSubject.asObservable();
 
     this.limit = 500;
   }
@@ -41,14 +50,18 @@ export class CrimeService {
     return this.crimeTypes;
   }
 
-  getObservable(): Observable<any> {
-    return this.dataObservable;
+  getMapObservable(): Observable<any> {
+    return this.mapDataObservable;
+  }
+
+  getAnalyticsObservable(): Observable<any> {
+    return this.analyticsDataObservable;
   }
 
   // takes in a FilterOptionsObject and turns it into a url query string that
   // can then be used to send a request to the API to retrieve the criminal
   // data matching the query
-  private urlBuilder(filterOptions: FilterOptionsObject) : string {
+  private mapUrlBuilder(filterOptions: FilterOptionsObject): string {
     let urlQuery = this.baseURL + this.getCrimesURL;
 
     filterOptions.cities.forEach(type => {
@@ -87,14 +100,31 @@ export class CrimeService {
 
     urlQuery += 'precipitationMin=' + filterOptions.precipitation.min + '&';
 
-    return urlQuery
+    return urlQuery;
   }
 
+  private analyticsUrlBuilder(filterOptions: FilterOptionsObject): string {
+    let urlQuery = this.baseURL + this.getAnalyticsURL;
+
+    filterOptions.cities.forEach(type => {
+      urlQuery += 'city=' + type + '&';
+    });
+
+    filterOptions.crimeTypes.forEach(type => {
+      urlQuery += 'crimeType=' + type + '&';
+    });
+
+    urlQuery += 'startDate=' + filterOptions.startDate + '&';
+
+    urlQuery += 'endDate=' + filterOptions.endDate + '&';
+
+    return urlQuery;
+  }
   // gets criminal data from API and adds it to the "data" variable
   // this function will return a promise that will be resolved once the all data
   // is retrieved
-  loadCrimeData(filterOptions: FilterOptionsObject) : void {
-    const url = this.urlBuilder(filterOptions);
+  loadCrimeData(filterOptions: FilterOptionsObject): void {
+    const url = this.mapUrlBuilder(filterOptions);
 
     // // let crimeCount: number;
     // // let remainder: number;
@@ -138,7 +168,16 @@ export class CrimeService {
 
     fetch(url)
       .then((data: any) => data.json())
-      .then(json => this.dataSubject.next(json))
+      .then(json => this.mapDataSubject.next(json))
+      .catch(error => console.error(error));
+  }
+
+  loadAnalytics(filterOptions: FilterOptionsObject): void {
+    const url = this.analyticsUrlBuilder(filterOptions);
+
+    fetch(url)
+      .then((data: any) => data.json())
+      .then(json => this.analyticsDataSubject.next(json))
       .catch(error => console.error(error));
   }
 

@@ -215,28 +215,45 @@ class GetCityNames(LoginRequiredMixin, View):
         # returning json response
         return HttpResponse(cities_json, content_type='application/json')
 
-        
-class GetIsDarkCount(LoginRequiredMixin, View):
+
+class GetAnalytics(LoginRequiredMixin, View):
 
     def get(self, request):
-        isDarkCount = 0
-        isNotDarkCount = 0
-
-        crime_type = request.GET.get('crimeType', '')
-
-        if crime_type:
-            isDarkCount = models.Crime.objects.filter(crime__type=crime_type, weatherDetails__dark=True).count()
-            isNotDarkCount = models.Crime.objects.filter(crime__type=crime_type, weatherDetails__dark=False).count()
-        else:
-            isDarkCount = models.Crime.objects.filter(weatherDetails__dark=True).count()
-            isNotDarkCount = models.Crime.objects.filter(weatherDetails__dark=False).count()
+        filter_options = {}
         query_result = {
-            'yes': isDarkCount,
-            'no': isNotDarkCount
+            'isDark': {}
         }
 
-        isDark_json = json.dumps(query_result)
-        return HttpResponse(isDark_json, content_type='application/json')
+        city = request.GET.get('city', '')
+        crime_types = request.GET.getlist('crimeType', '')
+        startDate = request.GET.get('startDate', '')
+        endDate = request.GET.get('endDate', '')
+
+        # Checking if URL query keywords have values
+        if city:
+            filter_options['city'] = city
+
+        if crime_types:
+            filter_options['crime__type__in'] = crime_types
+        if startDate and endDate:
+            startDate = datetime.strptime(startDate, '%d-%m-%Y')
+            endDate = datetime.strptime(endDate, '%d-%m-%Y')
+            filter_options['date__fullDate__range'] = (startDate, endDate)
+
+
+        if crime_types:
+            for type in crime_types:
+                isDarkCount = models.Crime.objects.filter(crime__type=type, weatherDetails__dark=True).count()
+                isNotDarkCount = models.Crime.objects.filter(crime__type=type, weatherDetails__dark=False).count()
+                query_result['isDark'][type] = { 'yes': isDarkCount, 'no': isNotDarkCount}
+
+
+
+        result_json = json.dumps(query_result)
+        return HttpResponse(result_json, content_type='application/json')
+
+
+
 # @login_required
 # def upload_crimes(request):
 #     template = 'data_visualization/index.html'

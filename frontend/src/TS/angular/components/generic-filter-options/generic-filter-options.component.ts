@@ -136,7 +136,7 @@ export class GenericFilterOptionsComponent implements OnInit {
           let newCrimeType = {
             display: type,
             value: type,
-            checked: true
+            checked: false
           };
           _crimeTypes.push(newCrimeType);
 

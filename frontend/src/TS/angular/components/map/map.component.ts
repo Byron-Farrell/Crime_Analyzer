@@ -20,9 +20,9 @@ export class MapComponent implements AfterViewInit {
   private markerClusters;
 
   constructor(private crimeService: CrimeService) {
-    this.crimeService.getObservable().subscribe(data => {
+    this.crimeService.getMapObservable().subscribe(data => {
       this.createCrimeMarkers(data, this);
-    })
+    });
   }
 
   ngAfterViewInit(): void {
