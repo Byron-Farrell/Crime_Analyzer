@@ -14,6 +14,9 @@ import { CrimeService } from '../../../services/crime.service';
   styleUrls: ['./is-dark-bar-chart.component.scss']
 })
 export class IsDarkBarChartComponent implements AfterViewInit {
+
+  static count = 0;
+
   // @Input() cities: Array<string>;
   @Input() crimeTypes: Array<string>;
   // @Input() dates;
@@ -22,9 +25,12 @@ export class IsDarkBarChartComponent implements AfterViewInit {
   private data: Array<number>;
   private chart;
 
+  chartId: string;
+
   constructor(private crimeService: CrimeService) {
     this.chartLabels = ['Yes', 'No'];
-
+    IsDarkBarChartComponent.count += 1;
+    this.chartId = 'isDarkBarChart-' + IsDarkBarChartComponent.count;
   }
 
   ngAfterViewInit() {
@@ -65,7 +71,7 @@ export class IsDarkBarChartComponent implements AfterViewInit {
   }
 
   private setup(): void {
-    let canvas = <HTMLCanvasElement> document.getElementById('isDarkChart');
+    let canvas = <HTMLCanvasElement> document.getElementById(this.chartId);
     let context = canvas.getContext('2d');
 
     this.chart = new Chart(context, {
