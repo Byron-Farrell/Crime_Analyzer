@@ -16,7 +16,8 @@ export class IsDarkPieChartComponent implements AfterViewInit {
 
   static count = 0;
   chartId: string;
-  private chart;  private chartLabels: Array<string>;
+  private chart;
+  private chartLabels: Array<string>;
 
   constructor(private crimeService: CrimeService) {
     this.chartLabels = ['Dark', 'Not Dark'];
@@ -28,8 +29,6 @@ export class IsDarkPieChartComponent implements AfterViewInit {
     this.setup();
     this.crimeService.getAnalyticsObservable().subscribe(data => {
       this.removeData(this.chart);
-      console.log(data);
-
       this.addData(this.chart, data.isDarkTotal);
     });
   }
