@@ -9,11 +9,11 @@ import { CrimeService } from '../../../services/crime.service';
 
 
 @Component({
-  selector: 'app-is-dark-chart',
-  templateUrl: './is-dark-chart.component.html',
-  styleUrls: ['./is-dark-chart.component.scss']
+  selector: 'app-is-dark-bar-chart',
+  templateUrl: './is-dark-bar-chart.component.html',
+  styleUrls: ['./is-dark-bar-chart.component.scss']
 })
-export class IsDarkChartComponent implements AfterViewInit {
+export class IsDarkBarChartComponent implements AfterViewInit {
   // @Input() cities: Array<string>;
   @Input() crimeTypes: Array<string>;
   // @Input() dates;

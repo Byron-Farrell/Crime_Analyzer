@@ -25,7 +25,8 @@ import { CheckboxSelectorComponent } from './components/selectors/checkbox-selec
 import { DateSelectorComponent } from './components/selectors/date-selector/date-selector.component';
 import { SliderSelectorComponent } from './components/selectors/slider-selector/slider-selector.component';
 
-import { IsDarkChartComponent } from './components/charts/is-dark-chart/is-dark-chart.component';
+import { IsDarkBarChartComponent } from './components/charts/is-dark-bar-chart/is-dark-bar-chart.component';
+import { IsDarkPieChartComponent } from './components/charts/is-dark-pie-chart/is-dark-pie-chart.component';
 
 
 
@@ -51,7 +52,8 @@ import { MatSliderModule } from '@angular/material/slider';
     SliderSelectorComponent,
     GraphRootComponent,
     MapFilterOptionsComponent,
-    IsDarkChartComponent,
+    IsDarkBarChartComponent,
+    IsDarkPieChartComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -59,7 +61,6 @@ import { MatSliderModule } from '@angular/material/slider';
         { path: '', component: MapRootComponent },
         { path: 'map', component: MapRootComponent },
         { path: 'graph', component: GraphRootComponent },
-
       ],
     ),
 
