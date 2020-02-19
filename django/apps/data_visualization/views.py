@@ -221,7 +221,8 @@ class GetAnalytics(LoginRequiredMixin, View):
     def get(self, request):
         filter_options = {}
         query_result = {
-            'isDark': {}
+            'isDark': {},
+            'isDarkTotal': {}
         }
 
         city = request.GET.get('city', '')
@@ -241,15 +242,18 @@ class GetAnalytics(LoginRequiredMixin, View):
             filter_options['date__fullDate__range'] = (startDate, endDate)
 
 
-        if crime_types:
+        if crime_types and startDate and endDate and city:
             for type in crime_types:
-                isDarkCount = models.Crime.objects.filter(crime__type=type, weatherDetails__dark=True).count()
-                isNotDarkCount = models.Crime.objects.filter(crime__type=type, weatherDetails__dark=False).count()
+                isDarkCount = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=True).count()
+                isNotDarkCount = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=False).count()
                 query_result['isDark'][type] = { 'yes': isDarkCount, 'no': isNotDarkCount}
 
-
+        isDarkCountTotal = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=True).count()
+        isNotDarkCountTotal = models.Crime.objects.filter(city=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=False).count()
+        query_result['isDarkTotal'] = { 'yes': isDarkCountTotal, 'no': isNotDarkCountTotal }
 
         result_json = json.dumps(query_result)
+
         return HttpResponse(result_json, content_type='application/json')
 
 
