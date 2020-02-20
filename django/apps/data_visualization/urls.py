@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from . import views
 
@@ -10,6 +10,6 @@ urlpatterns = [
     path('getMoonTypes', views.GetMoonTypes.as_view(), name='getMoonTypes'),
     path('getCityNames', views.GetCityNames.as_view(), name='getCityNames'),
     path('getAnalytics', views.GetAnalytics.as_view(), name='getAnalytics'),
-    re_path(r'^.*$',  views.HomeRedirect.as_view(url='http://127.0.0.1:8000'), name='homeRedirect'),
+
     # path('uploadCrimes', views.upload_crimes, name='upload_crimes'),
 ]
