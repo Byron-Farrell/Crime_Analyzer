@@ -5,15 +5,12 @@ class CensusBlock(models.Model):
     ID = models.CharField(max_length=30, primary_key=True)
     geom = models.MultiPolygonField(srid=4326)
 
+
+class CensusData(models.Model):
+    censusBlockId = models.ForeignKey(CensusBlock, on_delete=models.CASCADE)
     # Census information
-    deprevationIndex = models.IntegerField(default=-1)
-    population = models.IntegerField(default=-1)
-
-
-class District(models.Model):
-    ID = models.CharField(max_length=10, primary_key=True)
-    geom = models.MultiPolygonField()
-
+    deprevationIndex = models.IntegerField()
+    population = models.IntegerField()
 
 class CrimeType(models.Model):
     type = models.CharField(max_length=50, primary_key=True)
@@ -57,15 +54,17 @@ class Time(models.Model):
     minute = models.IntegerField()
 
 
+class City(models.Model):
+    name = models.CharField(max_length=150)
+
+
 class Crime(models.Model):
-    uniqueID = models.CharField(max_length=150)
-    district = models.ForeignKey(District, on_delete=models.CASCADE)
     weatherDetails = models.ForeignKey(Weather, on_delete=models.CASCADE)
     crime = models.ForeignKey(CrimeType, on_delete=models.CASCADE)
     censusBlock = models.ForeignKey(CensusBlock, on_delete=models.CASCADE)
     date = models.ForeignKey(Date, on_delete=models.CASCADE)
     time = models.ForeignKey(Time, on_delete=models.CASCADE)
-    city = models.CharField(max_length=50)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
     crimeDescription = models.CharField(max_length=150, default='Undefined')
     arrest = models.BooleanField()
     longitude = models.DecimalField(max_digits=15, decimal_places=9, default=0)

@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'white_wolf',
+        'NAME': 'white_wolf_v2',
         'USER': 'byron',
     }
 }
