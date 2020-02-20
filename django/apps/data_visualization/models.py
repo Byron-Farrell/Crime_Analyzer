@@ -10,7 +10,7 @@ class CensusData(models.Model):
     censusBlockId = models.ForeignKey(CensusBlock, on_delete=models.CASCADE)
     # Census information
     deprevationIndex = models.IntegerField()
-    population = models.IntegerField()
+    #population = models.IntegerField()
 
 class CrimeType(models.Model):
     type = models.CharField(max_length=50, primary_key=True)
