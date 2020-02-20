@@ -136,7 +136,7 @@ export class MapFilterOptionsComponent implements OnInit {
   private setupWeatherTypes() {
     let loading = this.crimeService.loadWeatherTypes();
     let _weatherTypes = this.weatherTypes;
-
+    let _selectedWeatherTypes = Array();
     loading
       .then(function(json) {
         json.forEach(type => {
@@ -146,15 +146,22 @@ export class MapFilterOptionsComponent implements OnInit {
             checked: true
           };
           _weatherTypes.push(newWeatherType);
+
+          if (newWeatherType.checked) {
+            _selectedWeatherTypes.push(type)
+          }
         });
+
+        console.log(_selectedWeatherTypes);
       })
+      .then( _ => this.weatherTypeChange(_selectedWeatherTypes))
       .catch(error => console.log(error));
   }
 
   private setupMoonTypes() {
     let loading = this.crimeService.loadMoonTypes();
     let _moonTypes = this.moonPhaseTypes;
-
+    let _selectedMoonTypes = Array();
     loading
       .then(function(json) {
         json.forEach(type => {
@@ -165,9 +172,12 @@ export class MapFilterOptionsComponent implements OnInit {
           };
           _moonTypes.push(newMoonType);
 
-
+          if (newMoonType.checked) {
+            _selectedMoonTypes.push(type);
+          }
         });
       })
+      .then( _ => this.moonTypeChange(_selectedMoonTypes))
       .catch(error => console.log(error));
   }
 

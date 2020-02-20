@@ -103,10 +103,8 @@ export class GenericFilterOptionsComponent implements OnInit {
             _selectedCities.push(type)
           }
         });
-
-
       })
-
+      .then( _ => this.citiesChange(_selectedCities) )
       .catch(error => console.log(error));
   }
 
@@ -143,6 +141,10 @@ export class GenericFilterOptionsComponent implements OnInit {
             value: type,
             checked: false
           };
+
+          if (type === 'THEFT') {
+            newCrimeType.checked = true
+          }
           _crimeTypes.push(newCrimeType);
 
           if (newCrimeType.checked === true) {
@@ -150,8 +152,8 @@ export class GenericFilterOptionsComponent implements OnInit {
           }
         });
       })
-      .then(() => this.crimeTypeChange(_selectedCrimeTypes))
-      .catch(error => console.log(error));
+      .then( _ => this.crimeTypeChange(_selectedCrimeTypes) )
+      .catch( error => console.log(error) );
   }
 
 
