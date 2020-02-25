@@ -16,14 +16,14 @@
             (mouseenter)="showContent()"
             (mouseleave)="hideContent()"
             id="fileTypeButton"
-            class="btn btn-secondary w-100"
+            class="btn btn-secondary w-100 fileTypeButtonClosed"
             type="button"
             name="button">
             {{ selectedDataType }}<i class="fas fa-caret-down float-right pt-1"></i>
           </button>
 
           <div (mouseenter)="showContent()" (mouseleave)="hideContent()" id="dropdownMenuContent" class="w-100 bg-white position-absolute">
-            <div *ngFor="let type of dataUploadTypes" class="dropdown-item text-center pointer">{{ type }}</div>
+            <div *ngFor="let type of dataUploadTypes" class="dropdown-item text-center pointer" (click)="updateSelectedDataType(type)">{{ type }}</div>
           </div>
         </div>
       </div>
@@ -46,10 +46,6 @@
       </div>
 
     </div>
-  </div>
-  <div class="row">
-    <!-- Button trigger modal -->
-
   </div>
 
   <hr class="my-4">
@@ -99,7 +95,7 @@
 
           <div class="mx-3 w-100">
             <label class="mr-2" for="">Delimiter</label>
-            <input type="text" name="" value="">
+            <input type="text" name="" value={{defaulDelimiter}}>
           </div>
 
         </div>

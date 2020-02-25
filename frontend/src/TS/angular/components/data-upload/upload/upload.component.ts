@@ -15,6 +15,7 @@ export class UploadComponent implements OnInit {
   public selectedFile: string;
   public selectedFileType: string;
   public validFileTypes: Array<string>;
+  public defaulDelimiter: string;
 
   constructor() {
     this.dataUploadTypes = [
@@ -30,30 +31,38 @@ export class UploadComponent implements OnInit {
     ]
 
     this.selectedFileType = this.validFileTypes[0];
+
+    this.defaulDelimiter = ',';
   }
 
   ngOnInit() {
   }
 
-  public showContent() {
+  public showContent(): void {
     document.getElementById('dropdownMenuContent').style.display = 'block';
+    let button = document.getElementById('fileTypeButton');
+    button.classList.remove('fileTypeButtonClosed');
+    button.classList.add('fileTypeButtonOpen');
   }
 
-  public hideContent() {
+  public hideContent(): void {
     document.getElementById('dropdownMenuContent').style.display = 'none';
+    let button = document.getElementById('fileTypeButton');
+    button.classList.remove('fileTypeButtonOpen');
+    button.classList.add('fileTypeButtonClosed');
   }
 
-  public triggerFileUpload() {
+  public triggerFileUpload(): void {
     let fileUploadInput = <HTMLInputElement> document.getElementById('fileUploadInput');
     fileUploadInput.click();
   }
 
-  public updateSelectedFiles(event) {
+  public updateSelectedFiles(event): void {
     this.files = event.target.files;
     this.selectedFile = this.files[0].name;
   }
 
-  public uploadFile() {
+  public uploadFile(): void {
 
     if (this.files) {
       this.errorMessage = ''
@@ -63,9 +72,14 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  public selectedFileTypeChange(type) {
+  public selectedFileTypeChange(type): void {
     this.selectedFileType = type;
     console.log(this.selectedFileType);
 
+  }
+
+  public updateSelectedDataType(type): void {
+    this.selectedDataType = type;
+    this.hideContent();
   }
 }
