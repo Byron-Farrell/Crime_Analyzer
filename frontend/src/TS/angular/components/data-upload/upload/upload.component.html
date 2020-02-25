@@ -1,1 +1,55 @@
-<p>upload works!</p>
+<div class="container-fluid bg-white">
+
+  <div class="row">
+    <h1 class="text-center w-100 my-4">Upload</h1>
+    <div class="text-center text-danger w-100 mb-3">{{ errorMessage }}</div>
+
+    <div id="fileTypeDropdown" class="mx-auto col-lg-3 col-md-4 col-xl-2">
+
+      <div class="d-block position-relative">
+        <h5 class="text-center mt-2">File Type</h5>
+        <div class="">
+
+            <button
+            (mouseenter)="showContent()"
+            (mouseleave)="hideContent()"
+            id="fileTypeButton"
+            class="btn btn-secondary w-100"
+            type="button"
+            name="button">
+            {{ selectedDataType }}<i class="fas fa-caret-down float-right pt-1"></i>
+          </button>
+
+          <div (mouseenter)="showContent()" (mouseleave)="hideContent()" id="dropdownMenuContent" class="w-100 bg-white position-absolute">
+            <div *ngFor="let type of dataUploadTypes" class="dropdown-item text-center pointer">{{ type }}</div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="mx-auto col-lg-3 col-md-4 col-xl-2">
+
+      <div class="d-block mx-auto">
+        <h5 class="text-center mt-2">File</h5>
+        <button class="btn btn-secondary w-100" type="button" name="button" (click)="triggerFileUpload()">{{ selectedFile }}</button>
+        <input id="fileUploadInput" class="d-none" type="file" name="fileUploadInput" (change)="updateSelectedFiles($event)">
+      </div>
+
+    </div>
+    <div class="mx-auto col-lg-3 col-md-4 col-xl-2">
+      <div class="">
+        <h5 class="text-center mt-2">Upload File</h5>
+        <button class="btn btn-success w-100" type="button" name="button" (click)="uploadFile()">Upload</button>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <div class="row">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

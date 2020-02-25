@@ -79,12 +79,12 @@ import { MatSliderModule } from '@angular/material/slider';
         },
         { path: 'mapping', component: UploadMappingRootComponent,
           children: [
-            { path: 'data-mapping', component: DataMappingComponent },
-            { path: 'file-upload', component: UploadComponent,
+            { path: '', component: UploadComponent,
               children: [
                 { path: 'column-mapping', component: ColumnMappingComponent },
               ]
             },
+            { path: 'data-mapping', component: DataMappingComponent },
           ]
         },
       ],

@@ -7,9 +7,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  constructor() { }
+  private files: Array<File>;
+
+  public dataUploadTypes: Array<string>;
+  public errorMessage: string;
+  public selectedDataType: string;
+  public selectedFile: string;
+  constructor() {
+    this.dataUploadTypes = [
+      'Criminal Data',
+      'Census Blocks',
+      'Census Information'
+    ];
+    this.selectedFile = 'Select File...';
+    this.selectedDataType = this.dataUploadTypes[0];
+  }
 
   ngOnInit() {
   }
 
+  public showContent() {
+    document.getElementById('dropdownMenuContent').style.display = 'block';
+  }
+
+  public hideContent() {
+    document.getElementById('dropdownMenuContent').style.display = 'none';
+  }
+
+  public triggerFileUpload() {
+    let fileUploadInput = <HTMLInputElement> document.getElementById('fileUploadInput');
+    fileUploadInput.click();
+  }
+
+  public updateSelectedFiles(event) {
+    this.files = event.target.files;
+    this.selectedFile = this.files[0].name;
+  }
+
+  public uploadFile() {
+
+    if (this.files) {
+      this.errorMessage = ''
+    }
+    else {
+      this.errorMessage = 'Select a file to upload.'
+    }
+
+  }
 }
