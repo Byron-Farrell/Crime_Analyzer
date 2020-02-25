@@ -31,7 +31,10 @@ import { IsDarkBarChartComponent } from './components/charts/is-dark-bar-chart/i
 import { IsDarkPieChartComponent } from './components/charts/is-dark-pie-chart/is-dark-pie-chart.component';
 import { TimeLinearChartComponent } from './components/charts/time-linear-chart/time-linear-chart.component';
 
-
+import { UploadMappingRootComponent } from './components/data-upload/upload-mapping-root/upload-mapping-root.component';
+import { UploadComponent } from './components/data-upload//upload/upload.component';
+import { DataMappingComponent } from './components/data-upload//data-mapping/data-mapping.component';
+import { ColumnMappingComponent } from './components/data-upload//column-mapping/column-mapping.component';
 
 // ----------- ANGULAR MATERIAL -----------
 import { MatNativeDateModule } from '@angular/material';
@@ -58,6 +61,10 @@ import { MatSliderModule } from '@angular/material/slider';
     IsDarkPieChartComponent,
     TimeLinearChartComponent,
     NightVsDayStoryComponent,
+    UploadMappingRootComponent,
+    UploadComponent,
+    DataMappingComponent,
+    ColumnMappingComponent,
   ],
   imports: [
     RouterModule.forRoot(
