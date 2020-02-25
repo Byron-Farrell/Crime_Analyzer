@@ -75,7 +75,6 @@ export class UploadComponent implements OnInit {
   public selectedFileTypeChange(type): void {
     this.selectedFileType = type;
     console.log(this.selectedFileType);
-
   }
 
   public updateSelectedDataType(type): void {
