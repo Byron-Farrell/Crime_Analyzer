@@ -265,8 +265,12 @@ class GetAnalytics(LoginRequiredMixin, View):
 
         return HttpResponse(result_json, content_type='application/json')
 
+class CrimeFileUpload(LoginRequiredMixin, View):
 
-
+    def post(self, request):
+        print(request.files)
+        return HttpResponse('result_json')
+        
 # @login_required
 # def upload_crimes(request):
 #     template = 'data_visualization/index.html'

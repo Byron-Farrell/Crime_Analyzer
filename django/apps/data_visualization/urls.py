@@ -10,6 +10,6 @@ urlpatterns = [
     path('getMoonTypes', views.GetMoonTypes.as_view(), name='getMoonTypes'),
     path('getCityNames', views.GetCityNames.as_view(), name='getCityNames'),
     path('getAnalytics', views.GetAnalytics.as_view(), name='getAnalytics'),
-
+    path('uploadCriminalDataFile', views.CrimeFileUpload.as_view(), name='crimeFileUpload'),
     # path('uploadCrimes', views.upload_crimes, name='upload_crimes'),
 ]
