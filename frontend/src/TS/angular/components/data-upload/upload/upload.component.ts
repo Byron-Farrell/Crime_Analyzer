@@ -13,6 +13,9 @@ export class UploadComponent implements OnInit {
   public errorMessage: string;
   public selectedDataType: string;
   public selectedFile: string;
+  public selectedFileType: string;
+  public validFileTypes: Array<string>;
+
   constructor() {
     this.dataUploadTypes = [
       'Criminal Data',
@@ -21,6 +24,12 @@ export class UploadComponent implements OnInit {
     ];
     this.selectedFile = 'Select File...';
     this.selectedDataType = this.dataUploadTypes[0];
+
+    this.validFileTypes = [
+      'CSV',
+    ]
+
+    this.selectedFileType = this.validFileTypes[0];
   }
 
   ngOnInit() {
@@ -52,6 +61,11 @@ export class UploadComponent implements OnInit {
     else {
       this.errorMessage = 'Select a file to upload.'
     }
+  }
+
+  public selectedFileTypeChange(type) {
+    this.selectedFileType = type;
+    console.log(this.selectedFileType);
 
   }
 }

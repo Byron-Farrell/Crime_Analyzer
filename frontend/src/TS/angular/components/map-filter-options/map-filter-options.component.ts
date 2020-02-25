@@ -151,8 +151,6 @@ export class MapFilterOptionsComponent implements OnInit {
             _selectedWeatherTypes.push(type)
           }
         });
-
-        console.log(_selectedWeatherTypes);
       })
       .then( _ => this.weatherTypeChange(_selectedWeatherTypes))
       .catch(error => console.log(error));
