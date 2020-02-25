@@ -77,6 +77,16 @@ import { MatSliderModule } from '@angular/material/slider';
             { path: 'night-vs-day', component: NightVsDayStoryComponent }
           ]
         },
+        { path: 'mapping', component: UploadMappingRootComponent,
+          children: [
+            { path: 'data-mapping', component: DataMappingComponent },
+            { path: 'file-upload', component: UploadComponent,
+              children: [
+                { path: 'column-mapping', component: ColumnMappingComponent },
+              ]
+            },
+          ]
+        },
       ],
     ),
 
