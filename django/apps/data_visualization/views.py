@@ -10,6 +10,7 @@ from datetime import datetime
 import pandas as pd
 import json
 
+import os
 from django.shortcuts import render
 
 class HomeRedirect(LoginRequiredMixin, RedirectView):
@@ -268,9 +269,36 @@ class GetAnalytics(LoginRequiredMixin, View):
 class CrimeFileUpload(LoginRequiredMixin, View):
 
     def post(self, request):
-        print(request.files)
-        return HttpResponse('result_json')
-        
+        uploaded_file = request.FILES.get('uploadFile', None)
+
+        df = pd.read_csv(uploaded_file)
+
+        result_json = {
+            'columns': [],
+            'file_name': ''
+        }
+
+        # Creating timestamp to add to file name
+        now = datetime.now()
+        uploaded_file_name = now.ctime() + ' - ' + uploaded_file.name
+        result_json['file_name'] = uploaded_file_name
+
+        uploaded_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
+        print(uploaded_file_path)
+        local_file = open(uploaded_file_path, 'wb+')
+
+        for chunk in uploaded_file.chunks():
+            local_file.write(chunk)
+
+        local_file.close()
+
+        for col in df.columns:
+            result_json['columns'].append(col)
+
+        result_json = json.dumps(result_json)
+
+        return HttpResponse(result_json, content_type='application/json')
+
 # @login_required
 # def upload_crimes(request):
 #     template = 'data_visualization/index.html'

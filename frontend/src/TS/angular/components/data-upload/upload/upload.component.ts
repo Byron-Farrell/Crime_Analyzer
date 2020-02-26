@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// --------------- SERVICES ---------------
+import { FileUploadService } from '../../../services/file-upload.service';
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -17,7 +20,7 @@ export class UploadComponent implements OnInit {
   public validFileTypes: Array<string>;
   public defaulDelimiter: string;
 
-  constructor() {
+  constructor(private fileUploadService: FileUploadService) {
     this.dataUploadTypes = [
       'Criminal Data',
       'Census Blocks',
@@ -66,6 +69,8 @@ export class UploadComponent implements OnInit {
 
     if (this.files) {
       this.errorMessage = ''
+      this.fileUploadService.postFile(this.files[0])
+      .then(json => console.log(json));
     }
     else {
       this.errorMessage = 'Select a file to upload.'
