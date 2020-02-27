@@ -2,14 +2,14 @@
   <div class="row">
     <h1 class="text-center w-100">Column Mapping</h1>
     <div class="mx-auto col-lg-3 col-md-4 col-xl-2">
-      <button class="btn btn-secondary w-100" type="button" name="button">Mapping</button>
+      <button class="btn btn-secondary w-100" type="button" name="button" routerLink="">Mapping</button>
     </div>
     <div class="mx-auto col-lg-3 col-md-4 col-xl-2">
-      <button class="btn btn-secondary w-100" type="button" name="button">Preview</button>
+      <button class="btn btn-secondary w-100" type="button" name="button" routerLink="">Preview</button>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row ml-2">
     <div *ngFor="let column of columns" class="mt-4 w-100 row">
       <div class="col-2">
           <button class="btn btn-secondary w-100" type="button" name="button">{{ column }}</button>
