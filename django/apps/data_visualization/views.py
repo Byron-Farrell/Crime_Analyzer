@@ -273,9 +273,12 @@ class CrimeFileUpload(LoginRequiredMixin, View):
 
         df = pd.read_csv(uploaded_file)
 
+        preview = json.loads(df.head(30).to_json())
+
         result_json = {
             'columns': [],
-            'file_name': ''
+            'file_name': '',
+            'preview': preview
         }
 
         # Creating timestamp to add to file name

@@ -1,0 +1,15 @@
+<div id={{dropdownId}} class="w-100 d-block position-relative">
+
+    <button
+    (click)="toggleDropdown()"
+    id={{dropdownButtonId}}
+    class="btn btn-secondary w-100 {{dropdownButtonClosedId}}"
+    type="button"
+    name="button">
+    {{ selectedMenuItem }}<i class="fas fa-caret-down float-right pt-1"></i>
+  </button>
+
+  <div (click)="toggleDropdown()" id={{dropdownMenuContentId}} class="w-100 bg-white position-absolute dropdownMenuContent">
+    <div *ngFor="let value of data" class="dropdown-item text-center pointer" (click)="updateSelectedMenuItem(value)">{{ value }}</div>
+  </div>
+</div>

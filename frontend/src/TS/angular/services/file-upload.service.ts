@@ -7,10 +7,15 @@ export class FileUploadService {
 
   private BASE_URI: string;
   private CRIME_URI: string;
+  private data: any;
 
   constructor() {
     this.BASE_URI = 'http://127.0.0.1:8000/';
     this.CRIME_URI = 'uploadCriminalDataFile';
+  }
+
+  public getData(): any {
+    return { ...this.data };
   }
 
   public postFile(file): Promise<any> {
@@ -37,13 +42,16 @@ export class FileUploadService {
         // credentials: 'same-origin',
         credentials: 'include',
         headers: {
-          
+
           'X-CSRFToken': csrfToken
         },
         body: data
       })
       .then(response => response.json())
-      .then(json => resolve(json))
+      .then(json => {
+        this.data = json;
+        resolve({status: 'success'});
+      })
       .catch(error => reject(error));
     });
   }

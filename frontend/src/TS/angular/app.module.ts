@@ -36,6 +36,8 @@ import { UploadComponent } from './components/data-upload//upload/upload.compone
 import { DataMappingComponent } from './components/data-upload//data-mapping/data-mapping.component';
 import { ColumnMappingComponent } from './components/data-upload//column-mapping/column-mapping.component';
 
+import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component';
+
 // ----------- ANGULAR MATERIAL -----------
 import { MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule} from '@angular/material/datepicker';
@@ -65,6 +67,7 @@ import { MatSliderModule } from '@angular/material/slider';
     UploadComponent,
     DataMappingComponent,
     ColumnMappingComponent,
+    DropdownMenuComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -77,7 +80,7 @@ import { MatSliderModule } from '@angular/material/slider';
             { path: 'night-vs-day', component: NightVsDayStoryComponent }
           ]
         },
-        { path: 'mapping', component: UploadMappingRootComponent,
+        { path: 'upload', component: UploadMappingRootComponent,
           children: [
             { path: '', component: UploadComponent,
               children: [

@@ -1,0 +1,24 @@
+.dropdownMenuContent {
+  display: none;
+  z-index: 500;
+}
+
+.ButtonClosed {
+  border-radius: 0.25rem;
+}
+
+.ButtonOpen {
+  border-radius: 0;
+  border-top-right-radius:  0.25rem;
+  border-top-left-radius:  0.25rem;
+}
+
+.dropdown-item:hover {
+  background-color: #75aaff;
+}
+
+
+.dropdown-item:last-child {
+  border-bottom-left-radius:  0.25rem;
+  border-bottom-right-radius:  0.25rem;
+}

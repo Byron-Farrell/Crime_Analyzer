@@ -8,24 +8,12 @@
     </h6>
     <div id="fileTypeDropdown" class="mx-auto col-lg-3 col-md-4 col-xl-2">
 
-      <div class="d-block position-relative">
+      <div class="">
         <h5 class="text-center mt-2">Data Type</h5>
-        <div class="">
-
-            <button
-            (mouseenter)="showContent()"
-            (mouseleave)="hideContent()"
-            id="fileTypeButton"
-            class="btn btn-secondary w-100 fileTypeButtonClosed"
-            type="button"
-            name="button">
-            {{ selectedDataType }}<i class="fas fa-caret-down float-right pt-1"></i>
-          </button>
-
-          <div (mouseenter)="showContent()" (mouseleave)="hideContent()" id="dropdownMenuContent" class="w-100 bg-white position-absolute">
-            <div *ngFor="let type of dataUploadTypes" class="dropdown-item text-center pointer" (click)="updateSelectedDataType(type)">{{ type }}</div>
-          </div>
-        </div>
+        <app-dropdown-menu
+        [data]="dataUploadTypes"
+        (selectedMenuItemChange)="updateSelectedDataType($event)"
+        ></app-dropdown-menu>
       </div>
 
 
@@ -56,7 +44,7 @@
 
   <hr class="my-4">
 
-  <div class="row">
+  <div class="">
     <router-outlet></router-outlet>
   </div>
 

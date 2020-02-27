@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+// --------------- SERVICES ---------------
+import { FileUploadService } from '../../../services/file-upload.service';
 @Component({
   selector: 'app-column-mapping',
   templateUrl: './column-mapping.component.html',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ColumnMappingComponent implements OnInit {
 
-  constructor() { }
+  public fileData: any;
+  public columns: Array<string>;
+
+  constructor(private fileUploadService: FileUploadService) { }
 
   ngOnInit() {
+    this.columns = [
+      'Crime Type',
+      'Crime Description',
+      'Arrest',
+      'Longitude',
+      'Latitude',
+      'Date'
+    ]
+    this.fileData = this.fileUploadService.getData();
+
   }
+
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router'
 // --------------- SERVICES ---------------
 import { FileUploadService } from '../../../services/file-upload.service';
 
@@ -20,7 +20,10 @@ export class UploadComponent implements OnInit {
   public validFileTypes: Array<string>;
   public defaulDelimiter: string;
 
-  constructor(private fileUploadService: FileUploadService) {
+  constructor(
+    private fileUploadService: FileUploadService,
+    private router: Router
+  ) {
     this.dataUploadTypes = [
       'Criminal Data',
       'Census Blocks',
@@ -42,20 +45,6 @@ export class UploadComponent implements OnInit {
     this.stopSpinner();
   }
 
-  public showContent(): void {
-    document.getElementById('dropdownMenuContent').style.display = 'block';
-    let button = document.getElementById('fileTypeButton');
-    button.classList.remove('fileTypeButtonClosed');
-    button.classList.add('fileTypeButtonOpen');
-  }
-
-  public hideContent(): void {
-    document.getElementById('dropdownMenuContent').style.display = 'none';
-    let button = document.getElementById('fileTypeButton');
-    button.classList.remove('fileTypeButtonOpen');
-    button.classList.add('fileTypeButtonClosed');
-  }
-
   public triggerFileUpload(): void {
     let fileUploadInput = <HTMLInputElement> document.getElementById('fileUploadInput');
     fileUploadInput.click();
@@ -72,7 +61,14 @@ export class UploadComponent implements OnInit {
       this.startSpinner();
       this.errorMessage = ''
       this.fileUploadService.postFile(this.files[0])
-      .then(json => this.stopSpinner());
+      .then(json => {
+        this.stopSpinner();
+        this.router.navigateByUrl('upload/column-mapping');
+      })
+      .catch(error => {
+        console.error(error);
+        this.stopSpinner();
+      });
     }
     else {
       this.errorMessage = 'Select a file to upload.'
@@ -86,7 +82,6 @@ export class UploadComponent implements OnInit {
 
   public updateSelectedDataType(type): void {
     this.selectedDataType = type;
-    this.hideContent();
   }
 
   private startSpinner() {
