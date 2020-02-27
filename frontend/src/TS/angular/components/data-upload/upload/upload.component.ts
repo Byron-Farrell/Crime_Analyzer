@@ -39,6 +39,7 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.stopSpinner();
   }
 
   public showContent(): void {
@@ -68,9 +69,10 @@ export class UploadComponent implements OnInit {
   public uploadFile(): void {
 
     if (this.files) {
+      this.startSpinner();
       this.errorMessage = ''
       this.fileUploadService.postFile(this.files[0])
-      .then(json => console.log(json));
+      .then(json => this.stopSpinner());
     }
     else {
       this.errorMessage = 'Select a file to upload.'
@@ -85,5 +87,21 @@ export class UploadComponent implements OnInit {
   public updateSelectedDataType(type): void {
     this.selectedDataType = type;
     this.hideContent();
+  }
+
+  private startSpinner() {
+    let uploadText = document.getElementById('uploadText');
+    let uploadSpinner = document.getElementById('uploadSpinner');
+
+    uploadText.style.display = 'none';
+    uploadSpinner.style.display = 'block';
+  }
+
+  private stopSpinner() {
+    let uploadText = document.getElementById('uploadText');
+    let uploadSpinner = document.getElementById('uploadSpinner');
+
+    uploadText.style.display = 'block';
+    uploadSpinner.style.display = 'none';
   }
 }

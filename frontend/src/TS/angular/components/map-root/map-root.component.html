@@ -1,5 +1,5 @@
 
-<div id="content" class="row m-0" (window:resize)="onResize($event)">
+<div class="row m-0 h-100">
   <h3 id="expand" class="d-none m-2 position-absolute"><i (click)='toggleSidePanel($event)' class="fas fa-arrow-right"></i></h3>
   <div id="sidePanel" class="col-sm-0 col-md-5 col-lg-3 h-100 overflow-auto">
     <h3 class="text-center my-4">Filter Options<i (click)='toggleSidePanel($event)' class="mr-2 float-right fas fa-arrow-left"></i></h3>
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div id="mainContent" class="col-sm-12 col-md-7 col-lg-9">
+  <div id="mainContent" class="col-sm-12 col-md-7 col-lg-9 p-0">
     <app-map></app-map>
   </div>
 </div>

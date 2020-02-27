@@ -1,4 +1,4 @@
-<div class="container-fluid bg-white">
+<div class="container-fluid bg-white h-100">
 
   <div class="row">
     <h1 class="text-center w-100 my-2">Upload</h1>
@@ -42,9 +42,15 @@
     <div class="mx-auto col-lg-3 col-md-4 col-xl-2">
       <div class="">
         <h5 class="text-center mt-2">Upload File</h5>
-        <button class="btn btn-success w-100" type="button" name="button" (click)="uploadFile()">Upload</button>
-      </div>
+        <button class="btn btn-success w-100" type="button" name="button" (click)="uploadFile()">
+          <span id="uploadText">Upload</span>
+          <span id="uploadSpinner" class="">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Uploading...
+          </span>
 
+        </button>
+      </div>
     </div>
   </div>
 
