@@ -1,3 +1,7 @@
 .line {
   height: 2px;
 }
+
+.clear-button:focus {
+  outline: none;
+}
