@@ -1,29 +1,60 @@
-<div class="">
+<div id="columnMapping" class="">
   <div class="row">
     <h1 class="text-center w-100">Column Mapping</h1>
-    <div class="mx-auto col-lg-3 col-md-4 col-xl-2">
-      <button class="btn btn-secondary w-100" type="button" name="button" routerLink="">Mapping</button>
+    <div class="m-0 p-0 w-100 col-6">
+      <button (click)="displayMapping()" class="btn btn-primary w-100 rounded-0 text-center" type="button" name="button">Mapping</button>
     </div>
-    <div class="mx-auto col-lg-3 col-md-4 col-xl-2">
-      <button class="btn btn-secondary w-100" type="button" name="button" routerLink="">Preview</button>
+    <div class="m-0 p-0 w-100 col-6">
+      <button (click)="displayPreview()" class="btn btn-secondary w-100 rounded-0 text-center" type="button" name="button">Preview</button>
     </div>
   </div>
 
   <div class="row ml-2">
-    <div *ngFor="let column of columns" class="mt-4 w-100 row">
-      <div class="col-2">
-          <button class="btn btn-light w-100" type="button" name="button">{{ column }}</button>
+
+    <div class="mt-4 w-100 row d-none d-md-flex">
+      <div class="col-lg-2 col-md-4 col-sm-12">
+        <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
       </div>
-      <div class="col-8 bg-dark my-auto line">
+      <div class="col-lg-8 col-md-4 d-none d-md-block">
 
       </div>
-      <div class="col-2">
+      <div class="col-lg-2 col-md-4 col-sm-12">
+        <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
+      </div>
+    </div>
+
+    <div *ngFor="let column of columns" class="mt-4 w-100 row">
+      <div class="col-lg-2 col-md-4 col-sm-12">
+          <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right" name="button">{{ column }}</h5>
+      </div>
+      <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-12">
         <app-dropdown-menu
           [data]="fileData.columns"
         >
         </app-dropdown-menu>
       </div>
     </div>
+  </div>
+
+</div>
+
+<div id="dataPreview" class="">
+  <div class="row">
+    <h1 class="text-center w-100">Preview</h1>
+    <div class="m-0 p-0 w-100 col-6">
+      <button (click)="displayMapping()" class="btn btn-secondary w-100 rounded-0 text-center" type="button" name="button">Mapping</button>
+    </div>
+    <div class="m-0 p-0 w-100 col-6">
+      <button (click)="displayPreview()" class="btn btn-primary w-100 rounded-0 text-center" type="button" name="button">Preview</button>
+    </div>
+  </div>
+
+  <div class="row ml-2">
+
+    Preview
   </div>
 
 </div>

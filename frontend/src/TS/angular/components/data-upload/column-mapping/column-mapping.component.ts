@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 // --------------- SERVICES ---------------
 import { FileUploadService } from '../../../services/file-upload.service';
@@ -7,7 +7,7 @@ import { FileUploadService } from '../../../services/file-upload.service';
   templateUrl: './column-mapping.component.html',
   styleUrls: ['./column-mapping.component.scss']
 })
-export class ColumnMappingComponent implements OnInit {
+export class ColumnMappingComponent implements OnInit, AfterViewInit {
 
   public fileData: any;
   public columns: Array<string>;
@@ -15,6 +15,9 @@ export class ColumnMappingComponent implements OnInit {
   private criminalColumns: Array<string>;
   private censusBlockColumns: Array<string>;
   private censusInformationColumns: Array<string>;
+
+  private columnMapping;
+  private dataPreview;
 
   constructor(private fileUploadService: FileUploadService) { }
 
@@ -50,10 +53,25 @@ export class ColumnMappingComponent implements OnInit {
     // }
 
     this.columns = this.criminalColumns;
-    
+
     this.fileData = this.fileUploadService.getData();
 
   }
 
+  ngAfterViewInit() {
+    this.columnMapping = document.getElementById('columnMapping');
+    this.dataPreview = document.getElementById('dataPreview');
 
+    this.displayMapping();
+  }
+
+  public displayMapping(): void {
+    this.columnMapping.style.display = 'block';
+    this.dataPreview.style.display = 'none';
+  }
+
+  public displayPreview(): void {
+    this.columnMapping.style.display = 'none';
+    this.dataPreview.style.display = 'block';
+  }
 }
