@@ -90,7 +90,8 @@ import { MatSliderModule } from '@angular/material/slider';
             { path: 'data-mapping', component: DataMappingComponent },
           ]
         },
-      ],
+
+      ]
     ),
 
     BrowserModule,

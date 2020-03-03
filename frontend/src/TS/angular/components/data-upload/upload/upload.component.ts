@@ -39,6 +39,9 @@ export class UploadComponent implements OnInit {
     this.selectedFileType = this.validFileTypes[0];
 
     this.defaulDelimiter = ',';
+
+    this.fileUploadService.setFileType(this.selectedFileType);
+    this.fileUploadService.setDataType(this.selectedDataType);
   }
 
   ngOnInit() {
@@ -77,11 +80,12 @@ export class UploadComponent implements OnInit {
 
   public selectedFileTypeChange(type): void {
     this.selectedFileType = type;
-    console.log(this.selectedFileType);
+    this.fileUploadService.setFileType(type);
   }
 
   public updateSelectedDataType(type): void {
     this.selectedDataType = type;
+    this.fileUploadService.setDataType(type);
   }
 
   private startSpinner() {

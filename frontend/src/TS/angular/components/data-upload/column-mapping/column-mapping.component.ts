@@ -12,6 +12,7 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
   public fileData: any;
   public columns: Array<string>;
 
+  private dataType: string;
   private criminalColumns: Array<string>;
   private censusBlockColumns: Array<string>;
   private censusInformationColumns: Array<string>;
@@ -41,18 +42,18 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
       'Deprevation Index'
     ];
 
-    // if (this.dataType === 'Criminal Data')
-    // {
-    //   this.columns = this.criminalColumns;
-    // }
-    // else if (this.dataType === 'Census Blocks') {
-    //   this.columns = this.censusBlockColumns;
-    // }
-    // else if (this.dataType === 'Census Information') {
-    //   this.columns = this.censusInformationColumns;
-    // }
+    this.dataType = this.fileUploadService.getDataType();
 
-    this.columns = this.criminalColumns;
+    if (this.dataType === 'Criminal Data')
+    {
+      this.columns = this.criminalColumns;
+    }
+    else if (this.dataType === 'Census Blocks') {
+      this.columns = this.censusBlockColumns;
+    }
+    else if (this.dataType === 'Census Information') {
+      this.columns = this.censusInformationColumns;
+    }
 
     this.fileData = this.fileUploadService.getData();
 
