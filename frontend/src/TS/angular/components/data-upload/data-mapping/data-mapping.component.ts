@@ -22,6 +22,7 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
   private crimeTypeMappingDiv: any;
   private censusBlockMappingDiv: any;
   private censusInformationMappingDiv: any;
+  private crimeTypeMappings: any;
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -30,11 +31,6 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.setup();
-
-    this.crimeTypeMappingDiv = document.getElementById('crimeTypeMapping');
-    this.censusBlockMappingDiv = document.getElementById('censusBlockMapping');
-    this.censusInformationMappingDiv = document.getElementById('censusInformationMapping');
-
 
     if (this.dataType === 'Criminal Data') {
       this.setupCriminalDataMapping();
@@ -75,6 +71,7 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
   private setupCriminalDataMapping(): void {
     this.applicationCrimeTypes = Array();
     this.userCrimeTypes = Array();
+    this.crimeTypeMappings = {};
 
     this.crimeService.loadCrimeTypes()
       .then(json => {
@@ -130,8 +127,11 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
       .catch(error => console.error(error));
   }
 
-  public dataMappingObjectUpdate(type, name): void {
+  public dataMappingObjectUpdate(userType, type): void {
+    this.crimeTypeMappings[userType] = type;
+  }
 
-
+  public import(): void {
+    console.log(this.crimeTypeMappings);
   }
 }
