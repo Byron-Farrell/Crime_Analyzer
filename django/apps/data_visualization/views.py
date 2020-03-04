@@ -234,7 +234,7 @@ class GetAnalytics(LoginRequiredMixin, View):
 
         # Checking if URL query keywords have values
         if city:
-            filter_options['city__in'] = city
+            filter_options['city__name__in'] = city
 
         if crime_types:
             filter_options['crime__type__in'] = crime_types
@@ -246,17 +246,17 @@ class GetAnalytics(LoginRequiredMixin, View):
 
         if crime_types and startDate and endDate and city:
             for type in crime_types:
-                isDarkCount = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=True).count()
-                isNotDarkCount = models.Crime.objects.filter(city__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=False).count()
+                isDarkCount = models.Crime.objects.filter(city___name__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=True).count()
+                isNotDarkCount = models.Crime.objects.filter(city__name__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=False).count()
                 query_result['isDark'][type] = { 'yes': isDarkCount, 'no': isNotDarkCount}
 
-        isDarkCountTotal = models.Crime.objects.filter(crime__type__in=crime_types, city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=True).count()
-        isNotDarkCountTotal = models.Crime.objects.filter(crime__type__in=crime_types, city__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=False).count()
+        isDarkCountTotal = models.Crime.objects.filter(crime__type__in=crime_types, city__name__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=True).count()
+        isNotDarkCountTotal = models.Crime.objects.filter(crime__type__in=crime_types, city__name__in=city, date__fullDate__range=(startDate, endDate), weatherDetails__dark=False).count()
         query_result['isDarkTotal'] = { 'yes': isDarkCountTotal, 'no': isNotDarkCountTotal }
 
         for i in range(1, 25):
 
-            count = models.Crime.objects.filter(crime__type__in=crime_types, time__hour=i,city__in=city, date__fullDate__range=(startDate, endDate)).count()
+            count = models.Crime.objects.filter(crime__type__in=crime_types, time__hour=i,city__name__in=city, date__fullDate__range=(startDate, endDate)).count()
 
             key = str(i)
 
