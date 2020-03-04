@@ -266,6 +266,7 @@ class GetAnalytics(LoginRequiredMixin, View):
 
         return HttpResponse(result_json, content_type='application/json')
 
+
 class CrimeFileUpload(LoginRequiredMixin, View):
 
     def post(self, request):
@@ -297,6 +298,25 @@ class CrimeFileUpload(LoginRequiredMixin, View):
 
         for col in df.columns:
             result_json['columns'].append(col)
+
+        result_json = json.dumps(result_json)
+
+        return HttpResponse(result_json, content_type='application/json')
+
+
+class GetFileCrimeTypes(LoginRequiredMixin, View):
+
+    def get(self, request):
+
+        file_upload_path = os.path.join(os.path.dirname(__file__), 'uploaded_files')
+        file_name = request.GET.get('fileName', None)
+        crime_type_col = request.GET.get('crimeTypeCol', None)
+
+        df = pd.read_csv(file_upload_path + file_name)
+
+        result_json = {}
+
+        result_json['crimeTypes'] = df[crime_type_col].unique()
 
         result_json = json.dumps(result_json)
 
