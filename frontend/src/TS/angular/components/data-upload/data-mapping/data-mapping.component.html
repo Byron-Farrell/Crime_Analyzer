@@ -1,1 +1,93 @@
-<p>data-mapping works!</p>
+<div class="container-fluid">
+  <div class="dataMappingTitle">
+    <div class="row">
+      <h1 class="text-center mt-4 w-100">Data Mapping</h1>
+    </div>
+    <hr>
+  </div>
+
+  <div class="cityMappingTitle">
+    <div class="row">
+      <h2 class="text-center w-100">City Mapping</h2>
+    </div>
+    <hr class="my-4">
+  </div>
+
+  <div id="cityMapping" class="">
+    <div class="row ml-2">
+      <div class="mt-4 w-100 row d-none d-md-flex">
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
+        </div>
+        <div class="col-lg-8 col-md-4 d-none d-md-block">
+
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
+        </div>
+      </div>
+
+      <div class="mt-4 w-100 row">
+        <div class="mt-4 w-100 row d-none d-md-flex">
+          <div class="col-lg-2 col-md-4 col-sm-12">
+              <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right" name="button">{{ cityMappingName }}</h5>
+          </div>
+          <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-12">
+            <app-dropdown-menu
+              [styles]="dropdownStyles"
+              [data]="cities"
+              (selectedMenuItemChange)="columnMappingObjectUpdate($event, cityMappingName)"
+            >
+            </app-dropdown-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="CrimeTypeMappingTitle">
+    <div class="row">
+      <h2 class="text-center w-100">Crime Type Mapping</h2>
+    </div>
+    <hr class="my-4">
+  </div>
+
+  <div id="crimeTypeMapping" class="">
+    <div class="row ml-2">
+      <div class="mt-4 w-100 row d-none d-md-flex">
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
+        </div>
+        <div class="col-lg-8 col-md-4 d-none d-md-block">
+
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
+        </div>
+      </div>
+
+      <div class="mt-4 w-100 row">
+        <div *ngFor="let crimeType of applicationCrimeTypes" class="mt-4 w-100 row d-none d-md-flex">
+          <div class="col-lg-2 col-md-4 col-sm-12">
+              <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right">{{ crimeType }}</h5>
+          </div>
+          <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-12">
+            <app-dropdown-menu
+              [styles]="dropdownStyles"
+              [data]="applicationCrimeTypes"
+              (selectedMenuItemChange)="columnMappingObjectUpdate($event, crimeType)"
+            >
+            </app-dropdown-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
