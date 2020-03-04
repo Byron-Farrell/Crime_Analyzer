@@ -5,91 +5,102 @@
     </div>
   </div>
 
-  <hr class="my-4">
-
-  <div class="cityMappingTitle">
-    <div class="row">
-      <h2 class="text-center w-100">City Mapping</h2>
-    </div>
-
-  </div>
-
   <div id="cityMapping" class="">
-    <div class="row ml-2">
-      <div class="mt-4 w-100 row d-none d-md-flex mx-auto">
-        <div class="col-lg-2 col-md-4 col-sm-12">
-          <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
-        </div>
-        <div class="col-lg-8 col-md-4 d-none d-md-block">
+    <hr class="my-4">
 
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-12">
-          <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
-        </div>
+    <div class="cityMappingTitle">
+      <div class="row">
+        <h2 class="text-center w-100">City Mapping</h2>
       </div>
 
-      <div class="mt-4 w-100 row mx-auto">
-        <div class="mt-4 w-100 row d-md-flex">
-          <div class="col-lg-2 col-md-4 col-sm-12">
-              <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right" name="button">{{ cityMappingName }}</h5>
-          </div>
-          <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
-
-          </div>
-          <div class="col-lg-2 col-md-4 col-sm-12">
-            <app-dropdown-menu
-              [styles]="dropdownStyles"
-              [data]="cities"
-
-            >
-            </app-dropdown-menu>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <hr class="my-4">
+    <div class="">
+      <div class="row ml-2">
+        <div class="mt-4 w-100 row d-none d-md-flex mx-auto">
+          <div class="col-lg-2 col-md-4 col-sm-12">
+            <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
+          </div>
+          <div class="col-lg-8 col-md-4 d-none d-md-block">
 
-  <div class="CrimeTypeMappingTitle">
-    <div class="row">
-      <h2 class="text-center w-100">Crime Type Mapping</h2>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-12">
+            <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
+          </div>
+        </div>
+
+        <div class="mt-4 w-100 row mx-auto">
+          <div class="mt-4 w-100 row d-md-flex">
+            <div class="col-lg-2 col-md-4 col-sm-12">
+                <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right" name="button">{{ cityMappingName }}</h5>
+            </div>
+            <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-12">
+              <app-dropdown-menu
+                [styles]="dropdownStyles"
+                [data]="cities"
+
+              >
+              </app-dropdown-menu>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div id="crimeTypeMapping" class="">
-    <div class="row ml-2">
-      <div class="mt-4 w-100 row d-none d-md-flex ">
-        <div class="col-lg-2 col-md-4 col-sm-12">
-          <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
-        </div>
-        <div class="col-lg-8 col-md-4 d-none d-md-block">
+    <hr class="my-4">
 
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-12">
-          <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
-        </div>
+    <div class="CrimeTypeMappingTitle">
+      <div class="row">
+        <h2 class="text-center w-100">Crime Type Mapping</h2>
       </div>
+    </div>
 
-      <div class="mt-4 w-100 row mx-auto">
-        <div *ngFor="let crimeType of userCrimeTypes" class="mt-4 w-100 row">
+    <div class="">
+      <div class="row ml-2">
+        <div class="mt-4 w-100 row d-none d-md-flex ">
           <div class="col-lg-2 col-md-4 col-sm-12">
-              <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right">{{ crimeType }}</h5>
+            <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
           </div>
-          <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+          <div class="col-lg-8 col-md-4 d-none d-md-block">
 
           </div>
           <div class="col-lg-2 col-md-4 col-sm-12">
-            <app-dropdown-menu
-              [styles]="dropdownStyles"
-              [data]="applicationCrimeTypes"
-              (selectedMenuItemChange)="dataMappingObjectUpdate($event, crimeType)"
-            >
-            </app-dropdown-menu>
+            <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
+          </div>
+        </div>
+
+        <div class="mt-4 w-100 row mx-auto">
+          <div *ngFor="let crimeType of userCrimeTypes" class="mt-4 w-100 row">
+            <div class="col-lg-2 col-md-4 col-sm-12">
+                <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right">{{ crimeType }}</h5>
+            </div>
+            <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-12">
+              <app-dropdown-menu
+                [styles]="dropdownStyles"
+                [data]="applicationCrimeTypes"
+                (selectedMenuItemChange)="dataMappingObjectUpdate($event, crimeType)"
+              >
+              </app-dropdown-menu>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <div id="censusBlockMapping" class="">
+    <h3 class="text-center w-100">In Development...</h3>
+  </div>
+
+  <div id="censusInformationMapping" class="">
+    <h3 class="text-center w-100">In Development...</h3>
+  </div>
 </div>
