@@ -208,7 +208,7 @@ class GetCityNames(LoginRequiredMixin, View):
         cities = []
 
         for obj in queryset:
-            cities.append(obj['city']);
+            cities.append(obj['city__name']);
 
 
         cities_json = json.dumps(cities)
