@@ -308,7 +308,7 @@ class GetFileCrimeTypes(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        file_upload_path = os.path.join(os.path.dirname(__file__), 'uploaded_files')
+        file_upload_path = os.path.join(os.path.dirname(__file__), 'uploaded_files/')
         file_name = request.GET.get('fileName', None)
         crime_type_col = request.GET.get('crimeTypeCol', None)
 
@@ -316,7 +316,7 @@ class GetFileCrimeTypes(LoginRequiredMixin, View):
 
         result_json = {}
 
-        result_json['crimeTypes'] = df[crime_type_col].unique()
+        result_json['crimeTypes'] = df[crime_type_col].unique().tolist()
 
         result_json = json.dumps(result_json)
 

@@ -34,7 +34,7 @@
         <app-dropdown-menu
           [styles]="dropdownStyles"
           [data]="fileData.columns"
-          (selectedMenuItemChange)="columnMappingObjectUpdate($event, column)"
+          (selectedMenuItemChange)="columnMappingObjectUpdate(column, $event)"
         >
         </app-dropdown-menu>
       </div>

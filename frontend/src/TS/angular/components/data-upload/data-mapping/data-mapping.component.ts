@@ -29,11 +29,13 @@ export class DataMappingComponent implements OnInit {
 
   private setup(): void {
     this.columnMappings = this.fileUploadService.getColumnMappings();
+
     this.dropdownStyles = 'btn btn-secondary w-100';
     this.cityMappingName = 'City';
     this.applicationCrimeTypes = Array();
     this.cities = Array();
-    
+    this.userCrimeTypes = Array();
+
     this.crimeService.loadCities()
       .then(json => {
         json.forEach(type => {
@@ -49,5 +51,18 @@ export class DataMappingComponent implements OnInit {
         })
       })
       .catch(error => console.error(error));
+
+    this.fileUploadService.getFileCrimeTypes()
+      .then(json => {
+        json.forEach(type => {
+          this.userCrimeTypes.push(type);
+        })
+      })
+      .catch(error => console.error(error));
+  }
+
+  public dataMappingObjectUpdate(type, name): void {
+
+
   }
 }

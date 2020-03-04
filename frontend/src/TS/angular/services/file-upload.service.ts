@@ -7,6 +7,7 @@ export class FileUploadService {
 
   private BASE_URI: string;
   private CRIME_URI: string;
+  private FILE_CRIME_TYPES: string;
 
   private data: any;
   private fileType: string;
@@ -17,7 +18,7 @@ export class FileUploadService {
   constructor() {
     this.BASE_URI = 'http://127.0.0.1:8000/';
     this.CRIME_URI = 'uploadCriminalDataFile';
-
+    this.FILE_CRIME_TYPES = 'getFileCrimeTypes';
     this.columnMappings = {};
   }
 
@@ -55,6 +56,18 @@ export class FileUploadService {
 
   public setDelimiter(newDelimiter: string) {
     this.delimiter = newDelimiter;
+  }
+
+  public getFileCrimeTypes(): Promise<any> {
+    const uriQuery = '?fileName=' + this.data.file_name + '&crimeTypeCol=' + this.columnMappings['Crime Type']
+    const uri = this.BASE_URI + this.FILE_CRIME_TYPES + uriQuery;
+
+    return new Promise((resolve, reject) => {
+      fetch(uri)
+        .then(response => response.json())
+        .then(json => resolve(json['crimeTypes']))
+        .catch(error => reject(error));
+    })
   }
 
   public postFile(file): Promise<any> {

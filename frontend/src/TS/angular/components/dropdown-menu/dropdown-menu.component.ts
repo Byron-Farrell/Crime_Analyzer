@@ -33,6 +33,7 @@ export class DropdownMenuComponent implements OnInit {
   ngOnInit() {
     if (this.data) {
       this.selectedMenuItem = this.data[0];
+      this.selectedMenuItemChange.emit(this.selectedMenuItem);
     }
   }
 
