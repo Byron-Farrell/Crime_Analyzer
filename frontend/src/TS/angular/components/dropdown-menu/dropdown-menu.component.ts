@@ -16,6 +16,7 @@ export class DropdownMenuComponent implements OnInit {
   public selectedMenuItem: string;
 
   @Input() data: Array<string>;
+  @Input() styles: string;
 
   @Output() selectedMenuItemChange: EventEmitter<string>;
 
