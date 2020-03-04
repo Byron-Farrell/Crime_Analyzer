@@ -7,9 +7,11 @@ export class FileUploadService {
 
   private BASE_URI: string;
   private CRIME_URI: string;
+
   private data: any;
   private fileType: string;
   private dataType: string;
+  private delimiter: string;
 
   constructor() {
     this.BASE_URI = 'http://127.0.0.1:8000/';
@@ -27,13 +29,21 @@ export class FileUploadService {
   public getDataType(): string {
     return this.dataType;
   }
-  
+
+  public getDelimiter() {
+    return this.delimiter;
+  }
+
   public setFileType(fileType: string): void {
     this.fileType = fileType;
   }
 
   public setDataType(dataType: string): void {
     this.dataType = dataType;
+  }
+
+  public setDelimiter(newDelimiter: string) {
+    this.delimiter = newDelimiter;
   }
 
   public postFile(file): Promise<any> {

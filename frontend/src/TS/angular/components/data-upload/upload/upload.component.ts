@@ -11,6 +11,7 @@ import { FileUploadService } from '../../../services/file-upload.service';
 export class UploadComponent implements OnInit {
 
   private files: Array<File>;
+  private selectedDelimiter: string;
 
   public dataUploadTypes: Array<string>;
   public errorMessage: string;
@@ -24,6 +25,14 @@ export class UploadComponent implements OnInit {
     private fileUploadService: FileUploadService,
     private router: Router
   ) {
+    this.setup();
+  }
+
+  ngOnInit() {
+    this.stopSpinner();
+  }
+
+  private setup(): void {
     this.dataUploadTypes = [
       'Criminal Data',
       'Census Blocks',
@@ -42,10 +51,12 @@ export class UploadComponent implements OnInit {
 
     this.fileUploadService.setFileType(this.selectedFileType);
     this.fileUploadService.setDataType(this.selectedDataType);
+    this.fileUploadService.setDelimiter(this.defaulDelimiter);
   }
 
-  ngOnInit() {
-    this.stopSpinner();
+  public selectedDelimiterChange(event) {
+    this.selectedDelimiter = event.target.value;
+    this.fileUploadService.setDelimiter(this.selectedDelimiter);
   }
 
   public triggerFileUpload(): void {
