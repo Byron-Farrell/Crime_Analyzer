@@ -11,5 +11,6 @@ urlpatterns = [
     path('getCityNames', views.GetCityNames.as_view(), name='getCityNames'),
     path('getAnalytics', views.GetAnalytics.as_view(), name='getAnalytics'),
     path('uploadCriminalDataFile', views.CrimeFileUpload.as_view(), name='crimeFileUpload'),
+    path('getFileCrimeTypes', views.GetFileCrimeTypes.as_view(), name='getFileCrimeTypes'),
     # path('uploadCrimes', views.upload_crimes, name='upload_crimes'),
 ]
