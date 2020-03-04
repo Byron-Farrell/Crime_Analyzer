@@ -204,7 +204,7 @@ class GetMoonTypes(LoginRequiredMixin, View):
 
 class GetCityNames(LoginRequiredMixin, View):
     def get(self, request):
-        queryset = models.Crime.objects.values('city').distinct()
+        queryset = models.Crime.objects.values('city')
         cities = []
 
         for obj in queryset:
