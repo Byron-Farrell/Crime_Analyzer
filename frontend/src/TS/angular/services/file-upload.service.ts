@@ -12,10 +12,15 @@ export class FileUploadService {
   private fileType: string;
   private dataType: string;
   private delimiter: string;
+  private columnMappings: any;
 
   constructor() {
     this.BASE_URI = 'http://127.0.0.1:8000/';
     this.CRIME_URI = 'uploadCriminalDataFile';
+  }
+
+  public getColumnMappings(): any {
+    return { ...this.columnMappings };
   }
 
   public getData(): any {
@@ -30,8 +35,12 @@ export class FileUploadService {
     return this.dataType;
   }
 
-  public getDelimiter() {
+  public getDelimiter(): string {
     return this.delimiter;
+  }
+
+  public setColumnMappings(mappingObj: any): void {
+    this.columnMappings = { ...mappingObj };
   }
 
   public setFileType(fileType: string): void {

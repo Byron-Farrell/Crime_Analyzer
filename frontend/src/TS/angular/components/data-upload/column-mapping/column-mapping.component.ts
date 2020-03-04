@@ -12,13 +12,14 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
   public fileData: any;
   public columns: Array<string>;
 
+  private columnMappings: any;
   private dataType: string;
   private criminalColumns: Array<string>;
   private censusBlockColumns: Array<string>;
   private censusInformationColumns: Array<string>;
 
-  private columnMapping;
-  private dataPreview;
+  private columnMappingView;
+  private dataPreviewView;
 
   constructor(private fileUploadService: FileUploadService) { }
 
@@ -60,19 +61,23 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.columnMapping = document.getElementById('columnMapping');
-    this.dataPreview = document.getElementById('dataPreview');
+    this.columnMappingView = document.getElementById('columnMapping');
+    this.dataPreviewView = document.getElementById('dataPreview');
 
     this.displayMapping();
   }
 
+  public columnMappingObjectUpdate(name: string, value: string) {
+    this.columnMappings[name] = value;
+  }
+
   public displayMapping(): void {
-    this.columnMapping.style.display = 'block';
-    this.dataPreview.style.display = 'none';
+    this.columnMappingView.style.display = 'block';
+    this.dataPreviewView.style.display = 'none';
   }
 
   public displayPreview(): void {
-    this.columnMapping.style.display = 'none';
-    this.dataPreview.style.display = 'block';
+    this.columnMappingView.style.display = 'none';
+    this.dataPreviewView.style.display = 'block';
   }
 }
