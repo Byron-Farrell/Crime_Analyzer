@@ -21,6 +21,8 @@ export class UploadComponent implements OnInit {
   public validFileTypes: Array<string>;
   public defaulDelimiter: string;
 
+  public dropdownStyles: string;
+
   constructor(
     private fileUploadService: FileUploadService,
     private router: Router
@@ -33,6 +35,7 @@ export class UploadComponent implements OnInit {
   }
 
   private setup(): void {
+    this.dropdownStyles = "btn btn-secondary w-100";
     this.dataUploadTypes = [
       'Criminal Data',
       'Census Blocks',

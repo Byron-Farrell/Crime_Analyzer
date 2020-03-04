@@ -17,6 +17,8 @@ export class FileUploadService {
   constructor() {
     this.BASE_URI = 'http://127.0.0.1:8000/';
     this.CRIME_URI = 'uploadCriminalDataFile';
+
+    this.columnMappings = {};
   }
 
   public getColumnMappings(): any {

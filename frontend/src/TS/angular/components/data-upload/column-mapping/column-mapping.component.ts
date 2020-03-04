@@ -20,10 +20,12 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
 
   private columnMappingView;
   private dataPreviewView;
-
+  public dropdownStyles: string;
   constructor(private fileUploadService: FileUploadService) { }
 
   ngOnInit() {
+    this.columnMappings = {};
+    this.dropdownStyles = "btn btn-secondary w-100";
     this.criminalColumns = [
       'Crime Type',
       'Crime Description',
@@ -69,6 +71,7 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
 
   public columnMappingObjectUpdate(name: string, value: string) {
     this.columnMappings[name] = value;
+    this.fileUploadService.setColumnMappings(this.columnMappings);
   }
 
   public displayMapping(): void {

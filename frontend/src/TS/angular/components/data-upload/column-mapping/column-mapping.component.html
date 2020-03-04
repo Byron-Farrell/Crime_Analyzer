@@ -32,8 +32,9 @@
       </div>
       <div class="col-lg-2 col-md-4 col-sm-12">
         <app-dropdown-menu
-          [styles]="btn btn-secondary w-100"
+          [styles]="dropdownStyles"
           [data]="fileData.columns"
+          (selectedMenuItemChange)="columnMappingObjectUpdate($event, column)"
         >
         </app-dropdown-menu>
       </div>
@@ -44,7 +45,7 @@
 
       </div>
       <div class="col-lg-2 col-md-4 col-sm-12 ">
-        <button class="btn btn-primary float-right w-100" type="button" name="button">Next</button>
+        <button class="btn btn-primary float-right w-100" type="button" name="button" routerLink="/upload/data-mapping">Next</button>
       </div>
     </div>
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// --------------- SERVICES ---------------
+import { FileUploadService } from '../../../services/file-upload.service';
+
 @Component({
   selector: 'app-data-mapping',
   templateUrl: './data-mapping.component.html',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DataMappingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fileUploadService: FileUploadService) { }
 
   ngOnInit() {
+    let temp = this.fileUploadService.getColumnMappings();
+    console.log(temp);
+
   }
 
 }
