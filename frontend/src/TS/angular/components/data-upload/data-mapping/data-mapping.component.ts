@@ -16,8 +16,11 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
   public cities: Array<string>;
   public dropdownStyles: string;
   public cityMappingName: string;
+
   public userCrimeTypes: Array<string>;
   public applicationCrimeTypes: Array<string>;
+  public applicationArrestTypes: Array<string>;
+  public userArrestTypes: Array<string>;
   public newCity: string;
 
   private crimeTypeMappingDiv: any;
