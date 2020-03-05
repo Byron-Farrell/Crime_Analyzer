@@ -179,7 +179,7 @@ def run_historical_weather():
 
         current_moon_cycle = api_response['historical'][date_string]['astro']['moon_phase']
 
-        # A json object is returned for with weather details for every hour of the
+        # A json object is returned for the weather details for every hour of the
         # current historicl date. This for loop, loops through each hour and gets
         # the weather for that hour
         for weather in api_response['historical'][date_string]['hourly']:

@@ -59,6 +59,7 @@ class City(models.Model):
 
 
 class Crime(models.Model):
+    uniqueID = models.CharField(max_length=150, primary_key=True)
     weatherDetails = models.ForeignKey(Weather, on_delete=models.CASCADE)
     crime = models.ForeignKey(CrimeType, on_delete=models.CASCADE)
     censusBlock = models.ForeignKey(CensusBlock, on_delete=models.CASCADE)

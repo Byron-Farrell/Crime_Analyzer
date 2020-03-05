@@ -8,6 +8,7 @@ export class FileUploadService {
   private BASE_URI: string;
   private CRIME_URI: string;
   private FILE_CRIME_TYPES: string;
+  private FILE_ARREST_VALUES: string;
 
   private data: any;
   private fileType: string;
@@ -19,6 +20,7 @@ export class FileUploadService {
     this.BASE_URI = 'http://127.0.0.1:8000/';
     this.CRIME_URI = 'uploadCriminalDataFile';
     this.FILE_CRIME_TYPES = 'getFileCrimeTypes';
+    this.FILE_ARREST_VALUES = 'getFileArrestValues';
     this.columnMappings = {};
   }
 
@@ -66,6 +68,18 @@ export class FileUploadService {
       fetch(uri)
         .then(response => response.json())
         .then(json => resolve(json['crimeTypes']))
+        .catch(error => reject(error));
+    })
+  }
+
+  public getFileArrestValues(): Promise<any> {
+    const uriQuery = '?fileName=' + this.data.file_name + '&arrestValuesCol=' + this.columnMappings['Arrest']
+    const uri = this.BASE_URI + this.FILE_ARREST_VALUES + uriQuery;
+
+    return new Promise((resolve, reject) => {
+      fetch(uri)
+        .then(response => response.json())
+        .then(json => resolve(json['arrestValues']))
         .catch(error => reject(error));
     })
   }

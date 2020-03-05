@@ -322,13 +322,56 @@ class GetFileCrimeTypes(LoginRequiredMixin, View):
 
         return HttpResponse(result_json, content_type='application/json')
 
+
+class GetFileArrestValues(LoginRequiredMixin, View):
+
+    def get(self, request):
+        file_upload_path = os.path.join(os.path.dirname(__file__), 'uploaded_files/')
+        file_name = request.GET.get('fileName', None)
+        arrest_col = request.GET.get('arrestValuesCol', None)
+
+        df = pd.read_csv(file_upload_path + file_name)
+
+        result_json = {}
+
+        result_json['arrestValues'] = df[arrest_col].unique().tolist()
+
+        result_json = json.dumps(result_json)
+
+        return HttpResponse(result_json, content_type='application/json')
+
+
+class UploadCrimeCsv(LoginRequiredMixin, View):
+
+    def post(self, request):
+        uploaded_file = request.FILES.get('uploadFile', None)
+        upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
+
+        try:
+            chunks = pd.read_csv(upload_file_path, chunksize=60000)
+        except Exception as e:
+            print(e)
+        else:
+            crime_validator = Validator()
+
+            for df in chunks:
+                for index, row in df.iterrows():
+                    crime = crime_validator.validate_crime(row, row_num)
+                    if crime is not False:
+                        crime.save()
+                    crime_validator.log()
+                    crime_validator.clear_error_messeges()
+
 # @login_required
-# def upload_crimes(request):
+# def upload_crimes_csv(request):
 #     template = 'data_visualization/index.html'
+#
+#     uploaded_file = request.FILES.get('uploadFile', None)
+#     upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
 #
 #     if request.method == 'POST':
 #         try:
-#             chunks = pd.read_csv(chicago_crimes_csv, chunksize=60000)
+#             chunks = pd.read_csv(upload_file_path, chunksize=60000)
 #         except Exception as e:
 #             print(e)
 #         else:

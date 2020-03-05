@@ -7,27 +7,29 @@ from django.contrib.gis.geos import Point
 
 class Validator:
 
-    def __init__(self):
+    def __init__(self, column_mappings=None, crime_type_mappings=None, city_mapping=None, arrest_mapping=None):
         # All validation error messages
         self.error_messages = []
 
     # Validate all data for the Crime model before inserting it
-    def validate_chicago_crime(self, row):
-        longitude = row['Longitude']
-        latitude = row['Latitude']
-        IUCR = row['IUCR'] # Criminal code used to identify different crime types
-        community_area_code = row['Community Area'] # Chicago Boundries
-        date_time_string = row['Date']
-        uniqueID = row['Case Number']
-        date_time_obj = datetime.datetime.strptime(date_time_string, '%m/%d/%Y %I:%M:%S %p')
+    def validate_crime(self, row):
+        description = row[column_mappings['Description']]
+        arrest = row[column_mappings['Arrest']]
+        longitude = row[column_mappings['Longitude']]
+        latitude = row[column_mappings['Latitude']]
+        IUCR = row[column_mappings['crimeType']] # Criminal code used to identify different crime types
+        date_time_string = row[column_mappings['Date']]
+        uniqueID = row[column_mappings['uniqueID']]
+        date_time_obj = datetime.datetime.strptime(date_time_string, column_mappings['dateFormat']) # '%m/%d/%Y %I:%M:%S %p'
 
         if self.validate_coords(longitude, latitude) is False:
             return False
 
         point = Point(longitude, latitude)
 
+        city_name = city_mapping['city'];
+        city = get_city(city_name)
 
-        community_area = self.validate_community_area(community_area_code)
         type = self.validate_crime_type(IUCR)
         census_block = self.validate_census_block(point)
         date = self.get_date(date_time_obj)
@@ -42,10 +44,10 @@ class Validator:
 
         crime_type = self.get_crime_type(type)
 
-        if crime_type is False:
+        if city is False:
             return False
 
-        if community_area is False:
+        if crime_type is False:
             return False
 
         if census_block is False:
@@ -66,17 +68,16 @@ class Validator:
         try:
             # Validate weather data
             crime = models.Crime(
-                city = 'Chicago',
-                district = community_area,
+                city = city,
                 weatherDetails = weather,
                 crime = crime_type,
                 censusBlock = census_block,
                 date = date,
                 time = time,
-                crimeDescription = row['Description'],
-                arrest = row['Arrest'],
-                longitude = row['Longitude'],
-                latitude = row['Latitude']
+                crimeDescription = description,
+                arrest = arrest_mapping[arrest],
+                longitude = longitude,
+                latitude = latitude
             )
 
         except Exception as e:
@@ -124,6 +125,14 @@ class Validator:
             self.error_messages.append(error_message)
             return False
 
+    def get_city(self, name):
+        try:
+            city = models.City.objects.get(name=name)
+        except Exception as e:
+            self.error_messages.append(str(e) + '\n')
+            return False
+
+        return city
 
     def get_date(self, date_obj):
         year = date_obj.year
@@ -150,17 +159,6 @@ class Validator:
             return False
         else:
             True
-
-
-    def validate_community_area(self, community_area_code):
-        error_message = 'Error: community area "{}" does not exist!\n'.format(community_area_code)
-        try:
-            community_area_code = int(community_area_code)
-            community_area = models.District.objects.get(ID=community_area_code)
-        except Exception as e:
-            self.error_messages.append('failed to validate community area code {}.\nException Error Message\n{}\n'.format(community_area_code, str(e)))
-            return False
-        return community_area
 
 
     def validate_crime_type(self, IUCR):
@@ -200,6 +198,7 @@ class Validator:
             self.error_messages.append('Failed to validate coords ({}, {}).\nException Error Message\n{}\n'.format(longitude, latitude, str(e)))
             return False
         return True
+
 
     def clear_error_messeges(self):
         self.error_messages = []

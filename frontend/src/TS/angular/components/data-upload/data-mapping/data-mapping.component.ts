@@ -18,11 +18,13 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
   public cityMappingName: string;
   public userCrimeTypes: Array<string>;
   public applicationCrimeTypes: Array<string>;
+  public newCity: string;
 
   private crimeTypeMappingDiv: any;
   private censusBlockMappingDiv: any;
   private censusInformationMappingDiv: any;
   private crimeTypeMappings: any;
+  private arrestMappings: any;
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -73,6 +75,11 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
     this.userCrimeTypes = Array();
     this.crimeTypeMappings = {};
 
+    this.applicationArrestTypes = ['True', 'False'];
+    this.userArrestTypes = Array();
+    this.arrestMappings = {};
+
+
     this.crimeService.loadCrimeTypes()
       .then(json => {
         json.forEach(type => {
@@ -88,6 +95,14 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
         })
       })
       .catch(error => console.error(error));
+
+      this.fileUploadService.getFileArrestValues()
+        .then(json => {
+          json.forEach(type => {
+            this.userArrestTypes.push(type);
+          })
+        })
+        .catch(error => console.error(error));
   }
 
   private displayCensusInformationMapping(): void {
@@ -133,5 +148,9 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
 
   public import(): void {
     console.log(this.crimeTypeMappings);
+  }
+
+  public addCity(): void {
+    this.cities.push(this.newCity);
   }
 }
