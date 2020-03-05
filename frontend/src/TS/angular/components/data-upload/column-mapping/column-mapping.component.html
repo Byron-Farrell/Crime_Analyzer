@@ -27,8 +27,12 @@
       <div class="col-lg-2 col-md-4 col-sm-12">
           <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right" name="button">{{ column }}</h5>
       </div>
-      <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+      <p class="text-muted text-center w-100 position-absolute mt-n2 d-none d-lg-block"><small>{{ column }}&emsp;<i class="fas fa-long-arrow-alt-right"></i>&emsp;{{columnMappings[column]}}</small></p>
+      <div class="col-lg-8 col-md-4 d-none d-md-block my-auto ">
 
+        <div class="w-100 bg-dark line">
+
+        </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-12">
         <app-dropdown-menu

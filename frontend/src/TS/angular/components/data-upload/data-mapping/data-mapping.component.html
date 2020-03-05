@@ -17,31 +17,23 @@
 
     <div class="">
       <div class="row ml-2">
-        <div class="mt-4 w-100 row d-none d-md-flex mx-auto">
-          <div class="col-lg-2 col-md-4 col-sm-12">
-            <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
-          </div>
-          <div class="col-lg-8 col-md-4 d-none d-md-block">
-
-          </div>
-          <div class="col-lg-2 col-md-4 col-sm-12">
-            <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
-          </div>
-        </div>
 
         <div class="mt-4 w-100 row mx-auto">
           <div class="mt-4 w-100 row d-md-flex">
             <div class="col-lg-2 col-md-4 col-sm-12">
                 <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right" name="button">{{ cityMappingName }}</h5>
             </div>
-            <div class="col-lg-8 col-md-4 d-none d-md-block bg-dark my-auto line">
+            <p class="text-muted text-center w-100 position-absolute mt-n2 d-none d-lg-block"><small>{{ cityMappingName }}&emsp;<i class="fas fa-long-arrow-alt-right"></i>&emsp;{{cityMapping[cityMappingName]}}</small></p>
+            <div class="col-lg-8 col-md-4 d-none d-md-block my-auto ">
 
+              <div class="w-100 bg-dark line">
+              </div>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-12">
               <app-dropdown-menu
                 [styles]="dropdownStyles"
                 [data]="cities"
-
+                (selectedMenuItemChange)="cityMappingObjectUpdate(cityMappingName, $event)"
               >
               </app-dropdown-menu>
 
@@ -73,13 +65,13 @@
 
       <div class="mt-4 w-100 row d-none d-md-flex ">
         <div class="col-lg-2 col-md-4 col-sm-12">
-          <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">Database Headers</h3>
+          <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">File Headers</h3>
         </div>
         <div class="col-lg-8 col-md-4 d-none d-md-block">
 
         </div>
         <div class="col-lg-2 col-md-4 col-sm-12">
-          <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">File Headers</h3>
+          <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">Database Headers</h3>
         </div>
       </div>
 
@@ -98,7 +90,52 @@
           <app-dropdown-menu
             [styles]="dropdownStyles"
             [data]="applicationCrimeTypes"
-            (selectedMenuItemChange)="dataMappingObjectUpdate(crimeType, $event)"
+            (selectedMenuItemChange)="crimeTypeMappingObjectUpdate(crimeType, $event)"
+          >
+          </app-dropdown-menu>
+        </div>
+      </div>
+
+
+
+    </div>
+    <hr class="my-4">
+    <div class="ArrestTitle">
+      <div class="row">
+        <h2 class="text-center w-100">Arrest Mapping</h2>
+      </div>
+    </div>
+
+    <div class="row ml-2">
+
+      <div class="mt-4 w-100 row d-none d-md-flex ">
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <h3 class="w-100 h-100 text-dark m-0 text-center" name="button">File Headers</h3>
+        </div>
+        <div class="col-lg-8 col-md-4 d-none d-md-block">
+
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <h3 class="w-100 h-100 m-0 text-dark text-center" name="button">Database Headers</h3>
+        </div>
+      </div>
+
+      <div *ngFor="let type of userArrestTypes" class="mt-4 w-100 row">
+        <div class="col-lg-2 col-md-4 col-sm-12">
+            <h5 class="w-100 h-100 align-middle text-dark text-right text-center text-lg-right">{{ type }}</h5>
+        </div>
+        <p class="text-muted text-center w-100 position-absolute mt-n2 d-none d-lg-block"><small>{{ type }}&emsp;<i class="fas fa-long-arrow-alt-right"></i>&emsp;{{arrestMappings[type]}}</small></p>
+        <div class="col-lg-8 col-md-4 d-none d-md-block my-auto ">
+
+          <div class="w-100 bg-dark line">
+
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <app-dropdown-menu
+            [styles]="dropdownStyles"
+            [data]="applicationArrestTypes"
+            (selectedMenuItemChange)="ArrestMappingObjectUpdate(type, $event)"
           >
           </app-dropdown-menu>
         </div>

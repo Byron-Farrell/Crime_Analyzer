@@ -16,6 +16,7 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
   public cities: Array<string>;
   public dropdownStyles: string;
   public cityMappingName: string;
+  public cityMapping: any;
 
   public userCrimeTypes: Array<string>;
   public applicationCrimeTypes: Array<string>;
@@ -77,6 +78,8 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
     this.applicationCrimeTypes = Array();
     this.userCrimeTypes = Array();
     this.crimeTypeMappings = {};
+
+    this.cityMapping = {}
 
     this.applicationArrestTypes = ['True', 'False'];
     this.userArrestTypes = Array();
@@ -145,8 +148,16 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
       .catch(error => console.error(error));
   }
 
-  public dataMappingObjectUpdate(userType, type): void {
+  public crimeTypeMappingObjectUpdate(userType, type): void {
     this.crimeTypeMappings[userType] = type;
+  }
+
+  public ArrestMappingObjectUpdate(userType, type): void {
+    this.arrestMappings[userType] = type;
+  }
+
+  public cityMappingObjectUpdate(userType, type): void {
+    this.cityMapping[userType] = type;
   }
 
   public import(): void {
