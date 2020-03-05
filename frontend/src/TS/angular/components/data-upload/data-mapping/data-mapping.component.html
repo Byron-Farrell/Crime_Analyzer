@@ -101,7 +101,9 @@
 
 
       </div>
+
       <hr class="my-4">
+
       <div class="ArrestTitle">
         <div class="row">
           <h2 class="text-center w-100">Arrest Mapping</h2>
@@ -145,6 +147,26 @@
 
 
 
+      </div>
+
+      <hr class="my-4">
+
+      <div class="DateTitle">
+        <div class="row">
+          <h2 class="text-center w-100">Date Format<small><i class="far fa-question-circle ml-2 pointer" data-toggle="modal" data-target="#dateFormatModal"></i></small></h2>
+        </div>
+      </div>
+
+      <div class="row ml-2">
+        <div class="col-lg-4 col-md-2">
+
+        </div>
+        <div class="col-lg-4 col-md-8">
+          <input [(ngModel)]="dateFormat" class="w-100 " type="text" name="" value="" placeholder="e.g. %Y-%m-%d">
+        </div>
+        <div class="col-lg-4 col-md-2">
+
+        </div>
       </div>
     </div>
   </div>
@@ -196,6 +218,201 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-success" data-dismiss="modal" (click)="addCity()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade m-auto w-100 p-0" id="dateFormatModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div id="dateFormatModalDialog" class="modal-dialog px-3 " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel"><b>Format Code List</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-hover table-borderless">
+        	<thead>
+        		<tr>
+        			<td><strong>Directive</strong></td>
+        			<td><strong>Meaning</strong></td>
+        			<td><strong>Example</strong></td>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr>
+        			<td><code>%a</code></td>
+        			<td>Abbreviated weekday name.</td>
+        			<td>Sun, Mon, ...</td>
+        		</tr>
+        		<tr>
+        			<td><code>%A</code></td>
+        			<td>Full weekday name.</td>
+        			<td>Sunday, Monday, ...</td>
+        		</tr>
+        		<tr>
+        			<td><code>%w</code></td>
+        			<td>Weekday as a decimal number.</td>
+        			<td>0, 1, ..., 6</td>
+        		</tr>
+        		<tr>
+        			<td><code>%d</code></td>
+        			<td>Day of the month as a zero-padded decimal.</td>
+        			<td>01, 02, ..., 31</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-d</code></td>
+        			<td>Day of the month as a decimal number.</td>
+        			<td>1, 2, ..., 30</td>
+        		</tr>
+        		<tr>
+        			<td><code>%b</code></td>
+        			<td>Abbreviated month name.</td>
+        			<td>Jan, Feb, ..., Dec</td>
+        		</tr>
+        		<tr>
+        			<td><code>%B</code></td>
+        			<td>Full month name.</td>
+        			<td>January, February, ...</td>
+        		</tr>
+        		<tr>
+        			<td><code>%m</code></td>
+        			<td>Month as a zero-padded decimal number.</td>
+        			<td>01, 02, ..., 12</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-m</code></td>
+        			<td>Month as a decimal number.</td>
+        			<td>1, 2, ..., 12</td>
+        		</tr>
+        		<tr>
+        			<td><code>%y</code></td>
+        			<td>Year without century as a zero-padded decimal number.</td>
+        			<td>00, 01, ..., 99</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-y</code></td>
+        			<td>Year without century as a decimal number.</td>
+        			<td>0, 1, ..., 99</td>
+        		</tr>
+        		<tr>
+        			<td><code>%Y</code></td>
+        			<td>Year with century as a decimal number.</td>
+        			<td>2013, 2019 etc.</td>
+        		</tr>
+        		<tr>
+        			<td><code>%H</code></td>
+        			<td>Hour (24-hour clock) as a zero-padded decimal number.</td>
+        			<td>00, 01, ..., 23</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-H</code></td>
+        			<td>Hour (24-hour clock) as a decimal number.</td>
+        			<td>0, 1, ..., 23</td>
+        		</tr>
+        		<tr>
+        			<td><code>%I</code></td>
+        			<td>Hour (12-hour clock) as a zero-padded decimal number.</td>
+        			<td>01, 02, ..., 12</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-I</code></td>
+        			<td>Hour (12-hour clock) as a decimal number.</td>
+        			<td>1, 2, ... 12</td>
+        		</tr>
+        		<tr>
+        			<td><code>%p</code></td>
+        			<td>Locale’s AM or PM.</td>
+        			<td>AM, PM</td>
+        		</tr>
+        		<tr>
+        			<td><code>%M</code></td>
+        			<td>Minute as a zero-padded decimal number.</td>
+        			<td>00, 01, ..., 59</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-M</code></td>
+        			<td>Minute as a decimal number.</td>
+        			<td>0, 1, ..., 59</td>
+        		</tr>
+        		<tr>
+        			<td><code>%S</code></td>
+        			<td>Second as a zero-padded decimal number.</td>
+        			<td>00, 01, ..., 59</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-S</code></td>
+        			<td>Second as a decimal number.</td>
+        			<td>0, 1, ..., 59</td>
+        		</tr>
+        		<tr>
+        			<td><code>%f</code></td>
+        			<td>Microsecond as a decimal number, zero-padded on the left.</td>
+        			<td>000000 - 999999</td>
+        		</tr>
+        		<tr>
+        			<td><code>%z</code></td>
+        			<td>UTC offset in the form +HHMM or -HHMM.</td>
+        			<td>&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td><code>%Z</code></td>
+        			<td>Time zone name.</td>
+        			<td>&nbsp;</td>
+        		</tr>
+        		<tr>
+        			<td><code>%j</code></td>
+        			<td>Day of the year as a zero-padded decimal number.</td>
+        			<td>001, 002, ..., 366</td>
+        		</tr>
+        		<tr>
+        			<td><code>%-j</code></td>
+        			<td>Day of the year as a decimal number.</td>
+        			<td>1, 2, ..., 366</td>
+        		</tr>
+        		<tr>
+        			<td><code>%U</code></td>
+        			<td>Week number of the year (Sunday as the first day of the week). All days in a new year preceding the first Sunday are considered to be in week 0.</td>
+        			<td>00, 01, ..., 53</td>
+        		</tr>
+        		<tr>
+        			<td><code>%W</code></td>
+        			<td>Week number of the year (Monday as the first day of the week). All days in a new year preceding the first Monday are considered to be in week 0.</td>
+        			<td>00, 01, ..., 53</td>
+        		</tr>
+        		<tr>
+        			<td><code>%c</code></td>
+        			<td>Locale’s appropriate date and time representation.</td>
+        			<td>Mon Sep 30 07:06:05 2013</td>
+        		</tr>
+        		<tr>
+        			<td><code>%x</code></td>
+        			<td>Locale’s appropriate date representation.</td>
+        			<td>09/30/13</td>
+        		</tr>
+        		<tr>
+        			<td><code>%X</code></td>
+        			<td>Locale’s appropriate time representation.</td>
+        			<td>07:06:05</td>
+        		</tr>
+        		<tr>
+        			<td><code>%%</code></td>
+        			<td>A literal '%' character.</td>
+        			<td>%</td>
+        		</tr>
+        	</tbody>
+          </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

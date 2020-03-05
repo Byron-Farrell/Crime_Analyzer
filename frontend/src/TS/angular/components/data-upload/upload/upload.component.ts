@@ -46,6 +46,7 @@ export class UploadComponent implements OnInit {
 
     this.validFileTypes = [
       'CSV',
+      'ShapeFile'
     ]
 
     this.selectedFileType = this.validFileTypes[0];

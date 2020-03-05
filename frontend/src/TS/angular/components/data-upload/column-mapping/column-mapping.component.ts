@@ -27,6 +27,7 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
     this.columnMappings = {};
     this.dropdownStyles = "btn btn-secondary w-100";
     this.criminalColumns = [
+      'Unique ID',
       'Crime Type',
       'Crime Description',
       'Arrest',

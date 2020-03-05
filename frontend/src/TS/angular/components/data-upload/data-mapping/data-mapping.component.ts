@@ -23,6 +23,7 @@ export class DataMappingComponent implements OnInit {
   public applicationArrestTypes: Array<string>;
   public userArrestTypes: Array<string>;
   public newCity: string;
+  public dateFormat: string;
 
   private crimeTypeMappingDiv: any;
   private censusBlockMappingDiv: any;
@@ -157,7 +158,14 @@ export class DataMappingComponent implements OnInit {
   }
 
   public import(): void {
-    console.log(this.crimeTypeMappings);
+    let obj = {
+      city: this.cityMapping.City,
+      crimeTypes: this.crimeTypeMappings,
+      dateFormat: this.dateFormat
+    };
+
+    console.log(obj);
+
   }
 
   public addCity(): void {
