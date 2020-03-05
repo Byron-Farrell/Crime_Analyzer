@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // --------------- SERVICES ---------------
 import { FileUploadService } from '../../../services/file-upload.service';
@@ -9,7 +9,7 @@ import { CrimeService } from '../../../services/crime.service';
   templateUrl: './data-mapping.component.html',
   styleUrls: ['./data-mapping.component.scss']
 })
-export class DataMappingComponent implements OnInit, AfterViewInit {
+export class DataMappingComponent implements OnInit {
 
   public columnMappings: any;
   public dataType: string;
@@ -36,41 +36,37 @@ export class DataMappingComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.setup();
 
-    if (this.dataType === 'Criminal Data') {
-      this.setupCriminalDataMapping();
-    }
-    else if (this.dataType === 'Census Blocks') {
-      this.setupCensusBlockMapping();
-    }
-    else if (this.dataType === 'Census Information') {
-      this.setupCensusInformationMapping();
-    }
-  }
-
-  ngAfterViewInit() {
     this.crimeTypeMappingDiv = document.getElementById('crimeTypeMapping');
     this.censusBlockMappingDiv = document.getElementById('censusBlockMapping');
     this.censusInformationMappingDiv = document.getElementById('censusInformationMapping');
 
+    this.setup();
 
     if (this.dataType === 'Criminal Data') {
+      this.setupCriminalDataMapping();
       this.displayCriminalDataMapping();
     }
     else if (this.dataType === 'Census Blocks') {
+      this.setupCensusBlockMapping();
       this.displayCensusBlockMapping();
     }
     else if (this.dataType === 'Census Information') {
+      this.setupCensusInformationMapping();
       this.displayCensusInformationMapping();
+    }
+    else {
+      console.log('Unknown data type!');
     }
   }
 
   private setupCensusInformationMapping(): void {
+    console.log('setupCensusInformationMapping');
 
   }
 
   private setupCensusBlockMapping(): void {
+    console.log('setupCensusBlockMapping');
 
   }
 
