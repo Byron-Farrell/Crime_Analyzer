@@ -37,8 +37,8 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
     ];
 
     this.censusBlockColumns = [
-      'Unique ID',
-      'Geometry'
+      'ID',
+      'geom'
     ];
 
     this.censusInformationColumns = [
@@ -80,6 +80,9 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
     this.dataPreviewView.style.display = 'none';
   }
 
+  public importCensusBorders(): void {
+    this.fileUploadService.importCensusBorders();
+  }
   public displayPreview(): void {
     this.columnMappingView.style.display = 'none';
     this.dataPreviewView.style.display = 'block';

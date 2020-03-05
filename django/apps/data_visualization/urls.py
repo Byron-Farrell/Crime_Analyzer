@@ -10,10 +10,8 @@ urlpatterns = [
     path('getMoonTypes', views.GetMoonTypes.as_view(), name='getMoonTypes'),
     path('getCityNames', views.GetCityNames.as_view(), name='getCityNames'),
     path('getAnalytics', views.GetAnalytics.as_view(), name='getAnalytics'),
-    path('uploadCriminalDataFile', views.CrimeFileUpload.as_view(), name='crimeFileUpload'),
-    path('getFileCrimeTypes', views.GetFileCrimeTypes.as_view(), name='getFileCrimeTypes'),
-    path('getFileArrestValues', views.GetFileArrestValues.as_view(), name='getFileArrestValues'),
+    path('uploadFile', views.FileUpload.as_view(), name='fileUpload'),
     path('getColumns', views.GetColumns.as_view(), name='getColumns'),
-
+    path('importCensusBorders', views.ImportCensusBorders.as_view(), name='importCensusBorders'),
     # path('uploadCrimes', views.upload_crimes, name='upload_crimes'),
 ]

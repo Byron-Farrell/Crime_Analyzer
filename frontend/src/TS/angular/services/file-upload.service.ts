@@ -10,6 +10,7 @@ export class FileUploadService {
   private FILE_CRIME_TYPES: string;
   private FILE_COLUMNS: string;
   private FILE_ARREST_VALUES: string;
+  private IMPORT_CENSUS_BORDERS: string;
 
   private data: any;
   private fileType: string;
@@ -19,10 +20,9 @@ export class FileUploadService {
 
   constructor() {
     this.BASE_URI = 'http://127.0.0.1:8000/';
-    this.CRIME_URI = 'uploadCriminalDataFile';
-    this.FILE_CRIME_TYPES = 'getFileCrimeTypes';
-    this.FILE_ARREST_VALUES = 'getFileArrestValues';
+    this.CRIME_URI = 'uploadFile';
     this.FILE_COLUMNS = 'getColumns';
+    this.IMPORT_CENSUS_BORDERS = 'importCensusBorders';
     this.columnMappings = {};
   }
 
@@ -121,6 +121,36 @@ export class FileUploadService {
     });
   }
 
+  public importCensusBorders(): void {
+    const uri = this.BASE_URI + this.IMPORT_CENSUS_BORDERS;
+
+    let mappingsJSON = JSON.stringify(this.columnMappings)
+    let data = new FormData();
+    console.log(this.columnMappings)
+    data.append('fileName', this.data.file_name);
+    data.append('fileType', this.fileType)
+    data.append('mappings', mappingsJSON)
+    let csrfToken: string;
+
+    try {
+      csrfToken = this.getCookie('csrftoken');
+    }
+    catch(error) {
+
+    }
+    fetch(uri, {
+      method: 'POST',
+      // mode: 'cors',
+      cache: 'no-cache',
+      // credentials: 'same-origin',
+      credentials: 'include',
+      headers: {
+
+        'X-CSRFToken': csrfToken
+      },
+      body: data
+    })
+  }
   // The function below was copied from stack overflow
   // link: https://stackoverflow.com/questions/40893537/fetch-set-cookies-and-csrf
   private getCookie(name): string {

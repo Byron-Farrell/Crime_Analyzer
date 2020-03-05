@@ -48,8 +48,16 @@
       <div class="col-lg-10 col-md-8 d-none d-md-block">
 
       </div>
-      <div class="col-lg-2 col-md-4 col-sm-12 ">
+      <div *ngIf="dataType === 'Criminal Data'" class="col-lg-2 col-md-4 col-sm-12 ">
         <button class="btn btn-primary float-right w-100" type="button" name="button" routerLink="/upload/data-mapping">Next</button>
+      </div>
+
+      <div *ngIf="dataType === 'Census Blocks'" class="col-lg-2 col-md-4 col-sm-12 ">
+        <button (click)="importCensusBorders()" class="btn btn-success float-right w-100" type="button" name="button" routerLink="/upload">Import</button>
+      </div>
+
+      <div *ngIf="dataType === 'Census Information'" class="col-lg-2 col-md-4 col-sm-12 ">
+        <button class="btn btn-success float-right w-100" type="button" name="button">Import</button>
       </div>
     </div>
 

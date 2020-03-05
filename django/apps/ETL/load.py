@@ -7,48 +7,9 @@ from . import mappings
 import requests
 import datetime
 
-
-# Gets absolute file path for chicago crime dataset
-chicago_crimes_csv = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'Chicago_Crimes.csv'),
-)
-
-
-# Gets absolute file path for census block shape file
-census_blocks_shp = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'census_blocks/cb_2018_17_bg_500k.shp'),
-)
-
-
-# Gets absolute file path for chicago community areas shape file
-community_areas_shp = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'community_areas/geo_export_e32b8cf0-5322-42b8-a0ce-d7a0ab9b00dc.shp'),
-)
-
-
-# Gets absolute file path for weather type dataset
-weather_types_csv = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'weather_types.csv'),
-)
-
-
-# Gets absolute file path for crime types dataset
-crime_types_csv = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'crime_types.csv'),
-)
-
-
-# Gets absolute file path for chicago crime IUCR codes(crime types) dataset
-iucr_codes_csv = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'IUCR_codes.csv'),
-)
-
-
-# Gets absolute file path for deprevation index for America, Illinois
-deprevation_index_csv = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'IL_blockgroup_15.csv'),
-)
-
+def run_census_blocks(shp_file, mappings):
+    lm = LayerMapping(models.CensusBlock, shp_file, mappings, transform=False)
+    lm.save(strict=True, verbose=True)
 
 # Loads data from the census_block_shp into CensusBlock model using using the
 # chicago_census_blocks_mapping from mappings.py

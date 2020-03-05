@@ -3,16 +3,18 @@ from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
+from django.shortcuts import redirect
 from apps.data_visualization import models
 from apps.ETL.Validator import Validator
+from apps.ETL import load
 
 from datetime import datetime
 import pandas as pd
 import geopandas as geo_pd
 import json
-
+import zipfile
 import os
-from django.shortcuts import render
 
 class HomeRedirect(LoginRequiredMixin, RedirectView):
 
@@ -268,7 +270,7 @@ class GetAnalytics(LoginRequiredMixin, View):
         return HttpResponse(result_json, content_type='application/json')
 
 
-class CrimeFileUpload(LoginRequiredMixin, View):
+class FileUpload(LoginRequiredMixin, View):
 
     def post(self, request):
         uploaded_file = request.FILES.get('uploadFile', None)
@@ -309,44 +311,37 @@ class CrimeFileUpload(LoginRequiredMixin, View):
         return HttpResponse(result_json, content_type='application/json')
 
 
-class GetFileCrimeTypes(LoginRequiredMixin, View):
+class ImportCensusBorders(LoginRequiredMixin, View):
 
-    def get(self, request):
+    def post(self, request):
+        uploaded_file_name = request.POST.get('fileName', None)
+        mappings = json.loads(request.POST.get('mappings', None))
+        upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
+        tmp = os.path.join(os.path.dirname(__file__), 'tmp', uploaded_file_name)
+        with zipfile.ZipFile(upload_file_path, 'r') as zip_ref:
+            zip_ref.extractall(tmp)
 
-        file_upload_path = os.path.join(os.path.dirname(__file__), 'uploaded_files/')
-        file_name = request.GET.get('fileName', None)
-        crime_type_col = request.GET.get('crimeTypeCol', None)
+        path = '/tmp/' + uploaded_file_name + '/'
+        files = []
+        for i in os.listdir(tmp):
+            if os.path.isfile(os.path.join(tmp,i)) and '.shp' in i:
+                files.append(i)
 
-        df = pd.read_csv(file_upload_path + file_name)
+        shp_file = ''
+
+        for file in files:
+            if (file.endswith('.shp')):
+                shp_file  = file
 
         result_json = {}
-
-        result_json['crimeTypes'] = df[crime_type_col].unique().tolist()
-
+        load.run_census_blocks(tmp + '/' + shp_file, mappings)
+        result_json['SUCCESS'] = True
         result_json = json.dumps(result_json)
 
         return HttpResponse(result_json, content_type='application/json')
 
 
-class GetFileArrestValues(LoginRequiredMixin, View):
-
-    def get(self, request):
-        file_upload_path = os.path.join(os.path.dirname(__file__), 'uploaded_files/')
-        file_name = request.GET.get('fileName', None)
-        arrest_col = request.GET.get('arrestValuesCol', None)
-
-        df = pd.read_csv(file_upload_path + file_name)
-
-        result_json = {}
-
-        result_json['arrestValues'] = df[arrest_col].unique().tolist()
-
-        result_json = json.dumps(result_json)
-
-        return HttpResponse(result_json, content_type='application/json')
-
-
-class UploadCrimeCsv(LoginRequiredMixin, View):
+class ImportCrimes(LoginRequiredMixin, View):
 
     def post(self, request):
         uploaded_file = request.FILES.get('uploadFile', None)
@@ -361,7 +356,7 @@ class UploadCrimeCsv(LoginRequiredMixin, View):
 
             for df in chunks:
                 for index, row in df.iterrows():
-                    crime = crime_validator.validate_crime(row, row_num)
+                    crime = crime_validator.validate_crime(row, index)
                     if crime is not False:
                         crime.save()
                     crime_validator.log()

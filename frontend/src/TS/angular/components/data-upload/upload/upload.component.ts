@@ -93,10 +93,11 @@ export class UploadComponent implements OnInit {
     }
   }
 
+
+
   public selectedFileTypeChange(type): void {
     this.selectedFileType = type;
     this.fileUploadService.setFileType(type);
-    console.log(type);
 
   }
 
