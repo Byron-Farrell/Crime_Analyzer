@@ -8,6 +8,7 @@ export class FileUploadService {
   private BASE_URI: string;
   private CRIME_URI: string;
   private FILE_CRIME_TYPES: string;
+  private FILE_COLUMNS: string;
   private FILE_ARREST_VALUES: string;
 
   private data: any;
@@ -21,6 +22,7 @@ export class FileUploadService {
     this.CRIME_URI = 'uploadCriminalDataFile';
     this.FILE_CRIME_TYPES = 'getFileCrimeTypes';
     this.FILE_ARREST_VALUES = 'getFileArrestValues';
+    this.FILE_COLUMNS = 'getColumns';
     this.columnMappings = {};
   }
 
@@ -61,27 +63,23 @@ export class FileUploadService {
   }
 
   public getFileCrimeTypes(): Promise<any> {
-    const uriQuery = '?fileName=' + this.data.file_name + '&crimeTypeCol=' + this.columnMappings['Crime Type']
-    const uri = this.BASE_URI + this.FILE_CRIME_TYPES + uriQuery;
+    return this.getColumns(this.columnMappings['Crime Type']);
+  }
+
+  public getColumns(colName): Promise<any> {
+    const uriQuery = '?fileName=' + this.data.file_name + '&colName=' + colName + '&fileType=' + this.fileType;
+    const uri = this.BASE_URI + this.FILE_COLUMNS + uriQuery;
 
     return new Promise((resolve, reject) => {
       fetch(uri)
         .then(response => response.json())
-        .then(json => resolve(json['crimeTypes']))
+        .then(json => resolve(json[colName]))
         .catch(error => reject(error));
     })
   }
 
   public getFileArrestValues(): Promise<any> {
-    const uriQuery = '?fileName=' + this.data.file_name + '&arrestValuesCol=' + this.columnMappings['Arrest']
-    const uri = this.BASE_URI + this.FILE_ARREST_VALUES + uriQuery;
-
-    return new Promise((resolve, reject) => {
-      fetch(uri)
-        .then(response => response.json())
-        .then(json => resolve(json['arrestValues']))
-        .catch(error => reject(error));
-    })
+    return this.getColumns(this.columnMappings['Arrest']);
   }
 
   public postFile(file): Promise<any> {
@@ -89,6 +87,7 @@ export class FileUploadService {
     let data = new FormData();
 
     data.append('uploadFile', file, file.name);
+    data.append('fileType', this.fileType)
 
 
     return new Promise( (resolve, reject) => {

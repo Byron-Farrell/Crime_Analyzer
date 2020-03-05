@@ -37,8 +37,8 @@ export class ColumnMappingComponent implements OnInit, AfterViewInit {
     ];
 
     this.censusBlockColumns = [
-      'Block Id',
-      'Geo'
+      'Unique ID',
+      'Geometry'
     ];
 
     this.censusInformationColumns = [

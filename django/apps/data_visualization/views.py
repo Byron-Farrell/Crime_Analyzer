@@ -8,6 +8,7 @@ from apps.ETL.Validator import Validator
 
 from datetime import datetime
 import pandas as pd
+import geopandas as geo_pd
 import json
 
 import os
@@ -272,23 +273,14 @@ class CrimeFileUpload(LoginRequiredMixin, View):
     def post(self, request):
         uploaded_file = request.FILES.get('uploadFile', None)
 
-        df = pd.read_csv(uploaded_file)
-
-        preview = json.loads(df.head(30).to_json())
-
-        result_json = {
-            'columns': [],
-            'file_name': '',
-            'preview': preview
-        }
+        file_type = request.POST.get('fileType')
 
         # Creating timestamp to add to file name
         now = datetime.now()
         uploaded_file_name = now.ctime() + ' - ' + uploaded_file.name
-        result_json['file_name'] = uploaded_file_name
+
 
         uploaded_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
-        print(uploaded_file_path)
         local_file = open(uploaded_file_path, 'wb+')
 
         for chunk in uploaded_file.chunks():
@@ -296,6 +288,19 @@ class CrimeFileUpload(LoginRequiredMixin, View):
 
         local_file.close()
 
+        if file_type == 'SHP.ZIP':
+            df = geo_pd.read_file('zip:///' + uploaded_file_path)
+        elif file_type == 'CSV':
+            df = pd.read_csv(uploaded_file_path)
+
+        preview = json.loads(df.head(5).to_json())
+
+        result_json = {
+            'columns': [],
+            'file_name': '',
+            'preview': preview
+        }
+        result_json['file_name'] = uploaded_file_name
         for col in df.columns:
             result_json['columns'].append(col)
 
@@ -361,6 +366,28 @@ class UploadCrimeCsv(LoginRequiredMixin, View):
                         crime.save()
                     crime_validator.log()
                     crime_validator.clear_error_messeges()
+
+
+class GetColumns(LoginRequiredMixin, View):
+
+    def get(self, request):
+        file_upload_path = os.path.join(os.path.dirname(__file__), 'uploaded_files/')
+        file_name = request.GET.get('fileName', None)
+        col_name = request.GET.get('colName', None)
+        file_type = request.GET.get('fileType')
+
+        if file_type == 'SHP.ZIP':
+            df = geo_pd.read_file('zip:///' + file_upload_path + file_name)
+        elif file_type == 'CSV':
+            df = pd.read_csv(file_upload_path + file_name)
+
+        result_json = {}
+
+        result_json[col_name] = df[col_name].unique().tolist()
+
+        result_json = json.dumps(result_json)
+
+        return HttpResponse(result_json, content_type='application/json')
 
 # @login_required
 # def upload_crimes_csv(request):

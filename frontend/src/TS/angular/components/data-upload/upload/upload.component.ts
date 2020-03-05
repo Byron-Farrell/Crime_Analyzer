@@ -46,7 +46,7 @@ export class UploadComponent implements OnInit {
 
     this.validFileTypes = [
       'CSV',
-      'ShapeFile'
+      'SHP.ZIP'
     ]
 
     this.selectedFileType = this.validFileTypes[0];
@@ -96,6 +96,8 @@ export class UploadComponent implements OnInit {
   public selectedFileTypeChange(type): void {
     this.selectedFileType = type;
     this.fileUploadService.setFileType(type);
+    console.log(type);
+
   }
 
   public updateSelectedDataType(type): void {

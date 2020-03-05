@@ -13,5 +13,7 @@ urlpatterns = [
     path('uploadCriminalDataFile', views.CrimeFileUpload.as_view(), name='crimeFileUpload'),
     path('getFileCrimeTypes', views.GetFileCrimeTypes.as_view(), name='getFileCrimeTypes'),
     path('getFileArrestValues', views.GetFileArrestValues.as_view(), name='getFileArrestValues'),
+    path('getColumns', views.GetColumns.as_view(), name='getColumns'),
+
     # path('uploadCrimes', views.upload_crimes, name='upload_crimes'),
 ]
