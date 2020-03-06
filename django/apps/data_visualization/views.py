@@ -344,7 +344,9 @@ class ImportCensusBorders(LoginRequiredMixin, View):
 class ImportCrimes(LoginRequiredMixin, View):
 
     def post(self, request):
-        uploaded_file = request.FILES.get('uploadFile', None)
+        uploaded_file_name = request.FILES.get('fileName', None)
+        mappings = json.loads(request.POST.get('mappings', None))
+
         upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
 
         try:
