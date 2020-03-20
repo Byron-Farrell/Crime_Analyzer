@@ -11,6 +11,7 @@ export class FileUploadService {
   private FILE_COLUMNS: string;
   private FILE_ARREST_VALUES: string;
   private IMPORT_CENSUS_BORDERS: string;
+  private IMPORT_CRIMES: string;
 
   private data: any;
   private fileType: string;
@@ -23,6 +24,7 @@ export class FileUploadService {
     this.CRIME_URI = 'uploadFile';
     this.FILE_COLUMNS = 'getColumns';
     this.IMPORT_CENSUS_BORDERS = 'importCensusBorders';
+    this.IMPORT_CRIMES = 'importCrimes';
     this.columnMappings = {};
   }
 
@@ -122,7 +124,7 @@ export class FileUploadService {
   }
 
   public importCensusBorders(): void {
-    const uri = this.BASE_URI + this.IMPORT_CENSUS_BORDERS;
+    const uri = this.BASE_URI + this.IMPORT_CRIMES;
 
     let mappingsJSON = JSON.stringify(this.columnMappings)
     let data = new FormData();
@@ -153,6 +155,39 @@ export class FileUploadService {
   }
   // The function below was copied from stack overflow
   // link: https://stackoverflow.com/questions/40893537/fetch-set-cookies-and-csrf
+
+  public importCrimes(mappings: any) {
+    const uri = this.BASE_URI + this.IMPORT_CRIMES;
+
+    let mappingsJSON = JSON.stringify(mappings);
+
+    let data = new FormData();
+    console.log(this.columnMappings)
+    data.append('fileName', this.data.file_name);
+    data.append('fileType', this.fileType)
+    data.append('mappings', mappingsJSON)
+    let csrfToken: string;
+
+    try {
+      csrfToken = this.getCookie('csrftoken');
+    }
+    catch(error) {
+
+    }
+    fetch(uri, {
+      method: 'POST',
+      // mode: 'cors',
+      cache: 'no-cache',
+      // credentials: 'same-origin',
+      credentials: 'include',
+      headers: {
+
+        'X-CSRFToken': csrfToken
+      },
+      body: data
+    })
+  }
+
   private getCookie(name): string {
     if (!document.cookie) {
       throw new Error('Cookie with name(' + name + ') does not exist!');

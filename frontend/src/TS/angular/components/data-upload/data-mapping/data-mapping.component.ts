@@ -18,12 +18,15 @@ export class DataMappingComponent implements OnInit {
   public cityMappingName: string;
   public cityMapping: any;
 
+  public errorMessage: string;
+
   public userCrimeTypes: Array<string>;
   public applicationCrimeTypes: Array<string>;
   public applicationArrestTypes: Array<string>;
   public userArrestTypes: Array<string>;
   public newCity: string;
   public dateFormat: string;
+  public timeFormat: string;
 
   private crimeTypeMappingDiv: any;
   private censusBlockMappingDiv: any;
@@ -126,9 +129,21 @@ export class DataMappingComponent implements OnInit {
     this.censusInformationMappingDiv.style.display = 'none';
   }
 
+  private isValid(mappings: any): boolean {
+    this.errorMessage = "";
+    // Checking for any unselected mappings i.e. mappings[key] === undefined
+    for (let key in mappings) {
+      if (!mappings[key]) {
+        this.errorMessage = key + " is undefined";
+        return false;
+      }
+    }
 
+    return true;
+  }
 
   private setup(): void {
+    this.errorMessage = "";
     this.columnMappings = this.fileUploadService.getColumnMappings();
     this.dataType = this.fileUploadService.getDataType();
 
@@ -161,14 +176,21 @@ export class DataMappingComponent implements OnInit {
     let obj = {
       city: this.cityMapping.City,
       crimeTypes: this.crimeTypeMappings,
-      dateFormat: this.dateFormat
+      dateFormat: this.dateFormat,
+      timeFormat: this.timeFormat
     };
 
     console.log(obj);
+
+    if (this.isValid(obj)) {
+      this.fileUploadService.importCrimes(obj);
+    }
 
   }
 
   public addCity(): void {
     this.cities.push(this.newCity);
   }
+
+
 }

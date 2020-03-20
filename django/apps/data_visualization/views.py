@@ -345,24 +345,32 @@ class ImportCrimes(LoginRequiredMixin, View):
 
     def post(self, request):
         uploaded_file_name = request.FILES.get('fileName', None)
-        mappings = json.loads(request.POST.get('mappings', None))
+        mappings = request.POST.get('mappings', None)
+        print(mappings)
+        if mappings is not None:
+            mappings_obj = json.loads(mappings)
 
-        upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
-
-        try:
-            chunks = pd.read_csv(upload_file_path, chunksize=60000)
-        except Exception as e:
-            print(e)
+            print(mappings_objx['city'])
         else:
-            crime_validator = Validator()
+            pass
+            # return some error
 
-            for df in chunks:
-                for index, row in df.iterrows():
-                    crime = crime_validator.validate_crime(row, index)
-                    if crime is not False:
-                        crime.save()
-                    crime_validator.log()
-                    crime_validator.clear_error_messeges()
+        # upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
+        #
+        # try:
+        #     chunks = pd.read_csv(upload_file_path, chunksize=60000)
+        # except Exception as e:
+        #     print(e)
+        # else:
+        #     crime_validator = Validator()
+        #
+        #     for df in chunks:
+        #         for index, row in df.iterrows():
+        #             crime = crime_validator.validate_crime(row, index)
+        #             if crime is not False:
+        #                 crime.save()
+        #             crime_validator.log()
+        #             crime_validator.clear_error_messeges()
 
 
 class GetColumns(LoginRequiredMixin, View):

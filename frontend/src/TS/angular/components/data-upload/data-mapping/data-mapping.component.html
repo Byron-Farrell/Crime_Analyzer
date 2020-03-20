@@ -168,6 +168,27 @@
 
         </div>
       </div>
+
+      <hr class="my-4">
+
+      <div class="TimeTitle">
+        <div class="row">
+          <h2 class="text-center w-100">Time Format<small><i class="far fa-question-circle ml-2 pointer" data-toggle="modal" data-target="#dateFormatModal"></i></small></h2>
+        </div>
+      </div>
+
+      <div class="row ml-2">
+        <div class="col-lg-4 col-md-2">
+
+        </div>
+        <div class="col-lg-4 col-md-8">
+          <input [(ngModel)]="timeFormat" class="w-100 " type="text" name="" value="" placeholder="e.g. %I:%M:%S %p">
+        </div>
+        <div class="col-lg-4 col-md-2">
+
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -179,24 +200,27 @@
     <h3 class="w-100 text-center my-5">No Mappings Needed</h3>
   </div>
 
+
+
   <div class="row ml-2">
+
+    <div class="row  w-100 mb-1">
+      <div class="col-lg-10 col-md-8 d-none d-md-block">
+
+      </div>
+      <div class="text-center text-danger col-lg-2 col-md-4 col-sm-12 mt-4"><i>{{ errorMessage }}</i></div>
+    </div>
+
     <div  class="row w-100 mb-4">
         <div class="col-lg-10 col-md-8 d-none d-md-block">
 
         </div>
-        <div class="col-lg-2 col-md-4 col-sm-12 mt-4">
+        <div class="col-lg-2 col-md-4 col-sm-12 mt-2">
           <button (click)="import()" class="btn btn-success float-right w-100" type="button" name="button">Import</button>
         </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
 
 
 <!-- Modal -->
@@ -222,8 +246,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 <!-- Modal -->
