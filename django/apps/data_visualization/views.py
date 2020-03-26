@@ -62,7 +62,7 @@ class GetCrimes(LoginRequiredMixin, View):
 
         # Checking if URL query keywords have values
         if city:
-            filter_options['city'] = city
+            filter_options['city__name'] = city
 
         if crime_type:
             filter_options['crime__type__in'] = crime_type
@@ -132,7 +132,7 @@ class GetCrimes(LoginRequiredMixin, View):
         else:
             for obj in crimes:
                 new_crime = {}
-                new_crime['city'] = obj.city
+                new_crime['city'] = obj.city.name
                 new_crime['crimetype'] = obj.crime.type
                 new_crime['weatherType'] = obj.weatherDetails.weatherType.weatherType
                 new_crime['degrees'] = float(obj.weatherDetails.weatherDegrees)
@@ -207,11 +207,11 @@ class GetMoonTypes(LoginRequiredMixin, View):
 
 class GetCityNames(LoginRequiredMixin, View):
     def get(self, request):
-        queryset = models.Crime.objects.values('city')
+        queryset = models.City.objects.all()
         cities = []
 
         for obj in queryset:
-            cities.append(obj['city__name']);
+            cities.append(obj.name);
 
 
         cities_json = json.dumps(cities)
@@ -249,7 +249,7 @@ class GetAnalytics(LoginRequiredMixin, View):
 
         if crime_types and startDate and endDate and city:
             for type in crime_types:
-                isDarkCount = models.Crime.objects.filter(city___name__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=True).count()
+                isDarkCount = models.Crime.objects.filter(city__name__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=True).count()
                 isNotDarkCount = models.Crime.objects.filter(city__name__in=city, date__fullDate__range=(startDate, endDate), crime__type=type, weatherDetails__dark=False).count()
                 query_result['isDark'][type] = { 'yes': isDarkCount, 'no': isNotDarkCount}
 
@@ -344,33 +344,43 @@ class ImportCensusBorders(LoginRequiredMixin, View):
 class ImportCrimes(LoginRequiredMixin, View):
 
     def post(self, request):
-        uploaded_file_name = request.FILES.get('fileName', None)
+        uploaded_file_name = request.POST.get('fileName', None)
         mappings = request.POST.get('mappings', None)
-        print(mappings)
+        upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
+
         if mappings is not None:
             mappings_obj = json.loads(mappings)
-
-            print(mappings_objx['city'])
         else:
             pass
-            # return some error
+            return
 
-        # upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
-        #
-        # try:
-        #     chunks = pd.read_csv(upload_file_path, chunksize=60000)
-        # except Exception as e:
-        #     print(e)
-        # else:
-        #     crime_validator = Validator()
-        #
-        #     for df in chunks:
-        #         for index, row in df.iterrows():
-        #             crime = crime_validator.validate_crime(row, index)
-        #             if crime is not False:
-        #                 crime.save()
-        #             crime_validator.log()
-        #             crime_validator.clear_error_messeges()
+        city_name = mappings_obj['city']
+        crime_type_mappings = mappings_obj['crimeTypes']
+        date_format = mappings_obj['dateFormat']
+        time_format = mappings_obj['timeFormat']
+        column_mappings = mappings_obj['columnMappings']
+        arrest_mappings = mappings_obj['arrestMappings']
+
+        try:
+            chunks = pd.read_csv(upload_file_path, chunksize=60000)
+        except Exception as e:
+            print(e)
+        else:
+            crime_validator = Validator(
+                column_mappings=column_mappings,
+                city_name=city_name,
+                crime_type_mappings=crime_type_mappings,
+                arrest_mapping=arrest_mappings,
+                date_format=date_format
+            )
+
+            for df in chunks:
+                for index, row in df.iterrows():
+                    crime = crime_validator.validate_crime(row)
+                    if crime is not False:
+                        crime.save()
+                    crime_validator.log(index, uploaded_file_name)
+                    crime_validator.clear_error_messeges()
 
 
 class GetColumns(LoginRequiredMixin, View):

@@ -7,28 +7,48 @@ from django.contrib.gis.geos import Point
 
 class Validator:
 
-    def __init__(self, column_mappings=None, crime_type_mappings=None, city_mapping=None, arrest_mapping=None):
+    def __init__(self, date_format=None, column_mappings=None, crime_type_mappings=None, city_name=None, arrest_mapping=None):
         # All validation error messages
         self.error_messages = []
+        self.column_mappings = column_mappings
+        self.crime_type_mappings = crime_type_mappings
+        self.city_name = city_name
+        self.arrest_mapping = arrest_mapping
+        self.date_format = date_format
 
     # Validate all data for the Crime model before inserting it
     def validate_crime(self, row):
-        description = row[column_mappings['Description']]
-        arrest = row[column_mappings['Arrest']]
-        longitude = row[column_mappings['Longitude']]
-        latitude = row[column_mappings['Latitude']]
-        IUCR = row[column_mappings['crimeType']] # Criminal code used to identify different crime types
-        date_time_string = row[column_mappings['Date']]
-        uniqueID = row[column_mappings['uniqueID']]
-        date_time_obj = datetime.datetime.strptime(date_time_string, column_mappings['dateFormat']) # '%m/%d/%Y %I:%M:%S %p'
+        #Error checking
+        if self.column_mappings is None or self.crime_type_mappings is None or self.city_name is None or self.arrest_mapping is None:
+            print('Required variables undefined')
+            return False
+
+        # Get column mapping names
+        description_column_name = self.column_mappings['Crime Description']
+        arrest_column_name = self.column_mappings['Arrest']
+        longitude_column_name = self.column_mappings['Longitude']
+        latitude_column_name = self.column_mappings['Latitude']
+        crime_type_column_name = self.column_mappings['Crime Type']
+        date_column_name = self.column_mappings['Date']
+        unique_id_column_name = self.column_mappings['Unique ID']
+
+        # Getting values from row
+        description = row[description_column_name]
+        arrest = row[arrest_column_name]
+        longitude = row[longitude_column_name]
+        latitude = row[latitude_column_name]
+        IUCR = row[crime_type_column_name] # Criminal code used to identify different crime types
+        date_time_string = row[date_column_name]
+        uniqueID = row[unique_id_column_name]
+        date_time_obj = datetime.datetime.strptime(date_time_string, self.date_format)
 
         if self.validate_coords(longitude, latitude) is False:
             return False
 
         point = Point(longitude, latitude)
 
-        city_name = city_mapping['city'];
-        city = get_city(city_name)
+        city_name = self.city_name;
+        city = self.get_city(self.city_name)
 
         type = self.validate_crime_type(IUCR)
         census_block = self.validate_census_block(point)
@@ -45,7 +65,9 @@ class Validator:
         crime_type = self.get_crime_type(type)
 
         if city is False:
-            return False
+            city = self.insert_city(self.city_name)
+            if city is False:
+                return False
 
         if crime_type is False:
             return False
@@ -68,6 +90,7 @@ class Validator:
         try:
             # Validate weather data
             crime = models.Crime(
+                uniqueID=uniqueID,
                 city = city,
                 weatherDetails = weather,
                 crime = crime_type,
@@ -75,7 +98,7 @@ class Validator:
                 date = date,
                 time = time,
                 crimeDescription = description,
-                arrest = arrest_mapping[arrest],
+                arrest = self.arrest_mapping[arrest],
                 longitude = longitude,
                 latitude = latitude
             )
@@ -129,10 +152,20 @@ class Validator:
         try:
             city = models.City.objects.get(name=name)
         except Exception as e:
-            self.error_messages.append(str(e) + '\n')
+            #self.error_messages.append(str(e) + '\n')
             return False
 
         return city
+
+    def insert_city(self, name):
+        try:
+            new_city = models.City(name=name)
+            new_city.save()
+        except Exception as e:
+            self.error_messages.append(str(e) + '\n')
+            return False
+
+        return self.get_city(name)
 
     def get_date(self, date_obj):
         year = date_obj.year
@@ -161,13 +194,13 @@ class Validator:
             True
 
 
-    def validate_crime_type(self, IUCR):
-        error_message = 'Error: crime type with IUCR code "{}" does not exist!\n'.format(IUCR)
+    def validate_crime_type(self, crime_type):
+        error_message = 'Error: crime type "{}" does not exist!\n'.format(crime_type)
 
         try:
-            crime_type = mappings.IUCR_crime_type_mapping[IUCR]
+            crime_type = self.crime_type_mappings[crime_type]
         except Exception as e:
-            self.error_messages.append('failed to validate crime type with IUCR code {}.\nException Error Message\n{}\n'.format(IUCR, str(e)))
+            self.error_messages.append('failed to validate crime type with crime_type {}.\nException Error Message\n{}\n'.format(crime_type, str(e)))
             return False
         return crime_type
 

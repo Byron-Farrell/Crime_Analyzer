@@ -177,10 +177,13 @@ export class DataMappingComponent implements OnInit {
       city: this.cityMapping.City,
       crimeTypes: this.crimeTypeMappings,
       dateFormat: this.dateFormat,
-      timeFormat: this.timeFormat
+      timeFormat: this.timeFormat,
+      arrestMappings: this.arrestMappings
     };
 
-    console.log(obj);
+    let columnMappings = this.fileUploadService.getColumnMappings();
+    obj['columnMappings'] = columnMappings;
+
 
     if (this.isValid(obj)) {
       this.fileUploadService.importCrimes(obj);

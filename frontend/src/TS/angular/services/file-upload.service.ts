@@ -130,8 +130,8 @@ export class FileUploadService {
     let data = new FormData();
     console.log(this.columnMappings)
     data.append('fileName', this.data.file_name);
-    data.append('fileType', this.fileType)
-    data.append('mappings', mappingsJSON)
+    data.append('fileType', this.fileType);
+    data.append('mappings', mappingsJSON);
     let csrfToken: string;
 
     try {
