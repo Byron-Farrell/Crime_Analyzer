@@ -14,5 +14,4 @@ urlpatterns = [
     path('getColumns', views.GetColumns.as_view(), name='getColumns'),
     path('importCensusBorders', views.ImportCensusBorders.as_view(), name='importCensusBorders'),
     path('importCrimes', views.ImportCrimes.as_view(), name='importCrimes'),
-    # path('uploadCrimes', views.upload_crimes, name='upload_crimes'),
 ]

@@ -403,31 +403,3 @@ class GetColumns(LoginRequiredMixin, View):
         result_json = json.dumps(result_json)
 
         return HttpResponse(result_json, content_type='application/json')
-
-# @login_required
-# def upload_crimes_csv(request):
-#     template = 'data_visualization/index.html'
-#
-#     uploaded_file = request.FILES.get('uploadFile', None)
-#     upload_file_path = os.path.join(os.path.dirname(__file__), 'uploaded_files', uploaded_file_name)
-#
-#     if request.method == 'POST':
-#         try:
-#             chunks = pd.read_csv(upload_file_path, chunksize=60000)
-#         except Exception as e:
-#             print(e)
-#         else:
-#             crime_validator = Validator()
-#
-#             for df in chunks:
-#                 for index, row in df.iterrows():
-#                     crime = crime_validator.validate_crime(row, row_num)
-#                     if crime is not False:
-#                         crime.save()
-#                     crime_validator.log()
-#                     crime_validator.clear_error_messeges()
-#
-#         return render(request, template)
-#     else:
-#         # FIXME: return 403
-#         return render(request, template)
