@@ -1,4 +1,3 @@
-apps/ETL/data/*
 dapps/main/migrations/*
 .venv/
 #a

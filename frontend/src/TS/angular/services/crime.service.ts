@@ -30,7 +30,7 @@ export class CrimeService {
   private limit: number;
 
   constructor(private http: HttpClient) {
-    this.baseURL = 'http://127.0.0.1:8000/';
+    this.baseURL = 'https://nameless-island-09470.herokuapp.com/';
     this.getCrimesURL = 'getCrimes?';
     this.getCrimeTypesURL = 'getCrimeTypes';
     this.getWeatherTypesURL = 'getWeatherTypes';

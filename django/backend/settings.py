@@ -94,6 +94,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -139,5 +140,7 @@ STATICFILES_DIRS = [
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
-DATABASES['default'] = dj_database_url.config()
+DATABASES = {}
+DATABASES['default'] = dj_database_url.parse('postgres://hhfgesmjqcmvoj:b081849e9a9856049af7cf4369fe20dd1d9590a67de6789c89ba88902df0fcd6@ec2-3-211-48-92.compute-1.amazonaws.com:5432/d90k628knv8tmj')
+
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'

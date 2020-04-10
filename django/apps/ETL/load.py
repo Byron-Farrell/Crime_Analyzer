@@ -9,8 +9,9 @@ import datetime
 
 # Gets absolute file path for weather type dataset
 weather_types_csv = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../data', 'weather_types.csv'),
+    os.path.join(os.path.dirname(__file__), 'data', 'weather_types.csv'),
 )
+
 
 # Gets absolute file path for crime types dataset
 crime_types_csv = os.path.abspath(

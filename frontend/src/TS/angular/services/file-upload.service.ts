@@ -20,7 +20,7 @@ export class FileUploadService {
   private columnMappings: any;
 
   constructor() {
-    this.BASE_URI = 'http://127.0.0.1:8000/';
+    this.BASE_URI = 'https://nameless-island-09470.herokuapp.com/';
     this.CRIME_URI = 'uploadFile';
     this.FILE_COLUMNS = 'getColumns';
     this.IMPORT_CENSUS_BORDERS = 'importCensusBorders';
