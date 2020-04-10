@@ -103,7 +103,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-django/apps/ETL/data/
 django/apps/main/migrations/*
 package-lock.json
 

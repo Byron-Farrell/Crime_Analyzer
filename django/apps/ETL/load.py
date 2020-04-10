@@ -7,6 +7,16 @@ from . import mappings
 import requests
 import datetime
 
+# Gets absolute file path for weather type dataset
+weather_types_csv = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../data', 'weather_types.csv'),
+)
+
+# Gets absolute file path for crime types dataset
+crime_types_csv = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), 'data', 'crime_types.csv'),
+)
+
 def run_census_blocks(shp_file, mappings):
     lm = LayerMapping(models.CensusBlock, shp_file, mappings, transform=False)
     lm.save(strict=True, verbose=True)
@@ -224,11 +234,7 @@ def run_times():
 
 # Loads all base data need for the application
 def setup():
-    run_chicago_census_blocks()
-    run_community_areas()
     run_crime_types()
     run_moon_cycles()
     run_weather_types()
     run_dates()
-    run_historical_weather()
-    # run_chicago_crimes()
