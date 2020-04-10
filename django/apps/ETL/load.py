@@ -105,93 +105,76 @@ def run_chicago_crimes():
                 crime.save()
 
 
-# Get all historical weather data from 2014 to 2019 and load it into database.
+# Get all historical weather data and load it into the database.
 # The weatherstack API will be used to retrieve the data
-def run_historical_weather():
-    starting_date = datetime.datetime.strptime('2014-03-19', '%Y-%m-%d')
-    end_date = datetime.datetime.strptime('2019-12-01', '%Y-%m-%d')
-
-    # Used to send query for data. This is incremented by 1 day for each iteration
-    # in the while loop
-    date = starting_date
+def load_historical_weather(date_string, format):
+    date = datetime.datetime.strptime(date_string, format)
 
     # Headers for get request
     params = {
         'access_key': '8241d42f4b6b6ba5ffdd42f0d2d52c96',
         'query': 'Chicago',
-        'historical_date':  starting_date.strftime('%Y-%m-%d'),
+        'historical_date':  date.strftime(format),
         'interval': 1,
         'units': 'm',
         'hourly': 1
     }
 
-    sentinal = 0
+    # Sending get request for data to weatherstack API
+    api_result = requests.get('https://api.weatherstack.com/historical', params)
+    api_response = api_result.json()
 
-    while  date.strftime('%Y-%m-%d') != end_date.strftime('%Y-%m-%d'):
+    # Retrieving data from json response
+    date_string =  date.strftime('%Y-%m-%d')
+    sunset_time =  api_response['historical'][date_string]['astro']['sunset']
+    sunrise_time =  api_response['historical'][date_string]['astro']['sunrise']
 
-        # to get all historical weather data from 2014 to 2019 should not take
-        # more than 5000 requests. Each requests cost money. This is a simple
-        # check to stop any unforseen bugs causing an infinte loop
-        if sentinal > 5000:
-            break
+    sunset_time = datetime.datetime.strptime(sunset_time, '%I:%M %p')
+    sunrise_time = datetime.datetime.strptime(sunrise_time, '%I:%M %p')
 
-        sentinal += 1
+    current_moon_cycle = api_response['historical'][date_string]['astro']['moon_phase']
 
-        # Sending get request for data to weatherstack API
-        api_result = requests.get('https://api.weatherstack.com/historical', params)
-        api_response = api_result.json()
+    # A json object is returned for the weather details for every hour of the
+    # current historicl date. This for loop, loops through each hour and gets
+    # the weather for that hour
+    for weather in api_response['historical'][date_string]['hourly']:
+        weatherDegrees = float(weather['temperature'])
+        time = int(weather['time'])
+        precipitation = float(weather['precip'])
+        cloudCover = int(weather['cloudcover'])
 
-        # Retrieving data from json response
-        date_string =  date.strftime('%Y-%m-%d')
-        sunset_time =  api_response['historical'][date_string]['astro']['sunset']
-        sunrise_time =  api_response['historical'][date_string]['astro']['sunrise']
+        if (time != 0):
+            time = time / 100
 
-        sunset_time = datetime.datetime.strptime(sunset_time, '%I:%M %p')
-        sunrise_time = datetime.datetime.strptime(sunrise_time, '%I:%M %p')
+        if time > sunrise_time.hour and time < sunset_time.hour:
+            dark = False
+        else:
+            dark = True
 
-        current_moon_cycle = api_response['historical'][date_string]['astro']['moon_phase']
+        # Unique code used to identify the weather type
+        weather_code = int(weather['weather_code'])
 
-        # A json object is returned for the weather details for every hour of the
-        # current historicl date. This for loop, loops through each hour and gets
-        # the weather for that hour
-        for weather in api_response['historical'][date_string]['hourly']:
-            weatherDegrees = float(weather['temperature'])
-            time = int(weather['time'])
-            precipitation = float(weather['precip'])
-            cloudCover = int(weather['cloudcover'])
+        weather_type = models.WeatherType.objects.get(weatherCode=weather_code)
+        moon_phase = models.MoonCycle.objects.get(moonPhase=current_moon_cycle)
 
-            if (time != 0):
-                time = time / 100
+        # Saving historical weather data to database
+        new_weather = models.Weather(
+            weatherDegrees = weatherDegrees,
+            date = date,
+            time = time + 1,
+            precipitation = precipitation,
+            cloudCover = cloudCover,
+            dark = dark,
+            weatherType = weather_type,
+            moonPhase = moon_phase
+        )
 
-            if time > sunrise_time.hour and time < sunset_time.hour:
-                dark = False
-            else:
-                dark = True
+        new_weather.save()
 
-            # Unique code used to identify the weather type
-            weather_code = int(weather['weather_code'])
-
-            weather_type = models.WeatherType.objects.get(weatherCode=weather_code)
-            moon_phase = models.MoonCycle.objects.get(moonPhase=current_moon_cycle)
-
-            # Saving historical weather data to database
-            new_weather = models.Weather(
-                weatherDegrees = weatherDegrees,
-                date = date,
-                time = time + 1,
-                precipitation = precipitation,
-                cloudCover = cloudCover,
-                dark = dark,
-                weatherType = weather_type,
-                moonPhase = moon_phase
-            )
-
-            new_weather.save()
-
-        # incrementing date by 1 day and updating the params object with the
-        # new date to be queried
-        date += datetime.timedelta(days=1)
-        params['historical_date'] =  date.strftime('%Y-%m-%d')
+    # incrementing date by 1 day and updating the params object with the
+    # new date to be queried
+    date += datetime.timedelta(days=1)
+    params['historical_date'] =  date.strftime('%Y-%m-%d')
 
 
 # Creates and loads all data for the the date dimension in the database

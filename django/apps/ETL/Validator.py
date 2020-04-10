@@ -4,6 +4,7 @@ from apps.data_visualization import models
 from . import mappings
 import math
 from django.contrib.gis.geos import Point
+from apps.ETL import load
 
 class Validator:
 
@@ -144,6 +145,10 @@ class Validator:
         if len(weather_qs) == 1:
             return weather_qs[0]
         else:
+            try:
+                date_string = year + "-" + month + "-" + day
+                format = '%Y-%m-%d'
+                load.load_historical_weather(date_string, format);
             error_message = 'Error: Failed to weather object for crime. Query for {}/{}/{} and hour: "{}" return {} results, expecting only 1 return result.\n'.format(day, month, year, time, len(weather_qs))
             self.error_messages.append(error_message)
             return False
