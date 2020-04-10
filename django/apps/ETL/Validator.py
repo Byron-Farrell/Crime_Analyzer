@@ -148,10 +148,12 @@ class Validator:
             try:
                 date_string = year + "-" + month + "-" + day
                 format = '%Y-%m-%d'
-                load.load_historical_weather(date_string, format);
-            error_message = 'Error: Failed to weather object for crime. Query for {}/{}/{} and hour: "{}" return {} results, expecting only 1 return result.\n'.format(day, month, year, time, len(weather_qs))
-            self.error_messages.append(error_message)
-            return False
+                load.load_historical_weather(date_string, format)
+                return True
+            except:
+                error_message = 'Error: Failed to weather object for crime. Query for {}/{}/{} and hour: "{}" return {} results, expecting only 1 return result.\n'.format(day, month, year, time, len(weather_qs))
+                self.error_messages.append(error_message)
+                return False
 
     def get_city(self, name):
         try:

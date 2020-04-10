@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from django.contrib.gis.utils import LayerMapping
 from apps.data_visualization import models
-from .Validator import Validator
+from . import Validator
 from . import mappings
 import requests
 import datetime

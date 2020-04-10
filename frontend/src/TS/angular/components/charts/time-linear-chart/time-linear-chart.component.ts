@@ -86,8 +86,8 @@ export class TimeLinearChartComponent implements AfterViewInit {
         title: {
           display: true,
           text: 'Crimes Committed at Different Time Periods',
-          fontColor: '#DDD',
-          fontSize: 16
+          fontColor: '#222',
+          fontSize: 22
         }
       }
     });

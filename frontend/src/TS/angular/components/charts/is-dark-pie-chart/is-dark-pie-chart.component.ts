@@ -73,8 +73,8 @@ export class IsDarkPieChartComponent implements AfterViewInit {
         title: {
           display: true,
           text: 'Total Number of Selected Crimes Committed During Day/Night',
-          fontColor: '#DDD',
-          fontSize: 16
+          fontColor: '#222',
+          fontSize: 22
         }
       }
     });
