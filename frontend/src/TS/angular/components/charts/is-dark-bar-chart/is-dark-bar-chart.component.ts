@@ -78,28 +78,32 @@ export class IsDarkBarChartComponent implements AfterViewInit {
         title: {
           display: true,
           text: 'Distribution of Crime Types Committed During Day/Night',
-          fontColor: '#222',
+          fontColor: '#EEE',
           fontSize: 22
         },
         scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              fontColor: '#222',
+              fontColor: '#EEE',
               fontSize: 22
              },
             scaleLabel: {
               display: true,
               labelString: 'Crime Count',
-              fontColor: '#222',
+              fontColor: '#EEE',
               fontSize: 22
             }
           }],
           xAxes: [{
+            ticks: {
+              fontColor: '#EEE',
+              fontSize: 22
+             },
             scaleLabel: {
               display: true,
               labelString: 'Is Dark',
-              fontColor: '#222',
+              fontColor: '#EEE',
               fontSize: 22
             }
           }]
