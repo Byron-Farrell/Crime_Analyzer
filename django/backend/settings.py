@@ -82,6 +82,9 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'white_wolf_v2',
         'USER': 'byron',
+        'TEST': {
+            'NAME':  'test_database'
+        }
     }
 }
 
