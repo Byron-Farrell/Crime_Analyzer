@@ -39,6 +39,20 @@
 
 > $ pip3 install -r requirements.txt
 
+### Setting up django
+
+> $ python manage.py makemigrations
+
+> $ python manage.py migrate
+
+> $ python manage.py shell
+
+once in the shell type in the following code
+
+> $ from apps.ETL import load
+
+> $ load.setup()
+
 ### Install Javascript libraries
 
 #### From the root folder
