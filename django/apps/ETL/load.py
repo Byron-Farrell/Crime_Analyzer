@@ -109,7 +109,7 @@ def run_chicago_crimes():
 # The weatherstack API will be used to retrieve the data
 def load_historical_weather(date_string, format):
     date = datetime.datetime.strptime(date_string, format)
-
+    
     # Headers for get request
     params = {
         'access_key': '8241d42f4b6b6ba5ffdd42f0d2d52c96',

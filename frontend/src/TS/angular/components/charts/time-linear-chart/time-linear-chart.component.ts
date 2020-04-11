@@ -87,28 +87,31 @@ export class TimeLinearChartComponent implements AfterViewInit {
           display: true,
           text: 'Crimes Committed at Different Time Periods',
           fontColor: '#EEE',
-          fontSize: 22
+          fontSize: 17
         },
-        yAxes: [{
-          ticks: {
-            fontColor: '#EEE',
-            fontSize: 22
-           },
-          scaleLabel: {
-            fontColor: '#EEE',
-            fontSize: 22
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            fontColor: '#EEE',
-            fontSize: 22
-           },
-          scaleLabel: {
-            fontColor: '#EEE',
-            fontSize: 22
-          }
-        }]
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: '#EEE',
+              fontSize: 17
+             },
+            scaleLabel: {
+              fontColor: '#EEE',
+              fontSize: 17
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: '#EEE',
+              fontSize: 17
+             },
+            scaleLabel: {
+              fontColor: '#EEE',
+              fontSize: 17
+            }
+          }]
+        }
       }
     });
     this.chart.canvas.parentNode.style.height = '30vh';

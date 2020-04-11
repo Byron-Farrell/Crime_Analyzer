@@ -74,28 +74,8 @@ export class IsDarkPieChartComponent implements AfterViewInit {
           display: true,
           text: 'Total Number of Selected Crimes Committed During Day/Night',
           fontColor: '#EEE',
-          fontSize: 22
+          fontSize: 17
         },
-        yAxes: [{
-          ticks: {
-            fontColor: '#EEE',
-            fontSize: 22
-           },
-          scaleLabel: {
-            fontColor: '#EEE',
-            fontSize: 22
-          }
-        }],
-        xAxes: [{
-          ticks: {
-            fontColor: '#EEE',
-            fontSize: 22
-           },
-          scaleLabel: {
-            fontColor: '#EEE',
-            fontSize: 22
-          }
-        }]
       }
     });
     this.chart.canvas.parentNode.style.height = '30vh';

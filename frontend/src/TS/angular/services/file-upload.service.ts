@@ -21,6 +21,7 @@ export class FileUploadService {
 
   constructor() {
     this.BASE_URI = 'https://nameless-island-09470.herokuapp.com/';
+    //this.BASE_URI = 'http://127.0.0.1:8000/';
     this.CRIME_URI = 'uploadFile';
     this.FILE_COLUMNS = 'getColumns';
     this.IMPORT_CENSUS_BORDERS = 'importCensusBorders';
