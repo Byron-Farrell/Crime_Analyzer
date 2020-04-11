@@ -1,7 +1,5 @@
 # Final Year Project
 
-## Description
-
 ## Setup
 
 ### Debian dependencies
