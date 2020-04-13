@@ -1,5 +1,9 @@
 # Final Year Project
 
+#### URL: https://nameless-island-09470.herokuapp.com/
+#### USERNAME: admin
+#### PASSWORD: 123
+
 ## Setup
 
 ### Debian dependencies
