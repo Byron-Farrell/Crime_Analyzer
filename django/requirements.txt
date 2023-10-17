@@ -23,5 +23,5 @@ requests==2.23.0
 Shapely==1.7.0
 six==1.12.0
 sqlparse==0.3.0
-urllib3==1.25.8
+urllib3==1.26.18
 whitenoise==5.0.1
